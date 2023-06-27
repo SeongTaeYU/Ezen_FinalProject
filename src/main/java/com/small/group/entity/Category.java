@@ -22,7 +22,4 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long categoryNo;
 	private String categoryName;
-	
-	@OneToOne(mappedBy = "category", fetch = FetchType.LAZY)
-	private Group group;
 }

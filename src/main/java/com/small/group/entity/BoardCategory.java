@@ -21,7 +21,4 @@ public class BoardCategory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long boardCategoryNo;
 	private String boardCategoryName;
-	
-	@OneToOne(mappedBy = "boardCategory", fetch = FetchType.LAZY)
-	private Board board;
 }

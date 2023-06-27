@@ -21,7 +21,4 @@ public class Region {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long regionNo;
 	private String regionName;
-	
-	@OneToOne(mappedBy = "region", fetch = FetchType.LAZY)
-	private Group group;
 }
