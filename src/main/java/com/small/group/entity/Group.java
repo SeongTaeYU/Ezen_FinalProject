@@ -2,6 +2,7 @@ package com.small.group.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,10 +26,12 @@ public class Group {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long groupNo;
+	
+	@Column(nullable = false)
 	private String groupName;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "category_no")
+	@JoinColumn(name = "group_category_no")
 	private GroupCategory groupCategory;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -1,5 +1,6 @@
 package com.small.group.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
@@ -22,6 +23,8 @@ public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long commentNo;
+	
+	@Column(nullable = false)
 	private String commentContent;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

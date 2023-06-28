@@ -2,6 +2,7 @@ package com.small.group.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,6 +24,8 @@ public class Region {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long regionNo;
+	
+	@Column(nullable = false)
 	private String regionName;
 	
 	@OneToMany(mappedBy = "region", fetch = FetchType.LAZY)

@@ -1,5 +1,6 @@
 package com.small.group.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,8 @@ public class Chat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long chatNo;
+	
+	@Column(nullable = false)
 	private String chatContent;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

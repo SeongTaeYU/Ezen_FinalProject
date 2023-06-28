@@ -2,6 +2,7 @@ package com.small.group.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,6 +25,8 @@ public class GroupCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long groupCategoryNo;
+	
+	@Column(nullable = false)
 	private String groupCategoryName;
 	
 	@OneToMany(mappedBy = "groupCategory", fetch = FetchType.LAZY)
