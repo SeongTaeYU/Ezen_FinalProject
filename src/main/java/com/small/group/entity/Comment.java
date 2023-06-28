@@ -2,7 +2,6 @@ package com.small.group.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,12 +12,14 @@ import javax.persistence.Table;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Builder
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Entity
 @Table(name = "tbl_comment")
-public class Comment {
+public class Comment extends BaseEntityWithTimeStamps {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

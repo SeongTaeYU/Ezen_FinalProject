@@ -39,6 +39,9 @@ dependencies {
   						name: 'spring-boot-starter-validation', version: '2.5.6'
     // JSTL
     implementation 'javax.servlet:jstl'
+    
+    // 타임리프 스타터 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 tasks.named('test') {

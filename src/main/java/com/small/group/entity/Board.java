@@ -11,20 +11,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-
-import org.hibernate.annotations.ColumnDefault;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Builder
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Entity
 @Table(name = "tbl_board")
-public class Board {
+public class Board extends BaseEntityWithTimeStamps {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

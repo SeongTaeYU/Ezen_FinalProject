@@ -11,17 +11,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Builder
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Entity
 @Table(name = "tbl_group")
-public class Group {
+public class Group extends BaseEntityWithTimeStamps {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,5 +47,9 @@ public class Group {
 	
 	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
 	private List<Chat> chatList;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_no")
+	private User user;
 	
 }

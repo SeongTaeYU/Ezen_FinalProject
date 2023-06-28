@@ -1,7 +1,5 @@
 package com.small.group.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,12 +11,14 @@ import javax.persistence.Table;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Builder
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Entity
 @Table(name = "tbl_group_member")
-public class GroupMember {
+public class GroupMember extends BaseEntityWithTimeStamps {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

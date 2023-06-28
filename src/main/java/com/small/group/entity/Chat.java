@@ -12,12 +12,14 @@ import javax.persistence.Table;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Builder
 @Data
+@EqualsAndHashCode(callSuper=false)
 @Entity
 @Table(name = "tbl_chat")
-public class Chat {
+public class Chat extends BaseEntityWithTimeStamps {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
