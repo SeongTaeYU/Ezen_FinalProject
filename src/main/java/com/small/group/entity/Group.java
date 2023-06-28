@@ -31,6 +31,9 @@ public class Group extends BaseEntityWithTimeStamps {
 	@Column(nullable = false)
 	private String groupName;
 	
+	@Column(nullable = false)
+	private String groupDescription;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "group_category_no")
 	private GroupCategory groupCategory;
