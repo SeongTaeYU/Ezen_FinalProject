@@ -11,10 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.annotation.Commit;
 
-import com.small.group.entity.Board;
 import com.small.group.entity.BoardCategory;
 
-import groovy.transform.AutoExternalize;
+import java.util.List;
 
 @SpringBootTest
 @EnableJpaAuditing
@@ -41,11 +40,10 @@ public class BoardCategoryRepositoryTest {
 	
 	@Test
 	public void test2() {
-		BoardCategory category = boardCategoryRepository.findById(3).get();
-		assertNotNull(category);
-//		IntStream.rangeClosed(1, 100).forEach(i -> {
-//			
-//		});
+		List<BoardCategory> list = boardCategoryRepository.findAll();
+		for(BoardCategory b : list) {
+			System.out.println("카테고리이름: " + b.getBoardCategoryName());
+		}
 	}
 	
 
