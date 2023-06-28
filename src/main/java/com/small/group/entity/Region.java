@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 @Entity
 @Table(name = "tbl_region")
-public class Region extends BaseEntityWithTimeStamps {
+public class Region {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

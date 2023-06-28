@@ -18,7 +18,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "tbl_board_category")
-public class BoardCategory extends BaseEntityWithTimeStamps {
+public class BoardCategory {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

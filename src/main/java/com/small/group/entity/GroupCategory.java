@@ -21,7 +21,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 @Entity
 @Table(name = "tbl_group_category")
-public class GroupCategory extends BaseEntityWithTimeStamps {
+public class GroupCategory {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
