@@ -23,7 +23,7 @@ public class Chat extends BaseEntityWithTimeStamps {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long chatNo;
+	private Integer chatNo;
 	
 	@Column(nullable = false)
 	private String chatContent;

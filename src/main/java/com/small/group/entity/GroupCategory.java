@@ -25,7 +25,7 @@ public class GroupCategory {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long groupCategoryNo;
+	private Integer groupCategoryNo;
 	
 	@Column(nullable = false)
 	private String groupCategoryName;

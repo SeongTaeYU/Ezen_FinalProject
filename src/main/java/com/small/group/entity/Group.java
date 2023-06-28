@@ -26,7 +26,7 @@ public class Group extends BaseEntityWithTimeStamps {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long groupNo;
+	private Integer groupNo;
 	
 	@Column(nullable = false)
 	private String groupName;

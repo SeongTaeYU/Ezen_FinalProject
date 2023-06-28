@@ -23,7 +23,7 @@ public class Comment extends BaseEntityWithTimeStamps {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long commentNo;
+	private Integer commentNo;
 	
 	@Column(nullable = false)
 	private String commentContent;

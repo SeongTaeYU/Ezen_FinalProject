@@ -22,7 +22,7 @@ public class GroupMember extends BaseEntityWithTimeStamps {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long groupMemberNo;
+	private Integer groupMemberNo;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "group_no")

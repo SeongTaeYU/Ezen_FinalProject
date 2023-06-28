@@ -22,7 +22,7 @@ public class BoardCategory {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long boardCategoryNo;
+	private Integer boardCategoryNo;
 	
 	@Column(nullable = false)
 	private String boardCategoryName;

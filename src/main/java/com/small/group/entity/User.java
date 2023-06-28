@@ -24,7 +24,7 @@ public class User extends BaseEntityWithTimeStamps {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long userNo;
+	private Integer userNo;
 	
 	@Column(nullable = false)
 	private String userId;

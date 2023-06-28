@@ -26,7 +26,7 @@ public class Board extends BaseEntityWithTimeStamps {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long boardNo;
+	private Integer boardNo;
 	
 	@Column(nullable = false)
 	private String boardTitle;
