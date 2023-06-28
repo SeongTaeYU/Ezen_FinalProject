@@ -27,19 +27,21 @@ public class Group {
 	private long groupNo;
 	private String groupName;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "categoryNo")
-	private Category category;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "category_no")
+	private GroupCategory groupCategory;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "regionNo")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "region_no")
 	private Region region;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userNo")
-	private User user;
+	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+	private List<GroupMember> groupMemberList;
 	
 	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
-	private List<GroupMember> groupMembers;
+	private List<Board> boardList;
+	
+	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+	private List<Chat> chatList;
 	
 }

@@ -1,8 +1,7 @@
 package com.small.group.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,19 +16,20 @@ import lombok.Data;
 @Builder
 @Data
 @Entity
-@Table(name = "tbl_group_member")
-public class GroupMember {
-	
+@Table(name = "tbl_comment")
+public class Comment {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long groupMemberNo;
+	private long commentNo;
+	private String commentContent;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "group_no")
-	private Group group;
+	@JoinColumn(name = "board_no")
+	private Board board;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_no")
 	private User user;
-
+	
 }

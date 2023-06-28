@@ -28,15 +28,19 @@ public class User {
 	private String userId;
 	private String password;
 	private String name;
-	private String nickname;
-	private Date birth;
-	private String region;
-	private String email;
 	private String phone;
-	private String gender;
 	
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<GroupMember> groupMember;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<Comment> commentList;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<Chat> chatList;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<Board> boardList;
 	
 }
