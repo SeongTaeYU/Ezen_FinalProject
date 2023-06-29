@@ -2,6 +2,7 @@ package com.small.group.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -57,6 +58,7 @@ public class GroupServiceImpl implements GroupService {
 		String readerUserName = entity.getUser().getName();
 		
 		GroupDTO dto = GroupDTO.builder()
+				.groupNo(entity.getGroupNo())
 				.groupName(entity.getGroupName())
 				.groupDescription(entity.getGroupDescription())
 				.groupCategoryNo(groupCategoryNo)
@@ -68,6 +70,7 @@ public class GroupServiceImpl implements GroupService {
 				.regDate(entity.getRegDate())
 				.modDate(entity.getModDate())
 				.build();
+		
 		return dto;
 	}
 	
@@ -82,8 +85,8 @@ public class GroupServiceImpl implements GroupService {
 	 */
 	@Override
 	public Group insertGroup(GroupDTO groupData) {
-		// TODO Auto-generated method stub
-		return null;
+		Group group = dtoToEntity(groupData);
+		return groupRepository.save(group);
 	}
 
 	/**
@@ -91,8 +94,12 @@ public class GroupServiceImpl implements GroupService {
 	 */
 	@Override
 	public GroupDTO readGroup(Integer groupNo) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Group> group = groupRepository.findById(groupNo);
+		GroupDTO groupDTO = null;
+		if(group.isPresent()) {
+			groupDTO = entityToDto(group.get());
+		}
+		return groupDTO;
 	}
 
 	/**
@@ -100,7 +107,14 @@ public class GroupServiceImpl implements GroupService {
 	 */
 	@Override
 	public Group updateGroup(GroupDTO groupData) {
-		// TODO Auto-generated method stub
+		Optional<Group> data = groupRepository.findById(groupData.getGroupNo());
+		if(data.isPresent()) {
+			Group targetEntity = data.get();
+			targetEntity.setGroupName(null);
+			targetEntity.setGroupDescription(null);
+			
+			return groupRepository.save(targetEntity);
+		}
 		return null;
 	}
 
@@ -109,8 +123,12 @@ public class GroupServiceImpl implements GroupService {
 	 */
 	@Override
 	public Boolean deleteGroup(Integer groupNo) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Group> data = groupRepository.findById(groupNo);
+		if(data.isPresent()) {
+			groupRepository.delete(data.get());
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -118,8 +136,10 @@ public class GroupServiceImpl implements GroupService {
 	 */
 	@Override
 	public List<GroupDTO> getgroupList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Group> groupList = groupRepository.findAll();
+		List<GroupDTO> groupDTOList = groupList
+				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
+		return groupDTOList;
 	}
 	
 	

@@ -29,8 +29,8 @@ public class BoardDTO {
 	
 	private Integer boardHit;
 	
-	private Integer categoryNo;
-	private String categoryName; // 카테고리 이름
+	private Integer boardCategoryNo;
+	private String boardCategoryName; // 카테고리 이름
 	
 	private Integer groupNo;
 	

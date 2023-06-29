@@ -39,7 +39,7 @@ public class Board extends BaseEntityWithTimeStamps {
 	private String boardContent;
 	
 	@Column(nullable = false, columnDefinition = "bigint default 0")
-	private long boardHit;
+	private Integer boardHit;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "board_category_no")

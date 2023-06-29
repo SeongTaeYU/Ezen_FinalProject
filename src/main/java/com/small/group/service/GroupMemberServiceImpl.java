@@ -28,9 +28,9 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 	 */
 	private GroupMember dtoToEntity(GroupMemberDTO dto) {
 		Optional<Group> optGroup = groupRepository.findById(dto.getGroupNo());
-		Group group = (optGroup.isPresent()) ? optGroup.get() : null;
-		
 		Optional<User> optUser = userRepository.findById(dto.getUserNo());
+		
+		Group group = (optGroup.isPresent()) ? optGroup.get() : null;
 		User user = (optUser.isPresent()) ? optUser.get() : null;
 				
 		GroupMember entity = GroupMember.builder()

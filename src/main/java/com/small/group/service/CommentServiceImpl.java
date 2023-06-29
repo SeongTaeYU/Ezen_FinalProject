@@ -27,9 +27,9 @@ public class CommentServiceImpl implements CommentService {
 	 */
 	private Comment dtoToEntity(CommentDTO dto) {
 		Optional<Board> optBoard = boardRepository.findById(dto.getBoardNo());
-		Board board = (optBoard.isPresent()) ? optBoard.get() : null;
-		
 		Optional<User> optUser = userRepository.findById(dto.getUserNo());
+		
+		Board board = (optBoard.isPresent()) ? optBoard.get() : null;
 		User user = (optUser.isPresent()) ? optUser.get() : null;
 		
 		Comment entity = Comment.builder()

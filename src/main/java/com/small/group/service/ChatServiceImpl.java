@@ -27,9 +27,9 @@ public class ChatServiceImpl implements ChatService {
 	 */
 	private Chat dtoToEntity(ChatDTO dto) {
 		Optional<Group> optGroup = groupRepository.findById(dto.getGroupNo());
-		Group group = (optGroup.isPresent()) ? optGroup.get() : null;
-		
 		Optional<User> optUser = userRepository.findById(dto.getUserNo());
+		
+		Group group = (optGroup.isPresent()) ? optGroup.get() : null;
 		User user = (optUser.isPresent()) ? optUser.get() : null;
 		
 		
