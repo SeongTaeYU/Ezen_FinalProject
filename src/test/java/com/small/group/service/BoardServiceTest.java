@@ -25,8 +25,5 @@ public class BoardServiceTest {
 	@Test
 	public void test() {
 		
-		BoardCategory boardCategory = boardCategoryService.getBoardCategoryByNo(3);
-		
-		
 	}
 }

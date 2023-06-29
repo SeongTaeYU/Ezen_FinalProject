@@ -77,7 +77,7 @@ public class GroupCategoryServiceImpl implements GroupCategoryService {
 			GroupCategory targetEntity = data.get();
 			targetEntity.setGroupCategoryName(groupCategoryData.getGroupCategoryName());
 			
-			groupCategoryRepository.save(targetEntity);
+			return groupCategoryRepository.save(targetEntity);
 		}
 		return null;
 	}
