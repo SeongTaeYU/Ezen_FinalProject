@@ -2,6 +2,7 @@ package com.small.group.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -74,8 +75,12 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 	 */
 	@Override
 	public GroupMemberDTO readGroupMember(Integer groupMemberNo) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<GroupMember> groupMember = groupMemberRepository.findById(groupMemberNo);
+		GroupMemberDTO groupMemberDTO = null;
+		if(groupMember.isPresent()) {
+			groupMemberDTO = entityToDto(groupMember.get());
+		}
+		return groupMemberDTO;
 	}
 
 	/**
@@ -83,7 +88,21 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 	 */
 	@Override
 	public GroupMember updateGroupMember(GroupMemberDTO groupMemberData) {
-		// TODO Auto-generated method stub
+		Optional<GroupMember> data = groupMemberRepository.findById(groupMemberData.getGroupMemberNo());
+		if(data.isPresent()) {
+			GroupMember targetEntity = data.get();
+			
+			Optional<Group> optGroup = groupRepository.findById(groupMemberData.getGroupNo());
+			Group group = (optGroup.isPresent()) ? optGroup.get() : null;
+			
+			Optional<User> optUser = userRepository.findById(groupMemberData.getUserNo());
+			User user = (optUser.isPresent()) ? optUser.get() : null;
+			
+			targetEntity.setGroup(group);
+			targetEntity.setUser(user);
+			
+			return groupMemberRepository.save(targetEntity);
+		}
 		return null;
 	}
 
@@ -92,8 +111,12 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 	 */
 	@Override
 	public Boolean deleteGroupMember(Integer groupMemberNo) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<GroupMember> data = groupMemberRepository.findById(groupMemberNo);
+		if(data.isPresent()) {
+			groupMemberRepository.delete(data.get());
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -101,8 +124,10 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 	 */
 	@Override
 	public List<GroupMemberDTO> getGroupMemberList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<GroupMember> groupMemberList = groupMemberRepository.findAll();
+		List<GroupMemberDTO> groupMemberDTOList = groupMemberList
+				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
+		return groupMemberDTOList;
 	}
 	
 	
