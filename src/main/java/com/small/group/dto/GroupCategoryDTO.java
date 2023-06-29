@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GroupCategoryDTO {
 
-	private long groupCategoryNo;
+	private Integer groupCategoryNo;
 	private String groupCategoryName;
 }

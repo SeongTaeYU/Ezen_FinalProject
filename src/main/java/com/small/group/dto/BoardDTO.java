@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BoardDTO {
 
-	private long boardNo;
+	private Integer boardNo;
 	
 	@NotBlank(message = "제목을 입력하세요.")
 	@Size(min = 1, max = 50, message = "제목은 1 ~ 50자 이내로 작성하세요.")

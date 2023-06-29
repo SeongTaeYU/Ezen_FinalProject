@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ChatDTO {
 
-	private long chatNo;
+	private Integer chatNo;
 	
 	@NotBlank(message = "채팅 내용을 입력하세요")
 	@Size(min = 1, max = 50, message = "내용은 최대 50글자수만 작성이 가능합니다.")

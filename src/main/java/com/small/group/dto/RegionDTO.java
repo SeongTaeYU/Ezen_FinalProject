@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RegionDTO {
 
-	private long regionNo;
+	private Integer regionNo;
 	private String regionName;
 }

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BoardCategoryDTO {
 
-	private long boardCategoryNo;
+	private Integer boardCategoryNo;
 	private String boardCategoryName;
 	
 }

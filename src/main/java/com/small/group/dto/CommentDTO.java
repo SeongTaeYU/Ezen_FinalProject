@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommentDTO {
 
-	private long commentNo;
+	private Integer commentNo;
 	
 	@NotBlank(message = "내용을 입력하세요.")
 	@Size(min = 1, max = 100, message = "댓글은 1 ~ 100자 이내로 작성하세요.")

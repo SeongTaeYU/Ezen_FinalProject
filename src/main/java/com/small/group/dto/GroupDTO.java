@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GroupDTO {
 
-	private long groupNo;
+	private Integer groupNo;
 	
 	@NotBlank(message = "그룹명을 입력하세요.")
 	@Size(min = 1, max = 20, message = "그룹명은 1 ~ 20자 이내로 작성하세요.")

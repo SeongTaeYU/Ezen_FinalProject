@@ -2,6 +2,7 @@ package com.small.group.repository;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.small.group.entity.Region;
 
 @SpringBootTest
 @EnableJpaAuditing
+@Transactional
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class RegionRepositoryTest {
 	
