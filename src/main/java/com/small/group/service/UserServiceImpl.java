@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Service;
 
 import com.small.group.dto.UserDTO;
@@ -11,12 +14,18 @@ import com.small.group.entity.User;
 import com.small.group.repository.*;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 	
 	private final UserRepository userRepository;
+	
+	//---------- 지우님 코드
+	@PersistenceContext
+	private EntityManager em;
 
 	
 	/**
@@ -117,6 +126,22 @@ public class UserServiceImpl implements UserService {
 				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
 		return userDTOList;
 	}
+	
+	// ----------------------지우님 코드-------------
+	@Override
+    public boolean loginCheck(UserDTO userDTO) {
+        Long count = 0L;
+        count = em.createQuery("select count(*) from tbl_user u where u.userId = :userId and u.password = :password", Long.class)
+                .setParameter("userId", userDTO.getUserId())
+                .setParameter("password", userDTO.getPassword())
+                .getSingleResult();
+
+        if (count > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 	
 	

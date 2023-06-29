@@ -6,29 +6,56 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-function loginVal() {
+	function loginVal(event) {
+		event.preventDefault();
+		alert('버튼이 눌렸습니다.')
+		
+		const id = $('#userId').val();
+		const pwd = $('#password').val();
+		
+		const user = {
+				"userId": id,
+				"password": pwd
+		};
+		
+		$.ajax({
+			url: "/user/login",
+			type: "POST",
+			data: JSON.stringify(user),
+			contentType: 'application/json',
+			success: function(result) {
+				
+				console.log('AJAX 성공');
+				console.log(result);
+				if(result) {
+					window.location.href='/';
+				} else {
+					console.log('아이디가 존재하지 않습니다.');
+				}
+			}
+		});
+	}
 
 		//event.preventDefault();
 	  // Send the values to the controller
-	  $.ajax({
-	    url: "/user/login",
-	    type: "POST",
-	    data: {
-	    	userId: userId,
-	    	password: password
-	    },
-	    dataType: 'text',
-// 	    contentType: 'application/json',
-	    success: function(result){
-            if (result === 'true') {
-            	window.location.href='home.html'
-            } else {
-            	alert('실패');
-//             	$('#errResult').addClass('errorMsg').text('아이디 또는 비밀번호를 다시 입력해주세요');
-            }
-	    }
-	  });
-	}
+// 	  $.ajax({
+// 	    url: "/user/login",
+// 	    type: "POST",
+// 	    data: {
+// 	    	userId: userId,
+// 	    	password: password
+// 	    },
+// 	    dataType: 'text',
+// // 	    contentType: 'application/json',
+// 	    success: function(result){
+//             if (result === 'true') {
+//             	window.location.href='home.html'
+//             } else {
+//             	alert('실패');
+// //             	$('#errResult').addClass('errorMsg').text('아이디 또는 비밀번호를 다시 입력해주세요');
+//             }
+// 	    }
+// 	  });
 </script>
 
 </head>
@@ -36,16 +63,16 @@ function loginVal() {
 	<h1>로그인.</h1>
 	
 	<form name='loginForm'>
-	<label>ID</label>
-	<input type="text" name="userId" >
-	<br>
-	<label>PASSWORD</label>
-	<input type="password" name="password" >
-	
-	<br>
-	<p id="errResult"></p>
-	<br>
-	<button  id="btnLogin" onclick="loginVal()">로그인</button>
+		<label>ID</label>
+		<input type="text" id="userId" name="userId" >
+		<br>
+		<label>PASSWORD</label>
+		<input type="password" id="password" name="password" >
+		
+		<br>
+		<p id="errResult"></p>
+		<br>
+		<button id="btnLogin" type="submit" onclick="loginVal(event);">로그인</button>
 
 	</form>
 	

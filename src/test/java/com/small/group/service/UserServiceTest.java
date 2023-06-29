@@ -22,10 +22,9 @@ public class UserServiceTest {
 
 	@Autowired
 	private UserService userService;
-	
 
 	
-	@Test
+//	@Test
 //	@Commit
 	public void test() {
 		UserDTO user = UserDTO.builder()
@@ -36,5 +35,19 @@ public class UserServiceTest {
 				.build();
 		User result = userService.insertUser(user);
 		assertNotNull(result);
+	}
+	
+	@Test
+	public void loginTest() {
+		UserDTO user = UserDTO.builder()
+				.userId("서해번쩍")
+				.password("1234")
+				.build();
+		
+		if(userService.loginCheck(user)) {
+			System.out.println("회원이 존재합니다.");
+		} else {
+			System.out.println("가입되지 않은 아이디입니다.");
+		}
 	}
 }

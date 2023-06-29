@@ -12,4 +12,7 @@ public interface UserService {
 	User updateUser(UserDTO userData);
     Boolean deleteUser(Integer userNo);
     List<UserDTO> getUserList();
+    
+    // ------- 지우님 코드
+	boolean loginCheck(UserDTO userDTO);
 }
