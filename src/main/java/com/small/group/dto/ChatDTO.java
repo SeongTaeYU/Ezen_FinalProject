@@ -23,9 +23,9 @@ public class ChatDTO {
 	private String chatContent;
 	
 	@NotBlank(message = "모임에 대한 지정이 비어 있습니다.")
-	private long groupNo;
+	private Integer groupNo;
 	
-	private long userNo;
+	private Integer userNo;
 	
 	@NotBlank(message = "작성자 이름이 비어 있습니다.")
 	private String userName; // 회원 이름

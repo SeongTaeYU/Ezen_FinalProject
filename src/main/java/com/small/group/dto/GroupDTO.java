@@ -26,14 +26,14 @@ public class GroupDTO {
 	@Size(min = 1, max = 200, message = "그룹소개는 1 ~ 200자 이내로 작성하세요.")
 	private String groupDescription;
 	
-	private long groupCategoryNo;
+	private Integer groupCategoryNo;
 	private String groupCategoryName; // 모임 카테고리 이름
 	
-	private long regionNo;
+	private Integer regionNo;
 	private String regionName; // 지역 이름
 	
-	private long userNo;
-	private long readerUserName; // 모임장 이름
+	private Integer userNo;
+	private String readerUserName; // 모임장 이름
 	
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;

@@ -22,9 +22,9 @@ public class CommentDTO {
 	@Size(min = 1, max = 100, message = "댓글은 1 ~ 100자 이내로 작성하세요.")
 	private String commentContent;
 	
-	private long boardNo;
+	private Integer boardNo;
 	
-	private long userNo;
+	private Integer userNo;
 	private String userName; // 회원 이름
 	
 	private LocalDateTime regDate;

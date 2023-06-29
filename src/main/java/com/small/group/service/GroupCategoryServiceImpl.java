@@ -72,10 +72,12 @@ public class GroupCategoryServiceImpl implements GroupCategoryService {
 	 */
 	@Override
 	public GroupCategory updateGroupCategory(GroupCategoryDTO groupCategoryData) {
-		boolean isExistsNo = groupCategoryRepository.existsById(groupCategoryData.getGroupCategoryNo());
-		if(isExistsNo) {
-			GroupCategory groupCategory = dtoToEntity(groupCategoryData);
-			return groupCategoryRepository.save(groupCategory);
+		Optional<GroupCategory> data = groupCategoryRepository.findById(groupCategoryData.getGroupCategoryNo());
+		if(data.isPresent()) {
+			GroupCategory targetEntity = data.get();
+			targetEntity.setGroupCategoryName(groupCategoryData.getGroupCategoryName());
+			
+			groupCategoryRepository.save(targetEntity);
 		}
 		return null;
 	}
@@ -85,9 +87,9 @@ public class GroupCategoryServiceImpl implements GroupCategoryService {
 	 */
 	@Override
 	public Boolean deleteGroupCategory(Integer groupCategoryNo) {
-		boolean isExistsNo = groupCategoryRepository.existsById(groupCategoryNo);
-		if(isExistsNo) {
-			groupCategoryRepository.deleteById(groupCategoryNo);
+		Optional<GroupCategory> data = groupCategoryRepository.findById(groupCategoryNo);
+		if(data.isPresent()) {
+			groupCategoryRepository.delete(data.get());
 			return true;
 		}
 		return false;

@@ -27,14 +27,14 @@ public class BoardDTO {
 	@Size(min = 1, max = 500, message = "내용은 1 ~ 500자 이내로 작성하세요.")
 	private String boardContent;
 	
-	private long boardHit;
+	private Integer boardHit;
 	
-	private long categoryNo;
+	private Integer categoryNo;
 	private String categoryName; // 카테고리 이름
 	
-	private long groupNo;
+	private Integer groupNo;
 	
-	private long userNo;
+	private Integer userNo;
 	private String userName; // 유저 이름
 	
 	private LocalDateTime regDate;

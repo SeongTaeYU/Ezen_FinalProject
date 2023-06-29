@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper=false)
-@Entity
+@Entity(name = "tbl_user")
 @Table(name = "tbl_user")
 public class User extends BaseEntityWithTimeStamps {
 
