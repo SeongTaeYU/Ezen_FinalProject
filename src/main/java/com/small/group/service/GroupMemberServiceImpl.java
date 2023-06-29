@@ -84,27 +84,27 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 	}
 
 	/**
-	 *	모임 멤버 수정하는 함수
+	 *	모임 멤버 수정하는 함수(수정할 필요 없이 추가, 삭제만 기능)
 	 */
-	@Override
-	public GroupMember updateGroupMember(GroupMemberDTO groupMemberData) {
-		Optional<GroupMember> data = groupMemberRepository.findById(groupMemberData.getGroupMemberNo());
-		if(data.isPresent()) {
-			GroupMember targetEntity = data.get();
-			
-			Optional<Group> optGroup = groupRepository.findById(groupMemberData.getGroupNo());
-			Group group = (optGroup.isPresent()) ? optGroup.get() : null;
-			
-			Optional<User> optUser = userRepository.findById(groupMemberData.getUserNo());
-			User user = (optUser.isPresent()) ? optUser.get() : null;
-			
-			targetEntity.setGroup(group);
-			targetEntity.setUser(user);
-			
-			return groupMemberRepository.save(targetEntity);
-		}
-		return null;
-	}
+//	@Override
+//	public GroupMember updateGroupMember(GroupMemberDTO groupMemberData) {
+//		Optional<GroupMember> data = groupMemberRepository.findById(groupMemberData.getGroupMemberNo());
+//		if(data.isPresent()) {
+//			GroupMember targetEntity = data.get();
+//			
+//			Optional<Group> optGroup = groupRepository.findById(groupMemberData.getGroupNo());
+//			Group group = (optGroup.isPresent()) ? optGroup.get() : null;
+//			
+//			Optional<User> optUser = userRepository.findById(groupMemberData.getUserNo());
+//			User user = (optUser.isPresent()) ? optUser.get() : null;
+//			
+//			targetEntity.setGroup(group);
+//			targetEntity.setUser(user);
+//			
+//			return groupMemberRepository.save(targetEntity);
+//		}
+//		return null;
+//	}
 
 	/**
 	 *	모임 멤버 삭제하는 함수

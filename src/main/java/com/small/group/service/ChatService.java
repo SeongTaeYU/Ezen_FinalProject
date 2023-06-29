@@ -8,9 +8,9 @@ import com.small.group.entity.Chat;
 
 public interface ChatService {
 
-	Chat insertChat(ChatDTO charData);
-	ChatDTO readChat(Integer charNo);
-	Chat updateChat(ChatDTO charData);
-    Boolean deleteChat(Integer charNo);
+	Chat insertChat(ChatDTO chatData);
+	ChatDTO readChat(Integer chatNo);
+	Chat updateChat(ChatDTO chatData);
+    Boolean deleteChat(Integer chatNo);
     List<ChatDTO> getChatList();
 }

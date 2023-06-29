@@ -2,6 +2,7 @@ package com.small.group.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -71,26 +72,36 @@ public class ChatServiceImpl implements ChatService {
 	 *	채팅 저장하는 함수
 	 */
 	@Override
-	public Chat insertChat(ChatDTO charData) {
-		// TODO Auto-generated method stub
-		return null;
+	public Chat insertChat(ChatDTO chatData) {
+		Chat chat = dtoToEntity(chatData);
+		return chatRepository.save(chat);
 	}
 
 	/**
 	 *	채팅 한 개 가져오는 함수
 	 */
 	@Override
-	public ChatDTO readChat(Integer charNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public ChatDTO readChat(Integer chatNo) {
+		Optional<Chat> chat = chatRepository.findById(chatNo);
+		ChatDTO chatDTO = null;
+		if(chat.isPresent()) {
+			chatDTO = entityToDto(chat.get());
+		}
+		return chatDTO;
 	}
 
 	/**
 	 *	채팅 수정하는 함수
 	 */
 	@Override
-	public Chat updateChat(ChatDTO charData) {
-		// TODO Auto-generated method stub
+	public Chat updateChat(ChatDTO chatData) {
+		Optional<Chat> data = chatRepository.findById(chatData.getChatNo());
+		if(data.isPresent()) {
+			Chat targetEntity = data.get();
+			targetEntity.setChatContent(chatData.getChatContent());
+			
+			return chatRepository.save(targetEntity);
+		}
 		return null;
 	}
 
@@ -98,9 +109,13 @@ public class ChatServiceImpl implements ChatService {
 	 *	채팅 삭제하는 함수
 	 */
 	@Override
-	public Boolean deleteChat(Integer charNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean deleteChat(Integer chatNo) {
+		Optional<Chat> data = chatRepository.findById(chatNo);
+		if(data.isPresent()) {
+			chatRepository.delete(data.get());
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -108,8 +123,10 @@ public class ChatServiceImpl implements ChatService {
 	 */
 	@Override
 	public List<ChatDTO> getChatList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Chat> chatList = chatRepository.findAll();
+		List<ChatDTO> chatDTOList = chatList
+				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
+		return chatDTOList;
 	}
 	
 	

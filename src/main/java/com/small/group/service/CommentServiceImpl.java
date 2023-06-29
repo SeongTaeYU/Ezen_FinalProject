@@ -96,17 +96,9 @@ public class CommentServiceImpl implements CommentService {
 	public Comment updateComment(CommentDTO commentData) {
 		Optional<Comment> data = commentRepository.findById(commentData.getCommentNo());
 		
-		Optional<Board> optBoard = boardRepository.findById(commentData.getBoardNo());
-		Board board = (optBoard.isPresent()) ? optBoard.get() : null;
-		
-		Optional<User> optUser = userRepository.findById(commentData.getUserNo());
-		User user = (optUser.isPresent()) ? optUser.get() : null;
-		
 		if(data.isPresent()) {
 			Comment targetEntity = data.get();
 			targetEntity.setCommentContent(commentData.getCommentContent());
-			targetEntity.setBoard(board);
-			targetEntity.setUser(user);
 			
 			return commentRepository.save(targetEntity);
 		}

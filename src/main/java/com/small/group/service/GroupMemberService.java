@@ -10,7 +10,7 @@ public interface GroupMemberService {
 	
 	GroupMember insertGroupMember(GroupMemberDTO groupMemberData);
 	GroupMemberDTO readGroupMember(Integer groupMemberNo);
-	GroupMember updateGroupMember(GroupMemberDTO groupMemberData);
+//	GroupMember updateGroupMember(GroupMemberDTO groupMemberData);
     Boolean deleteGroupMember(Integer groupMemberNo);
     List<GroupMemberDTO> getGroupMemberList();
 
