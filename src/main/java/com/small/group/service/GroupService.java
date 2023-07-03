@@ -17,8 +17,10 @@ public interface GroupService {
 	GroupDTO readGroup(Integer groupNo);
 	Group updateGroup(GroupDTO groupData);
     Boolean deleteGroup(Integer groupNo);
-    List<GroupDTO> getgroupList();
+    List<GroupDTO> getGroupList();
     
+    // 그룹(모임) 페이지
+ 	PageResultDTO<GroupDTO, Group> getGroupList(PageRequestDTO requestDTO);
  	
  	
     

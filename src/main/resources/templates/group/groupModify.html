@@ -1,0 +1,84 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout2}">
+    <div layout:fragment="content" class="container my-3">
+        <div>
+            <form id="groupModForm" name="groupModForm" th:action="@{/group/groupModify}" method="post">
+                <input type="hidden" id="groupNo" name="groupNo" th:value="${group.groupNo}">
+                <div class="form-group">
+                    <label for="groupName">모임명</label>
+                    <input type="text" class="form-control" id="groupName" name="groupName" th:value="${group.groupName}">
+                    <small class="text-danger" th:errors="${groupDTO.groupName}"></small>
+                </div>
+                <div class="form-group">
+                    <label for="groupDescription">모임 설명</label>
+                    <input type="text" class="form-control" id="groupDescription" name="groupDescription" th:value="${group.groupDescription}">
+                    <small class="text-danger" th:errors="${groupDTO.groupDescription}"></small>
+                </div>
+                <div class="form-group">
+                    <label for="groupCategoryNo">그룹 카테고리</label>
+                    <select class="form-control" id="groupCategoryNo" name="groupCategoryNo" >
+                        <option value=" ">-- 그룹 카테고리 선택 --</option>
+                        <option th:each="groupCategory : ${groupCategoryList}" th:value="${groupCategory.groupCategoryNo}" th:text="${groupCategory.groupCategoryName}"></option>
+                    </select>
+                    <small class="text-danger" th:errors="${groupDTO.groupCategoryNo}"></small>
+                </div>
+                <div class="form-group">
+                    <label for="regionNo">지역</label>
+                    <select class="form-control" id="regionNo" name="regionNo">
+                        <option value=" ">-- 지역 선택 --</option>
+                        <option th:each="region : ${regionList}" th:value="${region.regionNo}" th:text="${region.regionName}"></option>
+                    </select>
+                    <small class="text-danger" th:errors="${groupDTO.regionNo}"></small>
+                </div>
+                <div class="form-group">
+                    <label for="userNo">모임장</label>
+                    <select class="form-control" id="userNo" name="userNo">
+                        <option value=" ">-- 모임장 선택 --</option>
+                        <option th:each="user : ${userList}" th:value="${user.userNo}" th:text="${user.name}"></option>
+                    </select>
+                    <small class="text-danger" th:errors="${groupDTO.userNo}"></small>             
+                </div>
+                
+                <button type="submit" id="btnSubmit" class="btn btn-primary">저장</button>
+                <a class="btn btn-danger" href="/group/groupList">취소</a>
+            </form>
+        </div>
+    </div>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#btnSubmit').click(function(event) {
+       event.preventDefault();
+        var groupName = $('#groupName').val();
+        var groupCategoryNo = $('#groupCategoryNo').val();
+        var regionNo = $('#regionNo').val();
+        var userNo = $('#userNo').val();
+        
+        if (groupName.trim() === '') {
+            alert('그룹명을 입력하세요.');
+            return;
+        }
+        
+        if (groupCategoryNo.trim() === '') {
+            alert('그룹 카테고리를 선택하세요.');
+            return;
+        }
+        
+        if (regionNo.trim() === '') {
+            alert('지역을 선택하세요.');
+            return;
+        }
+        
+/*         if (userNo.trim() === '') {
+            alert('사용자를 선택하세요.');
+            return;
+        } */
+        
+        // submit
+        //this.submit();
+        $('#groupModForm').submit();
+    });
+});
+</script>

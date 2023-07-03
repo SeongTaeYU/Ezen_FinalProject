@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService {
 	 *	회원 리스트를 가져오는 함수
 	 */
 	@Override
-	public List<UserDTO> getList() {
+	public List<UserDTO> getUserList() {
 		List<User> userList = userRepository.findAll();
 		List<UserDTO> userDTOList = userList
 				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
@@ -189,6 +189,13 @@ public class UserServiceImpl implements UserService {
 	public User register(UserDTO userDTO) {
 		User entity = dtoToEntity(userDTO);
 		return userRepository.save(entity);
+	}
+	
+	@Override
+	public User login(UserDTO userDTO) {
+		User user = dtoToEntity(userDTO);
+		User result = userRepository.findByIdPwd(user.getUserId(), user.getPassword());
+		return result;
 	}
 	
 	

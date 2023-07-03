@@ -141,11 +141,22 @@ public class GroupServiceImpl implements GroupService {
 	 *	모임 리스트를 가져오는 함수
 	 */
 	@Override
-	public List<GroupDTO> getgroupList() {
+	public List<GroupDTO> getGroupList() {
 		List<Group> groupList = groupRepository.findAll();
 		List<GroupDTO> groupDTOList = groupList
 				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
 		return groupDTOList;
 	}
+	
+	/**
+	 *	그룹(모임) 목록 조회[페이징]
+	 */
+    @Override
+    public PageResultDTO<GroupDTO, Group> getGroupList(PageRequestDTO requestDTO) {
+        Pageable pageable = requestDTO.getPageable(Sort.by("groupNo").descending());
+        Page<Group> result = groupRepository.findAll(pageable);
+        Function<Group, GroupDTO> fn = (entity -> entityToDto(entity)); // java.util.Function
+        return new PageResultDTO<>(result, fn );
+    }
 	
 }

@@ -32,13 +32,13 @@
             </tbody>
         </table>
         
-        <a th:href="@{/user/list}">
+        <a th:href="@{/user/userList}">
             <button type="button" class="btn btn-outline-primary">Back to List</button>
         </a>
-        <a th:href="@{/user/modify(userNo = ${user.userNo})}">
+        <a th:href="@{/user/userModify(userNo = ${user.userNo})}">
             <button type="button" class="btn btn-outline-success">Modify</button>
         </a>       
-		<a th:href="@{/user/delete/{userNo}(userNo=${user.userNo})}">
+		<a th:href="@{/user/userDelete/{userNo}(userNo=${user.userNo})}">
 		    <button type="button" class="btn btn-outline-warning">Delete</button>
 		</a>
     

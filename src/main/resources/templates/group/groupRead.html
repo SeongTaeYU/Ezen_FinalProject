@@ -45,16 +45,21 @@
         </table>
         <div>
         <a th:href="@{/group/groupList}">
-            <button type="button" class="btn btn-outline-primary">Back to List</button>
+            <button type="button" class="btn btn-outline-primary">전체리스트 </button>
         </a>
         <br>
-        <form th:action="@{/group/groupUpdate(groupNo = ${group.groupNo})}" method="post">
-            <button type="submit" class="btn btn-outline-success">Modify</button>
-        </form>
+            <a th:href="@{/group/groupList(groupCategoryNo=${group.groupCategoryNo})}">
+                <button type="button" class="btn btn-outline-primary" th:text="${group.groupCategoryName + ' 리스트로 돌아가기'}"></button>
+            </a>
         <br>
-		<form th:action="@{/group/groupDelete/{groupNo}(groupNo=${group.groupNo})}" method="post">
+        
+        <a th:href="@{/group/groupModify(groupNo = ${group.groupNo})}">
+            <button type="submit" class="btn btn-outline-success">Modify</button>
+        </a>
+        <br>
+		<a th:href="@{/group/groupDelete/{groupNo}(groupNo=${group.groupNo})}">
             <button type="submit" class="btn btn-outline-warning">Delete</button>
-        </form>
+        </a>
     </div>
         
     </div>

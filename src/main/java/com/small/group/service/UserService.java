@@ -10,7 +10,7 @@ import com.small.group.entity.User;
 public interface UserService {
 
 	PageResultDTO<UserDTO, User> getList(PageRequestDTO requestDTO);
-	List<UserDTO> getList();
+	List<UserDTO> getUserList();
 	User insertUser(UserDTO userData);
 	UserDTO readUser(Integer userNo);
 	User updateUser(UserDTO userData);
@@ -18,6 +18,8 @@ public interface UserService {
     
     // ------- 지우님 코드
     User register(UserDTO userDTO);
+    User login(UserDTO userDTO);
 	boolean idExist(String userId);
 	boolean loginCheck(UserDTO userDTO);
+	
 }

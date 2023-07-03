@@ -2,10 +2,16 @@ package com.small.group.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.small.group.dto.BoardDTO;
+import com.small.group.dto.PageRequestDTO;
+import com.small.group.dto.PageResultDTO;
 import com.small.group.dto.RegionDTO;
 import com.small.group.entity.Board;
 import com.small.group.entity.BoardCategory;
@@ -138,6 +144,18 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardDTO> getBoardCategoryList() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	/**
+	 *	작성자 : 권유현
+	 *	내용 : 게시글 페이징 리스트 가져오는 함수
+	 */
+	@Override
+	public PageResultDTO<BoardDTO, Board> getList(PageRequestDTO requestDTO){
+		Pageable pageable = requestDTO.getPageable(Sort.by("boardNo").descending());
+		Page<Board> result = boardRepository.findAll(pageable);
+		Function<Board, BoardDTO> fn = (entity -> entityToDto(entity));
+		return new PageResultDTO<>(result, fn);
 	}
 	
 	
