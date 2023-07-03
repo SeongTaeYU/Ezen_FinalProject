@@ -5,8 +5,10 @@ import java.util.stream.IntStream;
 
 import javax.transaction.Transactional;
 
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +29,7 @@ import com.small.group.repository.*;
 @SpringBootTest
 @Transactional
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DummyDataFiles {
 
 	@Autowired
@@ -57,8 +60,8 @@ public class DummyDataFiles {
 	/**
 	 *	회원 데이터 입력
 	 */
-//	@Test
-//	@Commit
+	@Test
+	@Commit
 	@Order(1)
 	public void userDataInsert() {
 		IntStream.rangeClosed(1, 9).forEach(i -> {
@@ -76,8 +79,8 @@ public class DummyDataFiles {
 	/**
 	 *	지역 데이터 입력
 	 */
-//	@Test
-//	@Commit
+	@Test
+	@Commit
 	@Order(2)
 	public void regionDataInsert() {
 		String regionList[] = {"수원시", "성남시","고양시","용인시","부천시","안산시","안양시","남양주시","화성시","평택시","의정부시","시흥시","파주시","김포시","광명시","군포시","이천시","양주시",
@@ -93,8 +96,8 @@ public class DummyDataFiles {
 	/**
 	 *	게시글 카테고리 데이터 입력
 	 */
-//	@Test
-//	@Commit
+	@Test
+	@Commit
 	@Order(3)
 	public void boardCategoryDataInsert() {
 		String boardCategoryList[] = {"공지사항", "가입인사", "자유 글", "정모후기", "관심사 공유"};
@@ -109,8 +112,8 @@ public class DummyDataFiles {
 	/**
 	 *	모임 카테고리 데이터 입력
 	 */
-//	@Test
-//	@Commit
+	@Test
+	@Commit
 	@Order(4)
 	public void groupCategoryDataInsert() {
 		String groupCategoryList[] = {"문화/예술", "운동", "맛집", "여행", "자기계발", "친목", "소개팅", "자유주제"};
@@ -127,8 +130,8 @@ public class DummyDataFiles {
 	/**
 	 *	모임 데이터 입력
 	 */
-//	@Test
-//	@Commit
+	@Test
+	@Commit
 	@Order(5)
 	public void groupDataInsert() {
 		Optional<GroupCategory> optGroupCategory = groupCategoryRepository.findById(1);
@@ -160,8 +163,8 @@ public class DummyDataFiles {
 	/**
 	 *	게시글 데이터 입력
 	 */
-//	@Test
-//	@Commit
+	@Test
+	@Commit
 	@Order(6)
 	public void boardDataInsert() {
 		Optional<BoardCategory> optBoardCategory = boardCategoryRepository.findById(3); // 자유글
@@ -187,8 +190,8 @@ public class DummyDataFiles {
 	/**
 	 *	댓글 데이터 입력
 	 */
-//	@Test
-//	@Commit
+	@Test
+	@Commit
 	@Order(7)
 	public void commentDataInsert() {
 		IntStream.rangeClosed(1, 10).forEach(i -> {
@@ -210,8 +213,8 @@ public class DummyDataFiles {
 	/**
 	 *	채팅 데이터 입력
 	 */
-//	@Test
-//	@Commit
+	@Test
+	@Commit
 	@Order(8)
 	public void chatDataInsert() {
 		Optional<Group> optGroup = groupRepository.findById(1);

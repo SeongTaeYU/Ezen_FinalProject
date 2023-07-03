@@ -19,12 +19,19 @@ public class BoardDeleteTest {
 	private BoardRepository boardRepository;
 	
 	
-	@Test
-	@Commit
+//	@Test
+//	@Commit
 	public void boardDeleteTest() {
 		// 요구사항 : 게시물을 삭제 했을 때 관련된 모든 데이터(댓글) 삭제
 		Board board = boardRepository.findById(1).get(); // 게시물 1번 선택
 		boardRepository.delete(board);
+	}
+	
+	@Test
+	@Commit
+	public void userDeleteTest() {
+		// 요구사항 : 회원을 삭제 했을 때 관련된 모든 데이터(모임, 게시글, 댓글 등) 삭제
+		
 	}
 	
 }
