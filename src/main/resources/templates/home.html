@@ -7,8 +7,13 @@
 <body>
 	<h1>Welcome to the Home Page</h1>
 	<div>
-		<a th:href="@{/user/login}">Login</a>
-		<a th:href="@{/user/logout}">Logout</a>
+	<!-- 로그인 정보에 따른 버튼 생성 -->
+		<div th:if="${session.user == null}" >
+			<a th:href="@{/user/login}">Login</a>
+		</div>
+		<div th:if="${session.user != null}" >
+			<a th:href="@{/user/logout}">Logout</a>
+		</div>
 	</div>
 
 	<form th:action="@{/group/groupList}" method="get" id="searchForm">

@@ -61,10 +61,17 @@ public class UserController {
 	    String result = "";
 
 	    if (user != null) {
-	    	// 로그인 성공
+	    	System.out.println("회원 정보 세션 저장...");
 	        HttpSession session = request.getSession();
 	        session.setMaxInactiveInterval(60*60*24); // 세션 24시간 유지
 	        session.setAttribute("user", user); // 세션에 사용자 정보 저장
+	        
+	        
+	        // 세션에 저장된 객체 데이터 확인
+	        User loginUser = (User)session.getAttribute("user");
+	        System.out.println("userId : " + loginUser.getUserId());
+	        System.out.println("password : " + loginUser.getPassword());
+	        System.out.println("userNo : " + loginUser.getUserNo());
 
 	        // 쿠키 생성 및 전송
 	        Cookie cookie = new Cookie("userId", user.getUserId());
@@ -85,7 +92,7 @@ public class UserController {
 	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 	    
 		session = request.getSession();
-	    session.invalidate();
+	    session.invalidate(); // 세션을 초기화하여 로그인 정보를 삭제
 
 	    // Delete the cookie
 	    Cookie[] cookies = request.getCookies();
