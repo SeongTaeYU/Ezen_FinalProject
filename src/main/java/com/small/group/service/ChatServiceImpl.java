@@ -128,6 +128,19 @@ public class ChatServiceImpl implements ChatService {
 				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
 		return chatDTOList;
 	}
+
+	/**
+	 *	그룹 번호로 구분하여 채팅 리스트를 가져오는 함수
+	 */
+	@Override
+	public List<ChatDTO> getChatListByGroupNo(Integer groupNo) {
+		Group group = Group.builder().groupNo(groupNo).build(); // 모임 번호만 입력된 모임 객체 생성
+		List<Chat> chatList = chatRepository.getChatListByGroup(group); // 모임 번호를 기준으로 쿼리 검색함
+		List<ChatDTO> chatDTOList = chatList.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
+		return chatDTOList;
+	}
+	
+	
 	
 	
 }

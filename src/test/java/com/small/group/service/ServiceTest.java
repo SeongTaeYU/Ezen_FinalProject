@@ -1,5 +1,6 @@
 package com.small.group.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -12,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.annotation.Commit;
 
+import com.small.group.dto.ChatDTO;
 import com.small.group.entity.Board;
 import com.small.group.entity.BoardCategory;
 import com.small.group.entity.Group;
@@ -24,7 +26,6 @@ import com.small.group.repository.UserRepository;
 
 @SpringBootTest
 @Transactional
-@EnableJpaAuditing
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ServiceTest {
 
@@ -54,28 +55,14 @@ public class ServiceTest {
 	@Autowired
 	private RegionService regionService; // 지역
 	
+	@Autowired
+	private ChatService chatService;
+	
 	@Test
-	@Commit
 	public void test() {
-		
-		BoardCategory boardCategory = boardCategoryRepository.findById(3).get();
-		Group group = groupRepository.findById(1).get();
-		User user = userRepository.findById(1).get();
-		
-		
-		IntStream.rangeClosed(1, 100).forEach(i -> {
-			Board board = Board.builder()
-					.boardTitle("제목" + i)
-					.boardContent("내용" + i)
-					.boardHit(0)
-					.boardCategory(boardCategory)
-					.group(group)
-					.user(user)
-					.build();
-
-			boardRepository.save(board);
-		});
-		
-		
+		List<ChatDTO> chatList = chatService.getChatListByGroupNo(1);
+		for(ChatDTO dto : chatList) {
+			System.out.println("채팅내용: " + dto.getChatContent());
+		}
 	}
 }

@@ -60,6 +60,13 @@
 		<a th:href="@{/group/groupDelete/{groupNo}(groupNo=${group.groupNo})}">
             <button type="submit" class="btn btn-outline-warning">Delete</button>
         </a>
+        <!-- 채팅방으로 가는 버튼 생성, 2023.07.03 -->
+        <br/><br/>
+        <a th:href="@{/group/chatList(groupNo = ${group.groupNo})}">
+        	<button class="btn btn-outline-primary">채팅방으로 이동하기</button>
+        </a>
+        
+        
     </div>
         
     </div>

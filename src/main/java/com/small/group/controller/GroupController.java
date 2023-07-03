@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.small.group.dto.ChatDTO;
 import com.small.group.dto.GroupCategoryDTO;
 import com.small.group.dto.GroupDTO;
 import com.small.group.dto.PageRequestDTO;
@@ -29,6 +31,7 @@ import com.small.group.entity.Group;
 import com.small.group.entity.GroupCategory;
 import com.small.group.entity.Region;
 import com.small.group.entity.User;
+import com.small.group.repository.GroupRepository;
 import com.small.group.service.ChatService;
 import com.small.group.service.GroupCategoryService;
 import com.small.group.service.GroupMemberService;
@@ -276,4 +279,28 @@ public class GroupController {
     }
     */
 
+    
+    /*
+     *	[ 채팅 관련 컨트롤러 맵핑 ]
+     *	작성자 : 이민혁 
+     */
+    @GetMapping("/chatList")
+    public String chatList(Model model, @RequestParam("groupNo") Integer groupNo) {
+    	List<ChatDTO> chatList = chatService.getChatListByGroupNo(groupNo);
+    	
+    	model.addAttribute("chatList", chatList);
+    	model.addAttribute("groupNo", groupNo);
+    	return "/chat/chatList";
+    }
+    
+    @PostMapping("/insertChat")
+    public String insertChat(Model model, @RequestParam("groupNo") Integer groupNo
+    		, @RequestParam("userNo") Integer userNo, @RequestParam("chatContent") String chatContent) {
+    	
+    	GroupDTO groupDTO = groupService.readGroup(groupNo);
+    	UserDTO userDTO = userService.readUser(userNo);
+    	// 여기에서 DTO를 ENTITY로 만들고 Chat 엔티티를 만들어서 저장
+    	return "redirect:/group/chatList?groupNo=" + groupNo;
+    }
+    
 }
