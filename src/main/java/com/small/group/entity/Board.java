@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,6 +29,7 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @Entity
+@DynamicInsert
 @Table(name = "tbl_board")
 public class Board extends BaseEntityWithTimeStamps {
 
@@ -38,7 +43,8 @@ public class Board extends BaseEntityWithTimeStamps {
 	@Column(nullable = false)
 	private String boardContent;
 	
-	@Column(nullable = true, columnDefinition = "bigint default 0")
+	@Column(nullable = false)
+	@ColumnDefault("0")
 	private Integer boardHit;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
