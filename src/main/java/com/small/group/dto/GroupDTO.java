@@ -33,7 +33,8 @@ public class GroupDTO {
 	private String regionName; // 지역 이름
 	
 	private Integer userNo;
-	private String readerUserName; // 모임장 이름
+	private String userId;
+	private String userName; // 모임장 이름
 	
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;

@@ -61,7 +61,8 @@ public class GroupServiceImpl implements GroupService {
 		Integer regionNo = entity.getRegion().getRegionNo();
 		String regionName = entity.getRegion().getRegionName();
 		Integer userNo = entity.getUser().getUserNo();
-		String readerUserName = entity.getUser().getName();
+		String userId = entity.getUser().getUserId();
+		String userName = entity.getUser().getName();
 		
 		GroupDTO dto = GroupDTO.builder()
 				.groupNo(entity.getGroupNo())
@@ -72,7 +73,8 @@ public class GroupServiceImpl implements GroupService {
 				.regionNo(regionNo)
 				.regionName(regionName)
 				.userNo(userNo)
-				.readerUserName(readerUserName)
+				.userId(userId)
+				.userName(userName)
 				.regDate(entity.getRegDate())
 				.modDate(entity.getModDate())
 				.build();
@@ -111,13 +113,38 @@ public class GroupServiceImpl implements GroupService {
 	/**
 	 *	모임 수정하는 함수
 	 */
+//	@Override
+//	public Group updateGroup(GroupDTO groupData) {
+//		Optional<Group> data = groupRepository.findById(groupData.getGroupNo());
+//		if(data.isPresent()) {
+//			Group targetEntity = data.get();
+//			targetEntity.setGroupName(null);
+//			targetEntity.setGroupDescription(null);
+//			
+//			return groupRepository.save(targetEntity);
+//		}
+//		return null;
+//	}
+	
 	@Override
 	public Group updateGroup(GroupDTO groupData) {
 		Optional<Group> data = groupRepository.findById(groupData.getGroupNo());
 		if(data.isPresent()) {
 			Group targetEntity = data.get();
-			targetEntity.setGroupName(null);
-			targetEntity.setGroupDescription(null);
+			targetEntity.setGroupName(groupData.getGroupName());
+			targetEntity.setGroupDescription(groupData.getGroupDescription());
+			
+			Region region = regionRepository.findById(groupData.getRegionNo())
+													.orElseThrow(() -> new RuntimeException("지역 정보가 존재하지 않습니다."));
+			
+			GroupCategory groupCategory = groupCategoryRepository.findById(groupData.getGroupCategoryNo())
+																		.orElseThrow(() -> new RuntimeException("그룹카테고리 정보가 존재하지 않습니다."));
+			User user = userRepository.findById(groupData.getUserNo())
+												.orElseThrow(() ->  new RuntimeException("회원 정보가 존재하지 않습니다."));
+			
+			targetEntity.setRegion(region);
+			targetEntity.setGroupCategory(groupCategory);
+			targetEntity.setUser(user);
 			
 			return groupRepository.save(targetEntity);
 		}
