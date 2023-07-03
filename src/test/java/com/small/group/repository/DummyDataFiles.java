@@ -57,8 +57,8 @@ public class DummyDataFiles {
 	/**
 	 *	회원 데이터 입력
 	 */
-	@Test
-	@Commit
+//	@Test
+//	@Commit
 	@Order(1)
 	public void userDataInsert() {
 		IntStream.rangeClosed(1, 9).forEach(i -> {
@@ -76,8 +76,8 @@ public class DummyDataFiles {
 	/**
 	 *	지역 데이터 입력
 	 */
-	@Test
-	@Commit
+//	@Test
+//	@Commit
 	@Order(2)
 	public void regionDataInsert() {
 		String regionList[] = {"수원시", "성남시","고양시","용인시","부천시","안산시","안양시","남양주시","화성시","평택시","의정부시","시흥시","파주시","김포시","광명시","군포시","이천시","양주시",
@@ -93,8 +93,8 @@ public class DummyDataFiles {
 	/**
 	 *	게시글 카테고리 데이터 입력
 	 */
-	@Test
-	@Commit
+//	@Test
+//	@Commit
 	@Order(3)
 	public void boardCategoryDataInsert() {
 		String boardCategoryList[] = {"공지사항", "가입인사", "자유 글", "정모후기", "관심사 공유"};
@@ -109,8 +109,8 @@ public class DummyDataFiles {
 	/**
 	 *	모임 카테고리 데이터 입력
 	 */
-	@Test
-	@Commit
+//	@Test
+//	@Commit
 	@Order(4)
 	public void groupCategoryDataInsert() {
 		String groupCategoryList[] = {"문화/예술", "운동", "맛집", "여행", "자기계발", "친목", "소개팅", "자유주제"};
@@ -127,8 +127,8 @@ public class DummyDataFiles {
 	/**
 	 *	모임 데이터 입력
 	 */
-	@Test
-	@Commit
+//	@Test
+//	@Commit
 	@Order(5)
 	public void groupDataInsert() {
 		Optional<GroupCategory> optGroupCategory = groupCategoryRepository.findById(1);
@@ -137,6 +137,11 @@ public class DummyDataFiles {
 		GroupCategory groupCategory = (optGroupCategory.isPresent()) ? optGroupCategory.get() : null;
 		Region region = (optRegion.isPresent()) ? optRegion.get() : null;
 		User user = (optUser.isPresent()) ? optUser.get() : null;
+		
+		System.out.println("테스트:::::");
+		System.out.println(groupCategory.getGroupCategoryName());
+		System.out.println(region.getRegionName());
+		System.out.println(user.getName());
 		
 		IntStream.rangeClosed(1, 10).forEach(i -> {
 			Group group = Group.builder()
@@ -155,8 +160,8 @@ public class DummyDataFiles {
 	/**
 	 *	게시글 데이터 입력
 	 */
-	@Test
-	@Commit
+//	@Test
+//	@Commit
 	@Order(6)
 	public void boardDataInsert() {
 		Optional<BoardCategory> optBoardCategory = boardCategoryRepository.findById(3); // 자유글
@@ -182,8 +187,8 @@ public class DummyDataFiles {
 	/**
 	 *	댓글 데이터 입력
 	 */
-	@Test
-	@Commit
+//	@Test
+//	@Commit
 	@Order(7)
 	public void commentDataInsert() {
 		IntStream.rangeClosed(1, 10).forEach(i -> {
@@ -205,8 +210,8 @@ public class DummyDataFiles {
 	/**
 	 *	채팅 데이터 입력
 	 */
-	@Test
-	@Commit
+//	@Test
+//	@Commit
 	@Order(8)
 	public void chatDataInsert() {
 		Optional<Group> optGroup = groupRepository.findById(1);

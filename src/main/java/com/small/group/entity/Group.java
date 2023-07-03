@@ -2,6 +2,7 @@ package com.small.group.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -46,13 +47,13 @@ public class Group extends BaseEntityWithTimeStamps {
 	@JoinColumn(name = "region_no")
 	private Region region;
 	
-	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<GroupMember> groupMemberList;
 	
-	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Board> boardList;
 	
-	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Chat> chatList;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
