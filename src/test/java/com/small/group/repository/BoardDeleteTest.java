@@ -8,7 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 
-import com.small.group.entity.Board;
+import com.small.group.entity.*;
 
 @SpringBootTest
 @Transactional
@@ -17,6 +17,9 @@ public class BoardDeleteTest {
 
 	@Autowired
 	private BoardRepository boardRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	
 //	@Test
@@ -31,6 +34,8 @@ public class BoardDeleteTest {
 	@Commit
 	public void userDeleteTest() {
 		// 요구사항 : 회원을 삭제 했을 때 관련된 모든 데이터(모임, 게시글, 댓글 등) 삭제
+		User user = userRepository.findById(1).get();
+		userRepository.delete(user);
 		
 	}
 	

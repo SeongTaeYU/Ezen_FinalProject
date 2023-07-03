@@ -60,6 +60,6 @@ public class Board extends BaseEntityWithTimeStamps {
 	@JoinColumn(name = "user_no")
 	private User user;
 	
-	@OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Comment> commentList;
 }
