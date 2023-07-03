@@ -38,7 +38,7 @@ public class Board extends BaseEntityWithTimeStamps {
 	@Column(nullable = false)
 	private String boardContent;
 	
-	@Column(nullable = false, columnDefinition = "bigint default 0")
+	@Column(nullable = true, columnDefinition = "bigint default 0")
 	private Integer boardHit;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -2,11 +2,17 @@ package com.small.group.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.small.group.dto.GroupDTO;
+import com.small.group.dto.PageRequestDTO;
+import com.small.group.dto.PageResultDTO;
 import com.small.group.entity.Group;
 import com.small.group.entity.GroupCategory;
 import com.small.group.entity.Region;
@@ -141,6 +147,5 @@ public class GroupServiceImpl implements GroupService {
 				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
 		return groupDTOList;
 	}
-	
 	
 }

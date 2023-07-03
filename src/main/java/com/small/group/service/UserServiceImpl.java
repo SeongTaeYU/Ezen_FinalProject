@@ -2,19 +2,26 @@ package com.small.group.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.small.group.dto.PageRequestDTO;
+import com.small.group.dto.PageResultDTO;
 import com.small.group.dto.UserDTO;
 import com.small.group.entity.User;
 import com.small.group.repository.*;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 
 @Service
 @Slf4j
@@ -107,7 +114,7 @@ public class UserServiceImpl implements UserService {
 	 *	회원 삭제하는 함수
 	 */
 	@Override
-	public Boolean deleteUser(Integer userNo) {
+	public boolean deleteUser(Integer userNo) {
 		Optional<User> data = userRepository.findById(userNo);
 		if(data.isPresent()) {
 			userRepository.delete(data.get());
@@ -120,7 +127,7 @@ public class UserServiceImpl implements UserService {
 	 *	회원 리스트를 가져오는 함수
 	 */
 	@Override
-	public List<UserDTO> getUserList() {
+	public List<UserDTO> getList() {
 		List<User> userList = userRepository.findAll();
 		List<UserDTO> userDTOList = userList
 				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
@@ -128,6 +135,21 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	// ----------------------지우님 코드-------------
+	
+	@Override
+	public PageResultDTO<UserDTO, User> getList(PageRequestDTO requestDTO){
+		Pageable pageable = requestDTO.getPageable(Sort.by("userNo").descending());
+		Page<User> result = userRepository.findAll(pageable);
+		Function<User, UserDTO> fn = user -> entityToDto(user);
+		return new PageResultDTO<>(result, fn);
+	}
+	/*
+	 *	이 부분 @Query 형식으로 가져오기. 
+	 *	페이징이 필요한 부분 구분하기.
+	 */
+	
+	
+	
 	@Override
     public boolean loginCheck(UserDTO userDTO) {
         Long count = 0L;
@@ -142,8 +164,32 @@ public class UserServiceImpl implements UserService {
             return false;
         }
     }
-
 	
+	@Override
+	public boolean idExist(String userId) {
+		
+		log.info("서비스에서 아이디 중복체크 시작");
+		System.out.println("userId : " + userId);
+		Long count = 0L;
+		System.out.println("count 수량1111 @@@@@ " + count);
+	    count = em.createQuery("SELECT COUNT(*) FROM tbl_user u WHERE u.userId = :userId", Long.class)
+	            .setParameter("userId", userId)
+	            .getSingleResult();
+	    
+	  System.out.println(" count 수량 @@@@@ " + count);
+	    if (count > 0) {
+	    	return true;
+		}else {
+			return false;
+		}
+    
+	}
+
+	@Override
+	public User register(UserDTO userDTO) {
+		User entity = dtoToEntity(userDTO);
+		return userRepository.save(entity);
+	}
 	
 	
 	

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+   
+</head>
+<body>
+    
+    <p>로그인 완료.</p>
+   <a class="registerBtn" th:href="@{/user/list}">유저리스트</a>
+   <br>
+   
+   <a th:href="@{/group/groupList}">
+	  	<button type="button" class="btn btn-outline-primary">그룹리스트</button>
+	</a>
+	<br>
+   <a th:href="@{/board/list}">
+	  	<button type="button" class="btn btn-outline-primary">게시판리스트</button>
+	</a>
+</body>
+</html>

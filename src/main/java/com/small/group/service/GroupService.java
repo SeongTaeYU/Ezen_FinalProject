@@ -3,7 +3,12 @@ package com.small.group.service;
 import java.util.List;
 
 import com.small.group.dto.GroupDTO;
+import com.small.group.dto.PageRequestDTO;
+import com.small.group.dto.PageResultDTO;
 import com.small.group.entity.Group;
+import com.small.group.entity.GroupCategory;
+import com.small.group.entity.Region;
+import com.small.group.entity.User;
 
 
 public interface GroupService {
@@ -13,4 +18,8 @@ public interface GroupService {
 	Group updateGroup(GroupDTO groupData);
     Boolean deleteGroup(Integer groupNo);
     List<GroupDTO> getgroupList();
+    
+ 	
+ 	
+    
 }

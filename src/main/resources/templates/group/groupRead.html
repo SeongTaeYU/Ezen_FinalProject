@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout2}">
+    <div layout:fragment="content" class="container my-3">
+        <h1 class="mt-4">Group Details</h1>
+        
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>그룹 NO:</th>
+                    <td th:text="${group.groupNo}"></td>
+                </tr>
+                <tr>
+                    <th>그룹명:</th>
+                    <td th:text="${group.groupName}"></td>
+                </tr>
+                <tr>
+                    <th>그룹설명:</th>
+                    <td th:text="${group.groupDescription}"></td>
+                </tr>
+                <tr>
+                    <th>그룹카테고리:</th>
+                    <td th:text="${group.groupCategoryName}"></td>
+                </tr>
+                <tr>
+                    <th>지역:</th>
+                    <td th:text="${group.regionName}"></td>
+                </tr>
+                <tr>
+                    <th>유저번호:</th>
+                    <td th:text="${group.userNo}"></td>
+                </tr>
+                <tr>
+                    <th>유저아이디:</th>
+                    <td th:text="${group.userId}"></td>
+                </tr>
+                <tr>
+                    <th>모임장:</th>
+                    <td th:text="${group.userName}"></td>
+                </tr>
+                <tr>
+                    <th>그룹 생성일:</th>
+                    <td th:text="${#temporals.format(group.regDate, 'yyyy/MM/dd')}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+        <a th:href="@{/group/groupList}">
+            <button type="button" class="btn btn-outline-primary">Back to List</button>
+        </a>
+        <br>
+        <form th:action="@{/group/groupUpdate(groupNo = ${group.groupNo})}" method="post">
+            <button type="submit" class="btn btn-outline-success">Modify</button>
+        </form>
+        <br>
+		<form th:action="@{/group/groupDelete/{groupNo}(groupNo=${group.groupNo})}" method="post">
+            <button type="submit" class="btn btn-outline-warning">Delete</button>
+        </form>
+    </div>
+        
+    </div>
+</html>
