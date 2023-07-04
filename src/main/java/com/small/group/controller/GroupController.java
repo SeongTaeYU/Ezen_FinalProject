@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.small.group.dto.ChatDTO;
@@ -40,6 +43,8 @@ import com.small.group.service.GroupService;
 import com.small.group.service.RegionService;
 import com.small.group.service.UserService;
 
+import groovyjarjarantlr4.v4.parse.ANTLRParser.labeledAlt_return;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -285,14 +290,60 @@ public class GroupController {
      *	[ 채팅 관련 컨트롤러 맵핑 ]
      *	작성자 : 이민혁 
      */
+    
+    /*
+     *	처음 채팅방에 입장 했을 때 보여지는 채팅 목록
+     */
     @GetMapping("/chatList")
     public String chatList(Model model, @RequestParam("groupNo") Integer groupNo) {
     	List<ChatDTO> chatList = chatService.getChatListByGroupNo(groupNo);
+    	chatList = chatList.stream().map(chat -> strReplace(chat)).collect(Collectors.toList());
     	
     	model.addAttribute("chatList", chatList);
     	model.addAttribute("groupNo", groupNo);
     	return "/chat/chatList";
     }
+    
+    /*
+     *	채팅 입력 후 Ajax 요청으로 데이터를 저장하고 리스트를 모델에 저장하는 함수
+     */
+    @PostMapping("/chatList")
+    @ResponseBody
+    public ResponseEntity<List<ChatDTO>> chatList(Model model, @RequestBody FormData formData) {
+    	// FormData 타입으로 채팅 입력과 관련된 데이터 전달 받음
+    	Integer groupNo = formData.getGroupNo();
+    	Integer userNo = formData.getUserNo();
+    	String inputText = formData.getInputText();
+    	
+    	// 채팅 데이터 입력
+    	ChatDTO chatDTO = ChatDTO.builder()
+    			.chatContent(inputText)
+    			.groupNo(groupNo)
+    			.userNo(userNo)
+    			.build();
+    	chatService.insertChat(chatDTO);
+    	
+    	// 채팅 목록을 조회해서 MODEL 객체에 전달
+    	List<ChatDTO> chatList = chatService.getChatListByGroupNo(groupNo);
+    	// 문자열의 공백과 개행문자를 HTML 태그의 형태로 변환
+    	chatList = chatList.stream().map(chat -> strReplace(chat)).collect(Collectors.toList());
+    	model.addAttribute("chatList", chatList);
+    	
+    	return ResponseEntity.ok(chatList);
+    }
+    
+    /*
+     *  문자열의 공백과 개행문자를 HTML 태그의 형태로 변경하는 함수
+     *  /chatList 맵핑으로 채팅 목록을 가져올 때 사용
+     */
+    private ChatDTO strReplace(ChatDTO chat) {
+    	String replaceStr = chat.getChatContent().replace(" ", "&nbsp;");
+    	replaceStr = replaceStr.replace("\n", "<br/>");
+    	chat.setChatContent(replaceStr);
+    	return chat;
+    }
+    
+    
     
     @PostMapping("/insertChat")
     public String insertChat(Model model, @RequestParam("groupNo") Integer groupNo
@@ -308,4 +359,18 @@ public class GroupController {
     	return "redirect:/group/chatList?groupNo=" + groupNo;
     }
     
+}
+
+/**
+ * 
+ * @author 505
+ * 채팅 관련 폼 데이터를 받아줄 클래스 선언
+ */
+@Data
+class FormData {
+	
+	private Integer groupNo;
+	private Integer userNo;
+	private String inputText;
+
 }
