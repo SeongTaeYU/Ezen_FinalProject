@@ -21,7 +21,7 @@ public class GroupCategoryServiceImpl implements GroupCategoryService {
 	/**
 	 *  DTO TO ENTITY
 	 */
-	private GroupCategory dtoToEntity(GroupCategoryDTO dto) {
+	public GroupCategory dtoToEntity(GroupCategoryDTO dto) {
 		GroupCategory entity = GroupCategory.builder()
 				.groupCategoryName(dto.getGroupCategoryName())
 				.build();
@@ -31,7 +31,7 @@ public class GroupCategoryServiceImpl implements GroupCategoryService {
 	/**
 	 *  ENTITY TO DTO
 	 */
-	private GroupCategoryDTO entityToDto(GroupCategory entity) {
+	public GroupCategoryDTO entityToDto(GroupCategory entity) {
 		GroupCategoryDTO dto = GroupCategoryDTO.builder()
 				.groupCategoryNo(entity.getGroupCategoryNo())
 				.groupCategoryName(entity.getGroupCategoryName())

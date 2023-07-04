@@ -19,6 +19,9 @@ public interface GroupService {
     Boolean deleteGroup(Integer groupNo);
     List<GroupDTO> getGroupList();
     
+    Group dtoToEntity(GroupDTO dto);
+    GroupDTO entityToDto(Group entity);
+    
     // 그룹(모임) 페이지
  	PageResultDTO<GroupDTO, Group> getGroupList(PageRequestDTO requestDTO);
  	

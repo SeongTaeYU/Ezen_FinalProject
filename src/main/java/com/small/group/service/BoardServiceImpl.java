@@ -33,7 +33,7 @@ public class BoardServiceImpl implements BoardService {
 	/**
 	 *  DTO TO ENTITY
 	 */
-	private Board dtoToEntity(BoardDTO dto) {
+	public Board dtoToEntity(BoardDTO dto) {
 		Optional<BoardCategory> optBoardCategory = boardCategoryRepository.findById(dto.getBoardCategoryNo());
 		Optional<Group> optGroup = groupRepository.findById(dto.getGroupNo());
 		Optional<User> optUser = userRepository.findById(dto.getUserNo());
@@ -57,7 +57,7 @@ public class BoardServiceImpl implements BoardService {
 	/**
 	 *  ENTITY TO DTO
 	 */
-	private BoardDTO entityToDto(Board entity) {
+	public BoardDTO entityToDto(Board entity) {
 		Integer boardCategoryNo = entity.getBoardCategory().getBoardCategoryNo();
 		String boardCategoryName = entity.getBoardCategory().getBoardCategoryName();
 		Integer groupNo = entity.getGroup().getGroupNo();

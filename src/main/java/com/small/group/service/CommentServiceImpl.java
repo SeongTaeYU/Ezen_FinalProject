@@ -25,7 +25,7 @@ public class CommentServiceImpl implements CommentService {
 	/**
 	 *  DTO TO ENTITY
 	 */
-	private Comment dtoToEntity(CommentDTO dto) {
+	public Comment dtoToEntity(CommentDTO dto) {
 		Optional<Board> optBoard = boardRepository.findById(dto.getBoardNo());
 		Optional<User> optUser = userRepository.findById(dto.getUserNo());
 		
@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
 	/**
 	 *  ENTITY TO DTO
 	 */
-	private CommentDTO entityToDto(Comment entity) {
+	public CommentDTO entityToDto(Comment entity) {
 		
 		Integer boardNo = entity.getBoard().getBoardNo();
 		Integer userNo = entity.getUser().getUserNo();

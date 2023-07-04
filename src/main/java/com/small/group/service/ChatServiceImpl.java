@@ -25,7 +25,7 @@ public class ChatServiceImpl implements ChatService {
 	/**
 	 *  DTO TO ENTITY
 	 */
-	private Chat dtoToEntity(ChatDTO dto) {
+	public Chat dtoToEntity(ChatDTO dto) {
 		Optional<Group> optGroup = groupRepository.findById(dto.getGroupNo());
 		Optional<User> optUser = userRepository.findById(dto.getUserNo());
 		
@@ -44,7 +44,7 @@ public class ChatServiceImpl implements ChatService {
 	/**
 	 *  ENTITY TO DTO
 	 */
-	private ChatDTO entityToDto(Chat entity) {
+	public ChatDTO entityToDto(Chat entity) {
 		Integer groupNo = entity.getGroup().getGroupNo();
 		Integer userNo = entity.getUser().getUserNo();
 		String userName = entity.getUser().getName();

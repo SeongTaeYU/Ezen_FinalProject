@@ -21,7 +21,7 @@ public class RegionServiceImpl implements RegionService {
 	/**
 	 *  DTO TO ENTITY
 	 */
-	private Region dtoToEntity(RegionDTO dto) {
+	public Region dtoToEntity(RegionDTO dto) {
 		Region entity = Region.builder()
 				.regionName(dto.getRegionName())
 				.build();
@@ -31,7 +31,7 @@ public class RegionServiceImpl implements RegionService {
 	/**
 	 *  ENTITY TO DTO
 	 */
-	private RegionDTO entityToDto(Region entity) {
+	public RegionDTO entityToDto(Region entity) {
 		RegionDTO dto = RegionDTO.builder()
 				.regionNo(entity.getRegionNo())
 				.regionName(entity.getRegionName())

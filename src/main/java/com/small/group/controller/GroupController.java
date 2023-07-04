@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.small.group.dto.ChatDTO;
+import com.small.group.entity.Chat;
 import com.small.group.dto.GroupCategoryDTO;
 import com.small.group.dto.GroupDTO;
 import com.small.group.dto.PageRequestDTO;
@@ -297,9 +298,13 @@ public class GroupController {
     public String insertChat(Model model, @RequestParam("groupNo") Integer groupNo
     		, @RequestParam("userNo") Integer userNo, @RequestParam("chatContent") String chatContent) {
     	
-    	GroupDTO groupDTO = groupService.readGroup(groupNo);
-    	UserDTO userDTO = userService.readUser(userNo);
-    	// 여기에서 DTO를 ENTITY로 만들고 Chat 엔티티를 만들어서 저장
+    	ChatDTO chatDTO = ChatDTO.builder()
+    			.chatContent(chatContent)
+    			.groupNo(groupNo)
+    			.userNo(userNo)
+    			.build();
+    	
+    	chatService.insertChat(chatDTO);
     	return "redirect:/group/chatList?groupNo=" + groupNo;
     }
     

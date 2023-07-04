@@ -12,4 +12,7 @@ public interface BoardCategoryService {
 	BoardCategory updateBoardCategory(BoardCategoryDTO boardCategoryData);
     Boolean deleteBoardCategory(Integer boardCategoryNo);
     List<BoardCategoryDTO> getBoardCategoryList();
+    
+    BoardCategory dtoToEntity(BoardCategoryDTO dto);
+    BoardCategoryDTO entityToDto(BoardCategory entity);
 }

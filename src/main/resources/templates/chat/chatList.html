@@ -133,10 +133,13 @@
       <script>
         /* 페이지가 시작될 때 스크롤바를 최하단으로 내려주는 기능 */
         window.addEventListener('load', function() {
-        var chatMessages = document.querySelector('.chat-messages');
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+	        var chatMessages = document.querySelector('.chat-messages');
+	        chatMessages.scrollTop = chatMessages.scrollHeight;
+	        
+	        /* 채팅방에 진입할 시 입력창에 포커스 */
+	        var inputText = document.getElementById('inputText');
+	        inputText.focus();
         });
-        
         
         
         

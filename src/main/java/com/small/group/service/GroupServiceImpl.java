@@ -33,7 +33,7 @@ public class GroupServiceImpl implements GroupService {
 	/**
 	 *  DTO TO ENTITY
 	 */
-	private Group dtoToEntity(GroupDTO dto) {
+	public Group dtoToEntity(GroupDTO dto) {
 		Optional<GroupCategory> optGroupCategory = groupCategoryRepository.findById(dto.getGroupCategoryNo());
 		Optional<Region> optRegion = regionRepository.findById(dto.getRegionNo());
 		Optional<User> optUser = userRepository.findById(dto.getUserNo());
@@ -55,7 +55,7 @@ public class GroupServiceImpl implements GroupService {
 	/**
 	 *  ENTITY TO DTO
 	 */
-	private GroupDTO entityToDto(Group entity) {
+	public GroupDTO entityToDto(Group entity) {
 		Integer groupCategoryNo = entity.getGroupCategory().getGroupCategoryNo();
 		String groupCategoryName = entity.getGroupCategory().getGroupCategoryName();
 		Integer regionNo = entity.getRegion().getRegionNo();

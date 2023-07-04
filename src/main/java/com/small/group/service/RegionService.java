@@ -13,4 +13,7 @@ public interface RegionService {
 	Region updateRegion(RegionDTO regionData);
     Boolean deleteRegion(Integer regionNo);
     List<RegionDTO> getRegionList();
+    
+    Region dtoToEntity(RegionDTO dto);
+    RegionDTO entityToDto(Region entity);
 }

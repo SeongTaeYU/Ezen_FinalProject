@@ -16,6 +16,9 @@ public interface UserService {
 	User updateUser(UserDTO userData);
     boolean deleteUser(Integer userNo);
     
+    User dtoToEntity(UserDTO dto);
+    UserDTO entityToDto(User entity);
+    
     // ------- 지우님 코드
     User register(UserDTO userDTO);
     User login(UserDTO userDTO);

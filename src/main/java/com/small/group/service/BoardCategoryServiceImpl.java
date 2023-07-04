@@ -21,7 +21,7 @@ public class BoardCategoryServiceImpl implements BoardCategoryService {
 	/**
 	 *  DTO TO ENTITY
 	 */
-	private BoardCategory dtoToEntity(BoardCategoryDTO dto) {
+	public BoardCategory dtoToEntity(BoardCategoryDTO dto) {
 		BoardCategory entity = BoardCategory.builder()
 				.boardCategoryName(dto.getBoardCategoryName())
 				.build();
@@ -30,7 +30,7 @@ public class BoardCategoryServiceImpl implements BoardCategoryService {
 	/**
 	 *  ENTITY TO DTO
 	 */
-	private BoardCategoryDTO entityToDto(BoardCategory entity) {
+	public BoardCategoryDTO entityToDto(BoardCategory entity) {
 		BoardCategoryDTO dto = BoardCategoryDTO.builder()
 				.boardCategoryName(entity.getBoardCategoryName())
 				.build();

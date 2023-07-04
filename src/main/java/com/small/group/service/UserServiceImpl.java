@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * DTO TO ENTITY 
 	 */
-	private User dtoToEntity(UserDTO dto) {
+	public User dtoToEntity(UserDTO dto) {
 		User entity = User.builder()
 				.userId(dto.getUserId())
 				.password(dto.getPassword())
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 	/**
 	 *  ENTITY TO DTO
 	 */
-	private UserDTO entityToDto(User entity) {
+	public UserDTO entityToDto(User entity) {
 		UserDTO dto = UserDTO.builder()
 				.userNo(entity.getUserNo())
 				.userId(entity.getUserId())

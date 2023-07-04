@@ -14,4 +14,7 @@ public interface GroupMemberService {
     Boolean deleteGroupMember(Integer groupMemberNo);
     List<GroupMemberDTO> getGroupMemberList();
     
+    GroupMember dtoToEntity(GroupMemberDTO dto);
+    GroupMemberDTO entityToDto(GroupMember entity);
+    
 }

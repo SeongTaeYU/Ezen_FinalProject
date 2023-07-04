@@ -13,4 +13,8 @@ public interface CommentService {
 	Comment updateComment(CommentDTO commentData);
     Boolean deleteComment(Integer commentNo);
     List<CommentDTO> getCommentList();
+    
+    Comment dtoToEntity(CommentDTO dto);
+    CommentDTO entityToDto(Comment entity);
+    
 }

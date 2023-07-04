@@ -26,7 +26,7 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 	/**
 	 *  DTO TO ENTITY
 	 */
-	private GroupMember dtoToEntity(GroupMemberDTO dto) {
+	public GroupMember dtoToEntity(GroupMemberDTO dto) {
 		Optional<Group> optGroup = groupRepository.findById(dto.getGroupNo());
 		Optional<User> optUser = userRepository.findById(dto.getUserNo());
 		
@@ -43,7 +43,7 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 	/**
 	 *  ENTITY TO DTO
 	 */
-	private GroupMemberDTO entityToDto(GroupMember entity) {
+	public GroupMemberDTO entityToDto(GroupMember entity) {
 		Integer groupNo = entity.getGroup().getGroupNo();
 		Integer userNo = entity.getUser().getUserNo();
 		

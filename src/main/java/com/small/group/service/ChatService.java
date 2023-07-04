@@ -13,6 +13,9 @@ public interface ChatService {
 	Chat updateChat(ChatDTO chatData);
     Boolean deleteChat(Integer chatNo);
     List<ChatDTO> getChatList();
+    
+    Chat dtoToEntity(ChatDTO dto);
+    ChatDTO entityToDto(Chat entity);
     /*
      * 그룹 번호로 구분하여 채팅 리스트를 가져오는 함수
      */
