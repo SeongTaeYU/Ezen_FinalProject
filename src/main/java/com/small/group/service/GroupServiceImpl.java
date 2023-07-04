@@ -218,14 +218,4 @@ public class GroupServiceImpl implements GroupService {
 		return false;
 	}
 	
-//	@Override
-//	public PageResultDTO<BoardDTO, Board> getList(PageRequestDTO requestDTO){
-//		Pageable pageable = requestDTO.getPageable(Sort.by("boardNo").descending());
-//		Page<Board> result = boardRepository.findAll(pageable);
-//		Function<Board, BoardDTO> fn = (entity -> entityToDto(entity));
-//		return new PageResultDTO<>(result, fn);
-//	}
-    
-    
-	
 }
