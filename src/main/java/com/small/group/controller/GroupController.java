@@ -307,6 +307,8 @@ public class GroupController {
     	return "/groupMain/chatList";
     }
     
+ 
+    
     /*
      *	채팅 입력 후 Ajax 요청으로 데이터를 저장하고 리스트를 모델에 저장하는 함수
      */
@@ -365,10 +367,10 @@ public class GroupController {
     	return "/groupMain/pictures";
     }
     
-    @GetMapping("/test4") // 채팅
-    public String test4() {
-    	return "/groupMain/chatList";
-    }
+//    @GetMapping("/test4") // 채팅
+//    public String test4() {
+//    	return "/groupMain/chatList";
+//    }
 }
 
 /**
