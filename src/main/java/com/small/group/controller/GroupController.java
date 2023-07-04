@@ -304,7 +304,7 @@ public class GroupController {
     	
     	model.addAttribute("chatList", chatList);
     	model.addAttribute("groupNo", groupNo);
-    	return "/chat/chatList";
+    	return "/groupMain/chatList";
     }
     
     /*
@@ -346,6 +346,29 @@ public class GroupController {
     	return chat;
     }
     
+    
+    /*
+     * GroupMain 페이지 관련 컨트롤러 테스트
+     */
+    @GetMapping("/test1") // 홈
+    public String test1() {
+    	return "/groupMain/groupMain";
+    }
+    
+    @GetMapping("/test2") // 게시판
+    public String test2() {
+    	return "/groupMain/boardList";
+    }
+    
+    @GetMapping("/test3") // 사진첩
+    public String test3() {
+    	return "/groupMain/pictures";
+    }
+    
+    @GetMapping("/test4") // 채팅
+    public String test4() {
+    	return "/groupMain/chatList";
+    }
 }
 
 /**

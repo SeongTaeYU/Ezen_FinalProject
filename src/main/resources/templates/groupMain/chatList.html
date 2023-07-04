@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>메인 화면의 채팅</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+	
+	<link rel="stylesheet" href="/css/groupMainHeader.css">
     <style>
 		body {
 			font-family: 'Noto Sans KR', sans-serif;
@@ -15,7 +17,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            margin-top: 50px;
         }
         .chat-room {
 	        display: flex;
@@ -67,7 +69,7 @@
 	        white-space: pre; /* 연속한 공백 입력 값을 유지시켜줌 */
         }
 
-        button {
+        .send-button {
 	        padding: 10px 15px;
 	        background-color: skyblue;
 	        border-radius: 0.35rem;
@@ -95,9 +97,10 @@
         }
     </style>
     
+    
 </head>
 <body>
-	
+	<div th:replace="~{etc/groupMainHeader::header}"></div>
 	
     <div class="chat-container" >
     <div class="chat-room">
@@ -116,7 +119,7 @@
         </div>
         <div class="chat-input">
 	          <textarea id=inputText name="inputText" placeholder="채팅 내용을 입력하세요." ></textarea>
-	          <button id="sendButton">보내기</button>
+	          <button id="sendButton" class="send-button">보내기</button>
         </div>
         	<div th:if="${session.user != null}">
         		<input type="hidden" id="userNo" name="userNo" th:value="${session.user.userNo}">
