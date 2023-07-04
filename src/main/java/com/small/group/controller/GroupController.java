@@ -64,45 +64,48 @@ public class GroupController {
 	
 	
 	@GetMapping("/groupList")
-	public String getGroupList(PageRequestDTO pageRequestDTO,
-	                           @RequestParam(required = false) Integer groupCategoryNo,
-	                           Model model, HttpSession session) {
-	    System.out.println("!@@@@@@@ groupCategoryNo : " + groupCategoryNo);
-	    
-	    User user = (User) session.getAttribute("user");
-	    
-	    // 사용자 정보가 없으면 홈으로 리다이렉트
-	    if (user == null) {
-	        return "redirect:/";
-	    }
-	    
-	    if (groupCategoryNo != null) {
-	        pageRequestDTO.setGroupCategoryNo(groupCategoryNo);
-	    } else {
-	        // groupCategoryNo가 없을 경우 전체 그룹을 가져오도록 설정
-	        pageRequestDTO.setGroupCategoryNo(null);
-	    }
+	   public String getGroupList(PageRequestDTO pageRequestDTO,
+	                              @RequestParam(required = false) Integer groupCategoryNo,
+	                              @RequestParam(required = false) String searchKeyword,
+	                              Model model, HttpSession session) {
+	       System.out.println("!@@@@@@@ groupCategoryNo : " + groupCategoryNo);
+	       
+	       User user = (User) session.getAttribute("user");
+	       
+	       if (searchKeyword != null) {
+	          List<GroupDTO> groupList = groupService.getGroupList(searchKeyword);
+	          
+	          model.addAttribute("groupList", groupList);
+	          
+	          return "group/groupSearch";
+	       }
+	       
+	       if (groupCategoryNo != null) {
+	          pageRequestDTO.setGroupCategoryNo(groupCategoryNo);
+	       } else {
+	           // groupCategoryNo가 없을 경우 전체 그룹을 가져오도록 설정
+	           pageRequestDTO.setGroupCategoryNo(null);
+	       }
 
-	    PageResultDTO<GroupDTO, Group> result = groupService.getGroupList(pageRequestDTO);
-	    List<GroupCategoryDTO> groupCategoryList = groupCategoryService.getGroupCategoryList();
-	    
-	    List<GroupDTO> filteredGroups;
-	    
-	    if (groupCategoryNo != null) {
-	        filteredGroups = result.getDtoList().stream()
-	                .filter(group -> group.getGroupCategoryNo() == groupCategoryNo)
-	                .collect(Collectors.toList());
-	    } else {
-	        filteredGroups = result.getDtoList();
-	    }
+	       PageResultDTO<GroupDTO, Group> result = groupService.getGroupList(pageRequestDTO);
+	       
+	       List<GroupDTO> filteredGroups;
+	       
+	      if (groupCategoryNo != null) {
+	         filteredGroups = result.getDtoList().stream()
+	            .filter(group -> group.getGroupCategoryNo() == groupCategoryNo)
+	            .collect(Collectors.toList());
+	      } else {
+	         filteredGroups = result.getDtoList();
+	      }
 
-	    model.addAttribute("result", result);
-	    model.addAttribute("groupCategoryList", groupCategoryList);
-	    model.addAttribute("filteredGroups", filteredGroups);
-	    model.addAttribute("groupCategoryNo", groupCategoryNo);
-
-	    return "group/groupList";
-	}
+	       model.addAttribute("result", result);
+	       model.addAttribute("filteredGroups", filteredGroups);
+	       model.addAttribute("groupCategoryNo", groupCategoryNo);
+	       model.addAttribute("groupName", searchKeyword);
+	       
+	       return "group/groupList";
+	   }
 	
 //	@GetMapping("/groupList/{groupCategoryNo}")
 //	public String getGroupListByGroupCategoryNo(Integer groupCategoryNo, Model model) {
