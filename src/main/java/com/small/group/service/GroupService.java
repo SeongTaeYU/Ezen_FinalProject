@@ -22,8 +22,10 @@ public interface GroupService {
     Group dtoToEntity(GroupDTO dto);
     GroupDTO entityToDto(Group entity);
     
-    // 그룹(모임) 페이지
- 	PageResultDTO<GroupDTO, Group> getGroupList(PageRequestDTO requestDTO);
+ 	PageResultDTO<GroupDTO, Group> getGroupList(PageRequestDTO requestDTO); // 그룹(모임) 페이지
+ 	List<GroupDTO> getGroupList(String keyword); // 키워드로 그룹 검색
+ 	
+ 	
  	
  	
     

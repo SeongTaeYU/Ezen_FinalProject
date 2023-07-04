@@ -10,9 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.small.group.dto.BoardDTO;
 import com.small.group.dto.GroupDTO;
 import com.small.group.dto.PageRequestDTO;
 import com.small.group.dto.PageResultDTO;
+import com.small.group.entity.Board;
 import com.small.group.entity.Group;
 import com.small.group.entity.GroupCategory;
 import com.small.group.entity.Region;
@@ -183,7 +185,47 @@ public class GroupServiceImpl implements GroupService {
         Pageable pageable = requestDTO.getPageable(Sort.by("groupNo").descending());
         Page<Group> result = groupRepository.findAll(pageable);
         Function<Group, GroupDTO> fn = (entity -> entityToDto(entity)); // java.util.Function
-        return new PageResultDTO<>(result, fn );
+        return new PageResultDTO<>(result, fn);
     }
+    
+    /**
+     *	 검색어(keyword)를 사용하여 지역이름, 모임이름, 모임설명 검색
+     */
+	@Override
+	public List<GroupDTO> getGroupList(String keyword) {
+		List<GroupDTO> groupList = getGroupList();		
+		List<GroupDTO> searchGroupList = groupList
+				.stream().filter(dto -> isGroupIncludedKeyword(dto, keyword)).collect(Collectors.toList());
+		return searchGroupList;
+	}
+
+	
+	/**
+	 *	keyword 값으로 검색하여 지역이름, 모임이름, 모임설명에 포함이 되는지 확인한 후 
+	 *	GroupDTO 객체를 반환하는 함수
+	 */
+	private boolean isGroupIncludedKeyword(GroupDTO group, String keyword) {
+		boolean checkCategoryName = false;
+		boolean checkDescription = false;
+		boolean checkRegionName = false;
+		checkCategoryName = group.getGroupCategoryName().contains(keyword);
+		checkDescription = group.getGroupDescription().contains(keyword);
+		checkRegionName = group.getRegionName().contains(keyword);
+		
+		if(checkCategoryName || checkDescription || checkRegionName) {
+			return true;
+		}
+		return false;
+	}
+	
+//	@Override
+//	public PageResultDTO<BoardDTO, Board> getList(PageRequestDTO requestDTO){
+//		Pageable pageable = requestDTO.getPageable(Sort.by("boardNo").descending());
+//		Page<Board> result = boardRepository.findAll(pageable);
+//		Function<Board, BoardDTO> fn = (entity -> entityToDto(entity));
+//		return new PageResultDTO<>(result, fn);
+//	}
+    
+    
 	
 }

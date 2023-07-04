@@ -343,22 +343,6 @@ public class GroupController {
     	return chat;
     }
     
-    
-    
-    @PostMapping("/insertChat")
-    public String insertChat(Model model, @RequestParam("groupNo") Integer groupNo
-    		, @RequestParam("userNo") Integer userNo, @RequestParam("chatContent") String chatContent) {
-    	
-    	ChatDTO chatDTO = ChatDTO.builder()
-    			.chatContent(chatContent)
-    			.groupNo(groupNo)
-    			.userNo(userNo)
-    			.build();
-    	
-    	chatService.insertChat(chatDTO);
-    	return "redirect:/group/chatList?groupNo=" + groupNo;
-    }
-    
 }
 
 /**
