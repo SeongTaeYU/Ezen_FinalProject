@@ -4,18 +4,19 @@
 
 .header{
 	background-color: rgba(255, 255, 255, 1);
-	width: 100%;
-	height: 100%;
+	width: 1920px;
+	height: 2163px;
 	position: absolute;
 	
 }
 
 .title {
 	color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929, 1);
-	width: 100%;
-	height: 100%;
-	left: 50%;
-	top: 30px;
+	width: 558px;
+	height: 138px;
+	position: absolute;
+	left: 681px;
+	top: 33px;
 	font-family: Fugaz One;
 	text-align: center;
 	font-size: 96px;

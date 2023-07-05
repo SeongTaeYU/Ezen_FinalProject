@@ -12,8 +12,16 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script th:inline="javascript">
 			$(document).ready(function() {
-	    		var groupNo = document.getElementById('groupNo').value;
+// 	    		var groupNo = document.getElementById('groupNo').value;
 	    		var buttons = document.getElementsByClassName('category-button');
+	    		var groupNo = [[${groupNo}]];
+	    		/* 위에 에러 마커가 뜨는 부분은 신경쓰지 않아도 됩니다. 창을 닫으면 없어짐 */
+	    		/* 
+	    			var groupNo = [[${groupNo}]];
+	    		
+	    			<script> 태그의 속성으로 th:inline="javascript" 속성을 입력하면
+	    			위의 형태로 MODEL 객체에 addAttribute 로 추가한 데이터를 읽어들일 수 있다.
+	    		*/
 	    		
 	    		for(var i=0; i<buttons.length; i++) {
 	    			buttons[i].setAttribute("onclick", "location.href='/group/chatList?groupNo=" + groupNo + "'");

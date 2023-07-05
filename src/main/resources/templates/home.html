@@ -8,73 +8,94 @@
 
 </head>
 <body>
-	<div class=header>
-		<a th:href="@{/}" class="title">RE! crew</a>
-
-		<div class="spacer">
-    <div class="search-container">
+	<div class="main-container">
+		<div class="title-container">
+            <a th:href="@{/}" class="title">RE! crew</a>
+            <div class="loginInfo" id="loginStatus">
+                <div th:if="${session.user != null}" id="logoutLink">
+                    <div>
+                        <label class="loginUser" style="white-space: nowrap;">[[${session.user.name}]] 님</label>
+                    </div>
+                    <div>
+                        <a th:href="@{/user/logout}" class="logout">로그아웃</a>
+                        <a th:href="@{/user/mypage}" class="mypage" >마이페이지</a>
+                    </div>
+                </div>
+                <div th:if="${session.user == null}" id="logoutLink">
+                        <a th:href="@{/user/login}" class="login">로그인</a>
+                </div>
+            </div>
+        </div>
         
-        <form th:action="@{group/groupList}" method="get">
-        	<input type="text" id="searchInput" name="searchKeyword" placeholder="키워드를 입력하세요">
-        	<button id="searchButton" type="submit">검색</button>
-    	</form>
-        <!-- <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
-        <button id="searchButton" type="button" onClick="performSearch()">검색</button> -->
-        
-    </div>
-</div>
-	<div id="loginStatus">
-    	<span th:if="${session.user != null}" id="logoutLink">
-    		<label class="loginUser" style="white-space: nowrap;">[[${session.user.name}]] 님</label>
-        	<a th:href="@{/user/logout}" class="logout">로그아웃</a>
-		</span>
-		<span th:if="${session.user == null}" id="logoutLink">
-        	<a th:href="@{/user/login}" class="logout">로그인</a>
-		</span>
-	</div>
-		<a th:href="@{/user/mypage}" class="mypage" >마이페이지</a>
+        <div class="search-container">
+            <form th:action="@{group/groupList}" method="get">
+                <input type="text" id="searchInput" name="searchKeyword" placeholder="키워드를 입력하세요">
+                <button id="searchButton" type="submit">검색</button>
+            </form>
+            <!-- <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
+            <button id="searchButton" type="button" onClick="performSearch()">검색</button> -->
+        </div>
 		
-		<div class="travelcategory">
-			<a th:href="@{/group/groupList(groupCategoryNo=4)}"
-				class="travelicon"> <img src="/image/travelcategory.png"
-				alt="Travel Category" /></a> <span class="traveltext">여행</span>
-		</div>
-		<div class=etccategory>
-			<a th:href="@{/group/groupList(groupCategoryNo=8)}" class="etcicon">
-				<img src="/image/etccategory.png" alt="ect category" />
-			</a> <span class="etctext">자유</span>
-		</div>
-		<div class=blinddate>
-			<a th:href="@{/group/groupList(groupCategoryNo=7)}" class="dateicon">
-				<img src="/image/blinddate.png" alt="blind date" />
-			</a> <span class=datetext>소개팅</span>
-		</div>
-		<div class=selfdevelopement>
-			<a th:href="@{/group/groupList(groupCategoryNo=5)}" class="selficon">
-				<img src="/image/selfdevelopement.png" alt="selfdevelopement" />
-			</a> <span class="selftext">자기계발</span>
-		</div>
-		<div class=amity>
-			<a th:href="@{/group/groupList(groupCategoryNo=6)}" class="amityicon">
-				<img src="/image/amity.png" alt="amity" />
-			</a> <span class="amitytext">친목</span>
-		</div>
-		<div class="culture">
-			<a th:href="@{/group/groupList(groupCategoryNo=1)}"
-				class="culturebox"> <img src="/image/culture.png"
-				alt="cultruebox" /></a> <span class="culturetext">문화/예술</span>
-		</div>
-		<div class=exercise>
-			<a th:href="@{/group/groupList(groupCategoryNo=2)}"
-				class="exercisebox"> <img src="/image/exercise.png"
-				alt="exercisebox" /></a> <span class="exercisetext">운동</span>
-		</div>
-		<div class=restaurant>
-			<a th:href="@{/group/groupList(groupCategoryNo=3)}"
-				class="restaurantbox"> <img src="/image/restaurant.png"
-				alt="restaurantbox" />
-			</a> <span class="restauranttext">맛집</span>
-		</div>
+		<div class="category-container-col-4">
+            <div class="categoryButtonContainer">
+                <a class="categoryIcon" th:href="@{/group/groupList(groupCategoryNo=4)}" > 
+                    <img src="/image/travelcategory.png" alt="Travel Category" />
+                </a> 
+                <span class="categoryName">여행</span>
+            </div>
+
+            <div class="categoryButtonContainer">
+                <a class="categoryIcon" th:href="@{/group/groupList(groupCategoryNo=8)}" >
+                    <img src="/image/etccategory.png" alt="ect category" />
+                </a> 
+                <span class="categoryName">자유</span>
+            </div>
+
+            <div class="categoryButtonContainer">
+                <a class="categoryIcon" th:href="@{/group/groupList(groupCategoryNo=7)}" >
+                    <img src="/image/blinddate.png" alt="blind date" />
+                </a> 
+                <span class="categoryName">소개팅</span>
+            </div>
+
+            <div class="categoryButtonContainer">
+                <a class="categoryIcon" th:href="@{/group/groupList(groupCategoryNo=5)}" >
+                    <img src="/image/selfdevelopement.png" alt="selfdevelopement" />
+                </a> 
+                <span class="categoryName">자기계발</span>
+            </div>
+        </div>
+        <div class="category-container-col-4">
+            <div class="categoryButtonContainer">
+                <a class="categoryIcon" th:href="@{/group/groupList(groupCategoryNo=6)}" >
+                    <img src="/image/amity.png" alt="amity" />
+                </a> 
+                <span class="categoryName">친목</span>
+            </div>
+
+            <div class="categoryButtonContainer">
+                <a class="categoryIcon" th:href="@{/group/groupList(groupCategoryNo=1)}" > 
+                    <img src="/image/culture.png" alt="cultruebox" />
+                </a> 
+                <span class="categoryName">문화/예술</span>
+            </div>
+
+            <div class="categoryButtonContainer">
+                <a class="categoryIcon" th:href="@{/group/groupList(groupCategoryNo=2)}" > 
+                    <img src="/image/exercise.png" alt="exercisebox" />
+                </a> 
+                <span class="categoryName">운동</span>
+            </div>
+
+            <div class="categoryButtonContainer">
+                <a class="categoryIcon" th:href="@{/group/groupList(groupCategoryNo=3)}" > 
+                    <img src="/image/restaurant.png" alt="restaurantbox" />
+                </a> 
+                <span class="categoryName">맛집</span>
+            </div>
+        </div>
+        
+        
 		<div class=maintitle>
 			<span class="maintitle1">곧 만나는 크루에요!</span> <span class="maintitle2">금주의
 				인기크루는?</span>
@@ -117,8 +138,8 @@
 				<span class="Entercrewbutton3">참여</span>
 			</div>
 		</div>
-	</div>
-</div>
+	</div> <!-- end class main-container -->
+
 
 </body>
 </html>
