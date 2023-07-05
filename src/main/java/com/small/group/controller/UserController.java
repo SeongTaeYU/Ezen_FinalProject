@@ -22,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.small.group.dto.GroupMemberDTO;
 import com.small.group.dto.UserDTO;
 import com.small.group.entity.User;
+import com.small.group.service.GroupMemberService;
+import com.small.group.service.GroupService;
 import com.small.group.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,14 +37,10 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-	
-	private final UserService userService;
 
-	@GetMapping("/welcome")
-	public String welcome(Model model) {
-		
-		return "welcome";
-	}
+	private final UserService userService;
+	private final GroupMemberService groupMemberService;
+	private final GroupService groupService;
 	
 	@GetMapping("/login")
 	public String loginForm(Model model) {
@@ -61,17 +60,10 @@ public class UserController {
 	    String result = "";
 
 	    if (user != null) {
-	    	System.out.println("회원 정보 세션 저장...");
+	    	// 로그인 성공
 	        HttpSession session = request.getSession();
 	        session.setMaxInactiveInterval(60*60*24); // 세션 24시간 유지
 	        session.setAttribute("user", user); // 세션에 사용자 정보 저장
-	        
-	        
-	        // 세션에 저장된 객체 데이터 확인
-	        User loginUser = (User)session.getAttribute("user");
-	        System.out.println("userId : " + loginUser.getUserId());
-	        System.out.println("password : " + loginUser.getPassword());
-	        System.out.println("userNo : " + loginUser.getUserNo());
 
 	        // 쿠키 생성 및 전송
 	        Cookie cookie = new Cookie("userId", user.getUserId());
@@ -92,7 +84,7 @@ public class UserController {
 	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 	    
 		session = request.getSession();
-	    session.invalidate(); // 세션을 초기화하여 로그인 정보를 삭제
+	    session.invalidate();
 
 	    // Delete the cookie
 	    Cookie[] cookies = request.getCookies();
@@ -122,11 +114,6 @@ public class UserController {
 							BindingResult bindingResult,
 							Model model) {
 		if (bindingResult.hasErrors()) {
-			List<FieldError> errList = bindingResult.getFieldErrors();
-			for(FieldError error : errList) {
-				System.out.println(error.getDefaultMessage());
-			}
-			
 			return "user/registerForm";
 		}
 		userService.insertUser(userDTO);
@@ -146,5 +133,15 @@ public class UserController {
 		
 		return userService.idExist(userId);
 	}
+	
+	@GetMapping("/mypage")
+	public void myPage(Model model,
+						HttpSession session ) {
+		User user = (User) session.getAttribute("user");
+		Integer userNo = user.getUserNo();
+		List<GroupMemberDTO> groupMemberList = groupMemberService.getGroupMemberListByUser(user); 
 		
+		model.addAttribute("user", user);
+		model.addAttribute("groupMemberList", groupMemberList);
+	}
 }

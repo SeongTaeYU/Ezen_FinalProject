@@ -130,5 +130,15 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 		return groupMemberDTOList;
 	}
 	
+	/**
+	 *	회원번호로 가입된 모임을 가져오는 함수
+	 */
+	@Override
+	public List<GroupMemberDTO> getGroupMemberListByUser(User user) {
+		List<GroupMember> groupMemberList = groupMemberRepository.getGroupMemberByUser(user);
+		List<GroupMemberDTO> groupMemberDTOList = groupMemberList
+				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
+		return groupMemberDTOList;
+	}
 	
 }

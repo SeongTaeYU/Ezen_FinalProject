@@ -14,11 +14,11 @@ public interface BoardService {
 	BoardDTO readBoard(Integer boardNo);
 	Board updateBoard(BoardDTO boardData);
     Boolean deleteBoard(Integer boardNo);
-    List<BoardDTO> getBoardCategoryList();
+    List<BoardDTO> getBoardList();
     
     Board dtoToEntity(BoardDTO dto);
     BoardDTO entityToDto(Board entity);
     
     // 게시판 페이지
-    public PageResultDTO<BoardDTO, Board> getList(PageRequestDTO requestDTO);
+    public PageResultDTO<BoardDTO, Board> getBoardList(PageRequestDTO requestDTO);
 }

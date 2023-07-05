@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout2}">
+<div layout:fragment="content" class="container my-3">
+    <h1 class="mt-4">Group List Page
+        <span>
+            <a th:href="@{/group/groupInsert}">
+                <button type="button" class="btn btn-outline-primary">그룹생성</button>
+            </a>
+        </span>
+    </h1>
+
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Group No</th>
+                    <th scope="col">Group Name</th>
+                    <th scope="col">Group Description</th>
+                    <th scope="col">Group Category No</th>
+                    <th scope="col">Region No</th>
+                    <th scope="col">User No</th>
+                    <th scope="col">Group No</th>
+                    <th scope="col">Registration Date</th>
+                    <th scope="col">Modify Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="group : ${groupList}">
+                    <td th:text="${group.groupNo}"></td>
+                    <td>
+                        <a th:href="@{/group/groupRead(groupNo=${group.groupNo})}">
+                            [[${group.groupName}]]
+                        </a>
+                    </td>
+                    <td th:text="${group.groupDescription}"></td>
+                    <td th:text="${group.groupCategoryNo}"></td>
+                    <td th:text="${group.regionNo}"></td>
+                    <td th:text="${group.userNo}"></td>
+                    <td th:text="${group.groupNo}"></td>
+                    <td th:text="${#temporals.format(group.regDate, 'yyyy/MM/dd')}"></td>
+                    <td th:text="${#temporals.format(group.modDate, 'yyyy/MM/dd')}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+</div>
+</html>

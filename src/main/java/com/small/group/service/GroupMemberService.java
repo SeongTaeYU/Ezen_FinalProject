@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.small.group.dto.GroupMemberDTO;
 import com.small.group.entity.GroupMember;
+import com.small.group.entity.User;
 
 
 public interface GroupMemberService {
@@ -13,6 +14,7 @@ public interface GroupMemberService {
 //	GroupMember updateGroupMember(GroupMemberDTO groupMemberData);
     Boolean deleteGroupMember(Integer groupMemberNo);
     List<GroupMemberDTO> getGroupMemberList();
+    List<GroupMemberDTO> getGroupMemberListByUser(User user);
     
     GroupMember dtoToEntity(GroupMemberDTO dto);
     GroupMemberDTO entityToDto(GroupMember entity);

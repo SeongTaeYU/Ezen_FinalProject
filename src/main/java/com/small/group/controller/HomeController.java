@@ -46,17 +46,13 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String home(Model model,
-				@ModelAttribute("groupCategoryDTO") GroupCategoryDTO groupCategoryDTO,
-				@ModelAttribute("regionDTO") RegionDTO regionDTO,
-				PageRequestDTO pageRequestDTO,
-				HttpSession session) {
+			@ModelAttribute("groupCategoryDTO") GroupCategoryDTO groupCategoryDTO,
+			@ModelAttribute("regionDTO") RegionDTO regionDTO,
+			PageRequestDTO pageRequestDTO,
+			HttpSession session) {
+		
 		// 세션에서 사용자 정보 가져오기
 	    User user = (User) session.getAttribute("user");
-	    
-	    // 사용자 정보가 없으면 로그인 화면으로 리다이렉트
-	    if (user == null) {
-	        return "redirect:/user/login";
-	    }
 	    
 		List<GroupCategoryDTO> groupCategoryList = groupCategoryService.getGroupCategoryList();
     	model.addAttribute("groupCategoryList", groupCategoryList);
@@ -69,7 +65,6 @@ public class HomeController {
 
 	    // 모델에 데이터를 추가하여 View로 전달
 	    model.addAttribute("result", result);
-		
-    	return "home";
+		return "home";
 	}
 }

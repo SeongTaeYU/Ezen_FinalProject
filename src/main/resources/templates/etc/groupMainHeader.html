@@ -8,16 +8,20 @@
 				<button class="category-button" onclick="location.href='/group/chatList'">채팅</button>
 			</div>
 		</div>
-
-      <script>
-      /* 선택한 카테고리 버튼만 기능을 적용하는 코드 */
-//         function toggleActive(button) {
-//             var buttons = document.getElementsByClassName('category-button');
-//             for(var i=0; i<buttons.length; i++) {
-//                 buttons[i].classList.remove('active');
-//             }
-//             button.classList.add('active');
-//         }
-      	
-      </script>
+		<!-- DOM이 모두 로드 되었을 때 -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script th:inline="javascript">
+			$(document).ready(function() {
+	    		alert("DOM이 모두 로드되었습니다.");
+	    		var groupNo = document.getElementById('groupNo').value;
+	    		var buttons = document.getElementsByClassName('category-button');
+	    		
+	    		console.log("그룹번호: ", groupNo);
+	    		
+	    		for(var i=0; i<buttons.length; i++) {
+	    			console.log(buttons[i]);
+	    			buttons[i].setAttribute("onclick", "location.href='/group/chatList?groupNo=" + groupNo + "'");
+	    		}
+			});
+		</script>
 </header>

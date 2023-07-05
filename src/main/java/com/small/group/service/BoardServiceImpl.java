@@ -3,6 +3,7 @@ package com.small.group.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -119,6 +120,17 @@ public class BoardServiceImpl implements BoardService {
 			targetEntity.setBoardTitle(boardData.getBoardTitle());
 			targetEntity.setBoardContent(boardData.getBoardContent());
 			
+			BoardCategory boardCategory = boardCategoryRepository.findById(boardData.getBoardCategoryNo())
+					.orElseThrow(() -> new RuntimeException("카테고리 정보가 존재하지 않습니다."));
+			
+			Group group = groupRepository.findById(boardData.getGroupNo())
+					.orElseThrow(() -> new RuntimeException("그룹 정보가 존재하지 않습니다."));
+			
+			User user = userRepository.findById(boardData.getUserNo())
+					.orElseThrow(() -> new RuntimeException("회원 정보가 존재하지 않습니다."));
+			
+			targetEntity.setBoardCategory(boardCategory);
+			
 			return boardRepository.save(targetEntity);
 		}
 		return null;
@@ -138,25 +150,26 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	/**
-	 *	게시글 리스트를 가져오는 함수
+	 *	게시글 목록조회 페이징
 	 */
 	@Override
-	public List<BoardDTO> getBoardCategoryList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	/**
-	 *	작성자 : 권유현
-	 *	내용 : 게시글 페이징 리스트 가져오는 함수
-	 */
-	@Override
-	public PageResultDTO<BoardDTO, Board> getList(PageRequestDTO requestDTO){
+	public PageResultDTO<BoardDTO, Board> getBoardList(PageRequestDTO requestDTO){
 		Pageable pageable = requestDTO.getPageable(Sort.by("boardNo").descending());
 		Page<Board> result = boardRepository.findAll(pageable);
 		Function<Board, BoardDTO> fn = (entity -> entityToDto(entity));
 		return new PageResultDTO<>(result, fn);
 	}
 	
+	@Override
+	public List<BoardDTO> getBoardList(){
+		List<Board> boardList = boardRepository.findAll();
+		
+		List<BoardDTO> boardDTOList = boardList.stream()
+				.map(entity -> entityToDto(entity))
+				.collect(Collectors.toList());
+		
+		return boardDTOList;
+		
+	}
 	
 }

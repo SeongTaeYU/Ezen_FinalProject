@@ -229,17 +229,16 @@ $(document).ready(function() {
     	$('#idResult').addClass('errorMsg').text('아이디 중복체크 후 다음으로 진행됩니다.');
     }
     
-
     
     $("#idExist").on('click', function(e) {
         var userId = $("input[name='userId']").val();
         idCheck = 0;
         
-        if (userId.trim() === '' || userId.trim() === null ){
+        /* if (userId.trim() === '' || userId.trim() === null){
         	alert("아이디는 공백이 올 수 없습니다.")
         	return;
-        }
-        
+        } */
+        userId.replace(/\s/gi, "");
         $.ajax({
             url: '/user/idcheck',
             type: 'post',
@@ -301,22 +300,6 @@ $(document).ready(function() {
     function disableSubmitButton() {
         $(".btnSubmit").prop("disabled", true);
     }
-    
-    function noSpaceForm(obj) {
-        var trimmedValue = obj.value.replace(/\s/g, ''); // 모든 공백을 제거하는 정규식을 사용하여 공백 제거
-        obj.value = trimmedValue; // 공백 제거한 값으로 다시 설정
-    }
-
-    $("input[name='userId']").on('keyup', function(e) {
-        var trimmedId = $(this).val().trim(); // 입력된 아이디에서 공백을 제거한 값
-        $(this).val(trimmedId); // 입력 필드에 공백 제거한 값으로 다시 설정
-    });
-
-    $("#regForm").on('submit', function(e) {
-        var trimmedId = $("input[name='userId']").val().trim(); // 아이디에서 공백 제거한 값
-        $("input[name='userId']").val(trimmedId); // 아이디 필드에 공백 제거한 값으로 다시 설정
-    });
-    
 });
 </script>
 
@@ -328,7 +311,7 @@ $(document).ready(function() {
 	</div>
 	<form name='regForm' id='regForm' th:action="@{/user/register}" method="post">
 		<label class="id1">ID</label>
-		<input class="idtext" type="text" name="userId" placeholder="아이디" onkeyup="noSpaceForm(this)">
+		<input class="idtext" type="text" name="userId" placeholder="아이디">
 		<button class="checkBtn" type="button" id="idExist">중복확인</button>
 		<p id="idResult"></p>
 

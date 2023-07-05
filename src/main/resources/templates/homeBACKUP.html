@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+<style>
+.header {
+	overflow: hidden;
+}
+
+.header{
+	background-color: rgba(255, 255, 255, 1);
+	width: 1920px;
+	height: 2163px;
+	position: absolute;
+	
+}
+
+.title {
+	color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929, 1);
+	width: 558px;
+	height: 138px;
+	position: absolute;
+	left: 681px;
+	top: 33px;
+	font-family: Fugaz One;
+	text-align: center;
+	font-size: 96px;
+	letter-spacing: 0;
+	text-decoration: none;
+}
+
+.spacer {
+  background-color: rgba(255, 255, 255, 1);
+  width: 977px;
+  height: 72px;
+  position: absolute;
+  left: 471px;
+  top: 213px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  
+}
+
+.search-container input[type="text"] {
+  padding: 12px;
+  font-size: 18px;
+  border: 2px solid skyblue;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 850px;
+  height: 50px;
+  outline: none;
+}
+
+.search-container button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: skyblue;
+  color: #fff;
+}
+.loginUser {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 227px;
+	height: 37px;
+	position: absolute;
+	left: 1605px;
+	top: 40px;
+	font-family: Halant;
+	text-decoration: none;
+	text-align: center;
+	font-size: 40px;
+	letter-spacing: 0;
+}
+.logout {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 227px;
+	height: 37px;
+	position: absolute;
+	left: 1608px;
+	top: 95px;
+	font-family: Halant;
+	text-decoration: none;
+	text-align: center;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.mypage {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 227px;
+	height: 37px;
+	position: absolute;
+	left: 1438px;
+	top: 95px;
+	font-family: Halant;
+	text-align: center;
+	text-decoration: none;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.travelcategory {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 740px;
+	top: 330px;
+}
+
+.travelicon {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.travelicon img {
+	position: absolute;
+	top: -20px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.traveltext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 115px;
+	height: 47px;
+	position: absolute;
+	left: 15px;
+	top: 156px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 28px;
+	letter-spacing: 0;
+}
+
+.etccategory {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 970px;
+	top: 560px;
+}
+
+.etcicon {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.etcicon img {
+	position: absolute;
+	top: -20px; /* Adjust the value to move the image up */
+	left: 10px;
+	width: 90%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.etctext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 115px;
+	height: 47px;
+	position: absolute;
+	left: 16px;
+	top: 156px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 28px;
+	letter-spacing: 0;
+}
+
+.blinddate {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 1100px;
+	top: 380px;
+}
+
+.dateicon {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 100px;
+	top: 180px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.dateicon img {
+	position: absolute;
+	top: -20px; /* Adjust the value to move the image up */
+	left: 10px;
+	width: 80%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.datetext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 90px;
+	height: 47px;
+	position: absolute;
+	left: 128px;
+	top: 336px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 28px;
+	letter-spacing: 0;
+}
+
+.selfdevelopement {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 970px;
+	top: 330px;
+}
+
+.selficon {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.selficon img {
+	position: absolute;
+	top: -20px; /* Adjust the value to move the image up */
+	left: 15px;
+	width: 80%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.selftext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 115px;
+	height: 47px;
+	position: absolute;
+	left: 15px;
+	top: 156px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 28px;
+	letter-spacing: 0;
+}
+
+.amity {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 1200px;
+	top: 330px;
+}
+
+.amityicon {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.amityicon img {
+	position: absolute;
+	top: -20px; /* Adjust the value to move the image up */
+	left: 15px;
+	width: 80%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.amitytext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 115px;
+	height: 47px;
+	position: absolute;
+	left: 15px;
+	top: 156px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 28px;
+	letter-spacing: 0;
+}
+
+.culture {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 500px;
+	top: 560px;
+}
+
+.culturebox {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.culturebox img {
+	position: absolute;
+	top: -20px; /* Adjust the value to move the image up */
+	left: 20px;
+	width: 70%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.culturetext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 115px;
+	height: 47px;
+	position: absolute;
+	left: 16px;
+	top: 156px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 26px;
+	letter-spacing: 0;
+}
+
+.exercise {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 740px;
+	top: 560px;
+}
+
+.exercisebox {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.exercisebox img {
+	position: absolute;
+	top: -20px; /* Adjust the value to move the image up */
+	left: 20px;
+	width: 70%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.exercisetext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 115px;
+	height: 47px;
+	position: absolute;
+	left: 16px;
+	top: 156px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 28px;
+	letter-spacing: 0;
+}
+
+.restaurant {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 500px;
+	top: 330px;
+}
+
+.restaurantbox {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.restaurantbox img {
+	position: absolute;
+	top: -20px; /* Adjust the value to move the image up */
+	left: 20px;
+	width: 70%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.restauranttext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 115px;
+	height: 47px;
+	position: absolute;
+	left: 16px;
+	top: 156px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 28px;
+	letter-spacing: 0;
+}
+
+.maintitle {
+	width: 1274px;
+	height: 329px;
+	position: absolute;
+	left: 357px;
+	top: 817px;
+}
+
+.maintitle2 {
+	color: rgba(0, 0, 0, 1);
+	width: 386px;
+	height: 138px;
+	position: absolute;
+	left: 610px;
+	top: 0px;
+	font-family: Halant;
+	text-align: center;
+	font-size: 36px;
+	letter-spacing: 0;
+}
+
+.maintitle1 {
+	color: rgba(0, 0, 0, 1);
+	width: 386px;
+	height: 138px;
+	position: absolute;
+	left: 140px;
+	top: 0px;
+	font-family: Halant;
+	text-align: center;
+	font-size: 33px;
+	letter-spacing: 0;
+}
+
+.crew {
+	width: 502px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 118px;
+}
+
+.crewbackground {
+	background-color: rgba(245.00000059604645, 245.00000059604645, 245.00000059604645, 1);
+	width: 440px;
+	height: 211px;
+	position: absolute;
+	left: 100px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.crewname {
+	color: rgba(0, 0, 0, 1);
+	width: 311px;
+	height: 47px;
+	position: absolute;
+	left: 140px;
+	top: 25px;
+	font-family: Halant;
+	text-align: left;
+	font-size: 23px;
+	letter-spacing: 0;
+}
+
+.crewcount {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 81px;
+	height: 47px;
+	position: absolute;
+	left: 460px;
+	top: 134px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.region {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 96px;
+	height: 47px;
+	position: absolute;
+	left: 420px;
+	top: 79px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.Entercrew {
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: 19px;
+	top: 139px;
+}
+
+.Entercrewbox {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(50.000000819563866, 205.00000298023224, 50.000000819563866,
+		0.6000000238418579);
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: 100px;
+	top: 0px;
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
+.Entercrewbutton {
+	color: rgba(255, 255, 255, 1);
+	width: 61px;
+	height: 13px;
+	position: absolute;
+	left: 120px;
+	top: 10px;
+	font-family: Halant;
+	text-align: center;
+	font-size: 24px;
+	letter-spacing: 0;
+}
+
+.crew1 {
+	width: 502px;
+	height: 211px;
+	position: absolute;
+	left: 772px;
+	top: 118px;
+}
+
+.crewbackground1 {
+	background-color: rgba(245.00000059604645, 245.00000059604645, 245.00000059604645, 1);
+	width: 440px;
+	height: 211px;
+	position: absolute;
+	left: -160px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.crewname1 {
+	color: rgba(0, 0, 0, 1);
+	width: 311px;
+	height: 47px;
+	position: absolute;
+	left: -130px;
+	top: 25px;
+	font-family: Halant;
+	text-align: left;
+	font-size: 23px;
+	letter-spacing: 0;
+}
+
+.crewcount1 {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 81px;
+	height: 47px;
+	position: absolute;
+	left: 200px;
+	top: 134px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.region1 {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 96px;
+	height: 47px;
+	position: absolute;
+	left: 160px;
+	top: 79px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.Entercrew1 {
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: 19px;
+	top: 139px;
+}
+
+.Entercrewbox1 {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(50.000000819563866, 205.00000298023224, 50.000000819563866,
+		0.6000000238418579);
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: -160px;
+	top: 0px;
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
+.Entercrewbutton1 {
+	color: rgba(255, 255, 255, 1);
+	width: 61px;
+	height: 13px;
+	position: absolute;
+	left: -140px;
+	top: 10px;
+	font-family: Halant;
+	text-align: center;
+	font-size: 24px;
+	letter-spacing: 0;
+}
+
+.crew2 {
+	color: rgba(0, 0, 0, 1);
+	width: 579px;
+	height: 138px;
+	position: absolute;
+	left: 650px;
+	top: 1270px;
+	font-family: Halant;
+	text-align: center;
+	font-size: 36px;
+	letter-spacing: 0;
+}
+
+.crewbackground2 {
+	width: 502px;
+	height: 211px;
+	position: absolute;
+	left: 357px;
+	top: 1408px;
+}
+
+.crewbackgroundbox2 {
+	background-color: rgba(245.00000059604645, 245.00000059604645, 245.00000059604645, 1);
+	width: 440px;
+	height: 211px;
+	position: absolute;
+	left: 100px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.crewname2 {
+	color: rgba(0, 0, 0, 1);
+	width: 311px;
+	height: 47px;
+	position: absolute;
+	left: 140px;
+	top: 25px;
+	font-family: Halant;
+	text-align: left;
+	font-size: 23px;
+	letter-spacing: 0;
+}
+
+.crewcount2 {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 81px;
+	height: 47px;
+	position: absolute;
+	left: 460px;
+	top: 134px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.region2 {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 96px;
+	height: 47px;
+	position: absolute;
+	left: 420px;
+	top: 79px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.Entercrew2 {
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: 120px;
+	top: 139px;
+}
+
+.Entercrewbox2 {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(50.000000819563866, 205.00000298023224, 50.000000819563866,
+		0.6000000238418579);
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
+.Entercrewbutton2 {
+	color: rgba(255, 255, 255, 1);
+	width: 61px;
+	height: 13px;
+	position: absolute;
+	left: 19px;
+	top: 10px;
+	font-family: Halant;
+	text-align: center;
+	font-size: 24px;
+	letter-spacing: 0;
+}
+
+.crew3 {
+	width: 502px;
+	height: 211px;
+	position: absolute;
+	left: 1129px;
+	top: 1408px;
+}
+
+.crewbackgroundbox3 {
+	background-color: rgba(245.00000059604645, 245.00000059604645, 245.00000059604645, 1);
+	width: 440px;
+	height: 211px;
+	position: absolute;
+	left: -160px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.crewname3 {
+	color: rgba(0, 0, 0, 1);
+	width: 311px;
+	height: 47px;
+	position: absolute;
+	left: -130px;
+	top: 25px;
+	font-family: Halant;
+	text-align: left;
+	font-size: 23px;
+	letter-spacing: 0;
+}
+
+.crewcount3 {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 81px;
+	height: 47px;
+	position: absolute;
+	left: 200px;
+	top: 134px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.region3 {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 96px;
+	height: 47px;
+	position: absolute;
+	left: 160px;
+	top: 79px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.Entercrew3 {
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: -140px;
+	top: 139px;
+}
+
+.Entercrewbox3 {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(50.000000819563866, 205.00000298023224, 50.000000819563866,
+		0.6000000238418579);
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
+.Entercrewbutton3 {
+	color: rgba(255, 255, 255, 1);
+	width: 61px;
+	height: 13px;
+	position: absolute;
+	left: 19px;
+	top: 10px;
+	font-family: Halant;
+	text-align: center;
+	font-size: 24px;
+	letter-spacing: 0;
+}
+
+body {
+	margin: 10px;
+	padding: 0;
+}
+
+.container {
+	margin: 20px; /* 원하는 여백 크기 설정 */
+	max-width: 1200px; /* 원하는 최대 너비 설정 */
+}
+</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>메인 페이지</title>
+
+</head>
+<body>
+	<div class=header>
+		<a th:href="@{/}" class="title">RE! crew</a>
+
+		<div class="spacer">
+    <div class="search-container">
+        
+        <form th:action="@{group/groupList}" method="get">
+        	<input type="text" id="searchInput" name="searchKeyword" placeholder="키워드를 입력하세요">
+        	<button id="searchButton" type="submit">검색</button>
+    	</form>
+        <!-- <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
+        <button id="searchButton" type="button" onClick="performSearch()">검색</button> -->
+        
+    </div>
+</div>
+	<div id="loginStatus">
+    	<span th:if="${session.user != null}" id="logoutLink">
+    		<label class="loginUser" style="white-space: nowrap;">[[${session.user.name}]] 님</label>
+        	<a th:href="@{/user/logout}" class="logout">로그아웃</a>
+		</span>
+		<span th:if="${session.user == null}" id="logoutLink">
+        	<a th:href="@{/user/login}" class="logout">로그인</a>
+		</span>
+	</div>
+		<a th:href="@{/user/mypage}" class="mypage" >마이페이지</a>
+		
+		<div class="travelcategory">
+			<a th:href="@{/group/groupList(groupCategoryNo=4)}"
+				class="travelicon"> <img src="/image/travelcategory.png"
+				alt="Travel Category" /></a> <span class="traveltext">여행</span>
+		</div>
+		<div class=etccategory>
+			<a th:href="@{/group/groupList(groupCategoryNo=8)}" class="etcicon">
+				<img src="/image/etccategory.png" alt="ect category" />
+			</a> <span class="etctext">자유</span>
+		</div>
+		<div class=blinddate>
+			<a th:href="@{/group/groupList(groupCategoryNo=7)}" class="dateicon">
+				<img src="/image/blinddate.png" alt="blind date" />
+			</a> <span class=datetext>소개팅</span>
+		</div>
+		<div class=selfdevelopement>
+			<a th:href="@{/group/groupList(groupCategoryNo=5)}" class="selficon">
+				<img src="/image/selfdevelopement.png" alt="selfdevelopement" />
+			</a> <span class="selftext">자기계발</span>
+		</div>
+		<div class=amity>
+			<a th:href="@{/group/groupList(groupCategoryNo=6)}" class="amityicon">
+				<img src="/image/amity.png" alt="amity" />
+			</a> <span class="amitytext">친목</span>
+		</div>
+		<div class="culture">
+			<a th:href="@{/group/groupList(groupCategoryNo=1)}"
+				class="culturebox"> <img src="/image/culture.png"
+				alt="cultruebox" /></a> <span class="culturetext">문화/예술</span>
+		</div>
+		<div class=exercise>
+			<a th:href="@{/group/groupList(groupCategoryNo=2)}"
+				class="exercisebox"> <img src="/image/exercise.png"
+				alt="exercisebox" /></a> <span class="exercisetext">운동</span>
+		</div>
+		<div class=restaurant>
+			<a th:href="@{/group/groupList(groupCategoryNo=3)}"
+				class="restaurantbox"> <img src="/image/restaurant.png"
+				alt="restaurantbox" />
+			</a> <span class="restauranttext">맛집</span>
+		</div>
+		<div class=maintitle>
+			<span class="maintitle1">곧 만나는 크루에요!</span> <span class="maintitle2">금주의
+				인기크루는?</span>
+
+			<div class=crew>
+				<div class="crewbackground"></div>
+				<a th:href="@{/group/groupRead(groupNo=2)}" class="crewname">유적지 탐방할 크루원 모집중</a><span class="crewcount">3</span><span
+					class="region">수원시</span>
+				<div class="Entercrew">
+					<div class="Entercrewbox"></div>
+					<span class="Entercrewbutton">참여</span>
+				</div>
+			</div>
+			<div class=crew1>
+				<div class="crewbackground1"></div>
+				<a th:href="@{/group/groupRead(groupNo=3)}" class="crewname1">여행을 떠나라 크루원 모집중</a><span
+					class="crewcount1">7</span><span class="region1">안양시</span>
+				<div class=Entercrew1>
+					<div class="Entercrewbox1"></div>
+					<span class="Entercrewbutton1">참여</span>
+				</div>
+			</div>
+		</div>
+		<span class="crew2">더 많은 크루를 확인해 보세요.</span>
+		<div class=crewbackground2>
+			<div class="crewbackgroundbox2"></div>
+			<a th:href="@{/group/groupRead(groupNo=1)}" class="crewname2">자바 스터티 크루원 모집중</a><span
+				class="crewcount2">9</span><span class="region2">안산시</span>
+			<div class=Entercrew2>
+				<div class="Entercrewbox2"></div>
+				<span class="Entercrewbutton2">참여</span>
+			</div>
+		</div>
+		<div class=crew3>
+			<div class="crewbackgroundbox3"></div>
+			<span class="crewname3">당산에서 러닝할 크루 모집중</span><span
+				class="crewcount3">1</span><span class="region3">서울시</span>
+			<div class=Entercrew3>
+				<div class="Entercrewbox3"></div>
+				<span class="Entercrewbutton3">참여</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,905 @@
+.header {
+	overflow: hidden;
+}
+
+.header{
+	background-color: rgba(255, 255, 255, 1);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	
+}
+
+.title {
+	color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929, 1);
+	width: 100%;
+	height: 100%;
+	left: 50%;
+	top: 30px;
+	font-family: Fugaz One;
+	text-align: center;
+	font-size: 96px;
+	letter-spacing: 0;
+	text-decoration: none;
+}
+
+.spacer {
+  background-color: rgba(255, 255, 255, 1);
+  width: 977px;
+  height: 72px;
+  position: absolute;
+  left: 471px;
+  top: 213px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  
+}
+
+.search-container input[type="text"] {
+  padding: 12px;
+  font-size: 18px;
+  border: 2px solid skyblue;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 850px;
+  height: 50px;
+  outline: none;
+}
+
+.search-container button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: skyblue;
+  color: #fff;
+}
+.loginUser {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 227px;
+	height: 37px;
+	position: absolute;
+	left: 1605px;
+	top: 40px;
+	font-family: Halant;
+	text-decoration: none;
+	text-align: center;
+	font-size: 40px;
+	letter-spacing: 0;
+}
+.logout {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 227px;
+	height: 37px;
+	position: absolute;
+	left: 1608px;
+	top: 95px;
+	font-family: Halant;
+	text-decoration: none;
+	text-align: center;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.mypage {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 227px;
+	height: 37px;
+	position: absolute;
+	left: 1438px;
+	top: 95px;
+	font-family: Halant;
+	text-align: center;
+	text-decoration: none;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.travelcategory {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 740px;
+	top: 330px;
+}
+
+.travelicon {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.travelicon img {
+	position: absolute;
+	top: -20px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.traveltext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 115px;
+	height: 47px;
+	position: absolute;
+	left: 15px;
+	top: 156px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 28px;
+	letter-spacing: 0;
+}
+
+.etccategory {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 970px;
+	top: 560px;
+}
+
+.etcicon {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.etcicon img {
+	position: absolute;
+	top: -20px; /* Adjust the value to move the image up */
+	left: 10px;
+	width: 90%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.etctext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 115px;
+	height: 47px;
+	position: absolute;
+	left: 16px;
+	top: 156px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 28px;
+	letter-spacing: 0;
+}
+
+.blinddate {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 1100px;
+	top: 380px;
+}
+
+.dateicon {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 100px;
+	top: 180px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.dateicon img {
+	position: absolute;
+	top: -20px; /* Adjust the value to move the image up */
+	left: 10px;
+	width: 80%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.datetext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 90px;
+	height: 47px;
+	position: absolute;
+	left: 128px;
+	top: 336px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 28px;
+	letter-spacing: 0;
+}
+
+.selfdevelopement {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 970px;
+	top: 330px;
+}
+
+.selficon {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.selficon img {
+	position: absolute;
+	top: -20px; /* Adjust the value to move the image up */
+	left: 15px;
+	width: 80%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.selftext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 115px;
+	height: 47px;
+	position: absolute;
+	left: 15px;
+	top: 156px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 28px;
+	letter-spacing: 0;
+}
+
+.amity {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 1200px;
+	top: 330px;
+}
+
+.amityicon {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.amityicon img {
+	position: absolute;
+	top: -20px; /* Adjust the value to move the image up */
+	left: 15px;
+	width: 80%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.amitytext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 115px;
+	height: 47px;
+	position: absolute;
+	left: 15px;
+	top: 156px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 28px;
+	letter-spacing: 0;
+}
+
+.culture {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 500px;
+	top: 560px;
+}
+
+.culturebox {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.culturebox img {
+	position: absolute;
+	top: -20px; /* Adjust the value to move the image up */
+	left: 20px;
+	width: 70%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.culturetext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 115px;
+	height: 47px;
+	position: absolute;
+	left: 16px;
+	top: 156px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 26px;
+	letter-spacing: 0;
+}
+
+.exercise {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 740px;
+	top: 560px;
+}
+
+.exercisebox {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.exercisebox img {
+	position: absolute;
+	top: -20px; /* Adjust the value to move the image up */
+	left: 20px;
+	width: 70%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.exercisetext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 115px;
+	height: 47px;
+	position: absolute;
+	left: 16px;
+	top: 156px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 28px;
+	letter-spacing: 0;
+}
+
+.restaurant {
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 500px;
+	top: 330px;
+}
+
+.restaurantbox {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+	width: 146px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.restaurantbox img {
+	position: absolute;
+	top: -20px; /* Adjust the value to move the image up */
+	left: 20px;
+	width: 70%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.restauranttext {
+	color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+	width: 115px;
+	height: 47px;
+	position: absolute;
+	left: 16px;
+	top: 156px;
+	font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 28px;
+	letter-spacing: 0;
+}
+
+.maintitle {
+	width: 1274px;
+	height: 329px;
+	position: absolute;
+	left: 357px;
+	top: 817px;
+}
+
+.maintitle2 {
+	color: rgba(0, 0, 0, 1);
+	width: 386px;
+	height: 138px;
+	position: absolute;
+	left: 610px;
+	top: 0px;
+	font-family: Halant;
+	text-align: center;
+	font-size: 36px;
+	letter-spacing: 0;
+}
+
+.maintitle1 {
+	color: rgba(0, 0, 0, 1);
+	width: 386px;
+	height: 138px;
+	position: absolute;
+	left: 140px;
+	top: 0px;
+	font-family: Halant;
+	text-align: center;
+	font-size: 33px;
+	letter-spacing: 0;
+}
+
+.crew {
+	width: 502px;
+	height: 211px;
+	position: absolute;
+	left: 0px;
+	top: 118px;
+}
+
+.crewbackground {
+	background-color: rgba(245.00000059604645, 245.00000059604645, 245.00000059604645, 1);
+	width: 440px;
+	height: 211px;
+	position: absolute;
+	left: 100px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.crewname {
+	color: rgba(0, 0, 0, 1);
+	width: 311px;
+	height: 47px;
+	position: absolute;
+	left: 140px;
+	top: 25px;
+	font-family: Halant;
+	text-align: left;
+	font-size: 23px;
+	letter-spacing: 0;
+}
+
+.crewcount {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 81px;
+	height: 47px;
+	position: absolute;
+	left: 460px;
+	top: 134px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.region {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 96px;
+	height: 47px;
+	position: absolute;
+	left: 420px;
+	top: 79px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.Entercrew {
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: 19px;
+	top: 139px;
+}
+
+.Entercrewbox {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(50.000000819563866, 205.00000298023224, 50.000000819563866,
+		0.6000000238418579);
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: 100px;
+	top: 0px;
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
+.Entercrewbutton {
+	color: rgba(255, 255, 255, 1);
+	width: 61px;
+	height: 13px;
+	position: absolute;
+	left: 120px;
+	top: 10px;
+	font-family: Halant;
+	text-align: center;
+	font-size: 24px;
+	letter-spacing: 0;
+}
+
+.crew1 {
+	width: 502px;
+	height: 211px;
+	position: absolute;
+	left: 772px;
+	top: 118px;
+}
+
+.crewbackground1 {
+	background-color: rgba(245.00000059604645, 245.00000059604645, 245.00000059604645, 1);
+	width: 440px;
+	height: 211px;
+	position: absolute;
+	left: -160px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.crewname1 {
+	color: rgba(0, 0, 0, 1);
+	width: 311px;
+	height: 47px;
+	position: absolute;
+	left: -130px;
+	top: 25px;
+	font-family: Halant;
+	text-align: left;
+	font-size: 23px;
+	letter-spacing: 0;
+}
+
+.crewcount1 {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 81px;
+	height: 47px;
+	position: absolute;
+	left: 200px;
+	top: 134px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.region1 {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 96px;
+	height: 47px;
+	position: absolute;
+	left: 160px;
+	top: 79px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.Entercrew1 {
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: 19px;
+	top: 139px;
+}
+
+.Entercrewbox1 {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(50.000000819563866, 205.00000298023224, 50.000000819563866,
+		0.6000000238418579);
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: -160px;
+	top: 0px;
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
+.Entercrewbutton1 {
+	color: rgba(255, 255, 255, 1);
+	width: 61px;
+	height: 13px;
+	position: absolute;
+	left: -140px;
+	top: 10px;
+	font-family: Halant;
+	text-align: center;
+	font-size: 24px;
+	letter-spacing: 0;
+}
+
+.crew2 {
+	color: rgba(0, 0, 0, 1);
+	width: 579px;
+	height: 138px;
+	position: absolute;
+	left: 650px;
+	top: 1270px;
+	font-family: Halant;
+	text-align: center;
+	font-size: 36px;
+	letter-spacing: 0;
+}
+
+.crewbackground2 {
+	width: 502px;
+	height: 211px;
+	position: absolute;
+	left: 357px;
+	top: 1408px;
+}
+
+.crewbackgroundbox2 {
+	background-color: rgba(245.00000059604645, 245.00000059604645, 245.00000059604645, 1);
+	width: 440px;
+	height: 211px;
+	position: absolute;
+	left: 100px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.crewname2 {
+	color: rgba(0, 0, 0, 1);
+	width: 311px;
+	height: 47px;
+	position: absolute;
+	left: 140px;
+	top: 25px;
+	font-family: Halant;
+	text-align: left;
+	font-size: 23px;
+	letter-spacing: 0;
+}
+
+.crewcount2 {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 81px;
+	height: 47px;
+	position: absolute;
+	left: 460px;
+	top: 134px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.region2 {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 96px;
+	height: 47px;
+	position: absolute;
+	left: 420px;
+	top: 79px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.Entercrew2 {
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: 120px;
+	top: 139px;
+}
+
+.Entercrewbox2 {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(50.000000819563866, 205.00000298023224, 50.000000819563866,
+		0.6000000238418579);
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
+.Entercrewbutton2 {
+	color: rgba(255, 255, 255, 1);
+	width: 61px;
+	height: 13px;
+	position: absolute;
+	left: 19px;
+	top: 10px;
+	font-family: Halant;
+	text-align: center;
+	font-size: 24px;
+	letter-spacing: 0;
+}
+
+.crew3 {
+	width: 502px;
+	height: 211px;
+	position: absolute;
+	left: 1129px;
+	top: 1408px;
+}
+
+.crewbackgroundbox3 {
+	background-color: rgba(245.00000059604645, 245.00000059604645, 245.00000059604645, 1);
+	width: 440px;
+	height: 211px;
+	position: absolute;
+	left: -160px;
+	top: 0px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.crewname3 {
+	color: rgba(0, 0, 0, 1);
+	width: 311px;
+	height: 47px;
+	position: absolute;
+	left: -130px;
+	top: 25px;
+	font-family: Halant;
+	text-align: left;
+	font-size: 23px;
+	letter-spacing: 0;
+}
+
+.crewcount3 {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 81px;
+	height: 47px;
+	position: absolute;
+	left: 200px;
+	top: 134px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.region3 {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 96px;
+	height: 47px;
+	position: absolute;
+	left: 160px;
+	top: 79px;
+	font-family: Encode Sans Expanded;
+	text-align: left;
+	font-size: 32px;
+	letter-spacing: 0;
+}
+
+.Entercrew3 {
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: -140px;
+	top: 139px;
+}
+
+.Entercrewbox3 {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	background-color: rgba(50.000000819563866, 205.00000298023224, 50.000000819563866,
+		0.6000000238418579);
+	width: 100px;
+	height: 46px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
+.Entercrewbutton3 {
+	color: rgba(255, 255, 255, 1);
+	width: 61px;
+	height: 13px;
+	position: absolute;
+	left: 19px;
+	top: 10px;
+	font-family: Halant;
+	text-align: center;
+	font-size: 24px;
+	letter-spacing: 0;
+}
+
+body {
+	margin: 10px;
+	padding: 0;
+}
+
+.container {
+	margin-left: 20%;
+	margin-right: 20%;
+	max-width: 1200px; /* 원하는 최대 너비 설정 */
+}

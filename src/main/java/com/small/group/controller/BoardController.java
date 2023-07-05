@@ -42,31 +42,30 @@ public class BoardController {
 	private final CommentService commentService;
 	
 	// 게시글 조회
-	@GetMapping("/list")
-	public void getList(PageRequestDTO pageRequestDTO,
-						Model model) {
-		PageResultDTO<BoardDTO, Board> result = boardService.getList(pageRequestDTO);
+	@GetMapping("/boardList")
+	public void getBoardList(PageRequestDTO pageRequestDTO,
+							Model model) {
+		PageResultDTO<BoardDTO, Board> result = boardService.getBoardList(pageRequestDTO);
 		model.addAttribute("result", result);
 	}
 	
 	// 게시글 한개 조회
-	@GetMapping("read")
+	@GetMapping("/boardRead")
 	public void readBoard(@RequestParam Integer boardNo, Model model) {
-		log.info("readBoard - get");
+		log.info("readBoard - Get");
 		BoardDTO dto = boardService.readBoard(boardNo);
 		model.addAttribute("board", dto);
 	}
 	
 	// 게시글 등록폼으로 이동
-	@GetMapping("/register")
-	public void registerForm(@ModelAttribute("boardDTO") BoardDTO boardDTO,
-								BindingResult bindingResult,
-								PageRequestDTO requestDTO,
-								@ModelAttribute("boardCategoryDTO") BoardCategoryDTO boardCategoryDTO,
-								@ModelAttribute("groupDTO") GroupDTO groupDTO,
-								@ModelAttribute("userDTO") UserDTO userDTO,
-								Model model) {
-		log.info("boardRegister - Form");
+	@GetMapping("/boardRegister")
+	public void registerBoard(@ModelAttribute("boardDTO") BoardDTO boardDTO,
+						@ModelAttribute("boardCategoryDTO") BoardCategoryDTO boardCategoryDTO,
+						@ModelAttribute("groupDTO") GroupDTO groupDTO,
+						@ModelAttribute("userDTO") UserDTO userDTO,
+						BindingResult bindingResult,
+						Model model) {
+		log.info("@@@@@@@@@@@boardRegister Form");
 		model.addAttribute("board", new Board());
 		
 		List<BoardCategoryDTO> boardCategoryList = boardCategoryService.getBoardCategoryList();
@@ -81,19 +80,23 @@ public class BoardController {
 	
 	
 	// 게시글 등록
-	@PostMapping("/register")
-	public String register(@ModelAttribute("boardDTO") @Valid BoardDTO boardDTO,
-														BindingResult bindingResult,
-														Model model) {
-		System.out.println("test :" + boardDTO.toString());
+	@PostMapping("/boardRegister")
+	public String registerBoard(@ModelAttribute("boardDTO") @Valid BoardDTO boardDTO,
+							BindingResult bindingResult,
+							Model model) {
+		System.out.println("test: " + boardDTO.toString());
+		log.info("register process group.toString: " + boardDTO.toString());
 		
 		// 검증시 오류 있으면
-		if (bindingResult.hasErrors()) {
+		if(bindingResult.hasErrors()) {
+
 			// Log field errors
 			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+			
 			for (FieldError error : fieldErrors) {
 				log.error(error.getField() + " " + error.getDefaultMessage());
 			}
+			
 			List<BoardCategoryDTO> boardCategoryList = boardCategoryService.getBoardCategoryList();
 			model.addAttribute("boardCategoryList", boardCategoryList);
 			
@@ -104,17 +107,79 @@ public class BoardController {
 			model.addAttribute("userList", userList);
 			
 			model.addAttribute("board", boardDTO);
-			return "board/register";
+			log.info("boardRegister");
+			
+			return "board/boardRegister";
 		}
+		
+		// 검증 오류 없으면
 		boardService.insertBoard(boardDTO);
-		return "redirect:/board/list";
+		return "redirect:/board/boardList";
+	}
+	
+	// 게시글 수정 폼
+	@GetMapping("/boardModify")
+	public void updateBoardForm(@RequestParam Integer boardNo,
+								@ModelAttribute("boardDTO") BoardDTO boardDTO,
+								BindingResult bindingResult,
+								Model model) {
+		log.info("boardModify Form");
+		
+		BoardDTO dto = boardService.readBoard(boardNo);
+		System.out.println("dto.toString: " + dto.toString());
+		model.addAttribute("board", dto);
+		
+		List<BoardCategoryDTO> boardCategoryList = boardCategoryService.getBoardCategoryList();
+		model.addAttribute("boardCategoryList", boardCategoryList);
+		
+		List<GroupDTO> groupList = groupService.getGroupList();
+		model.addAttribute("groupList", groupList);
+		
+		List<UserDTO> userList = userService.getUserList();
+		model.addAttribute("userList", userList);
+		
+	}
+	
+	// 게시글 수정
+	@PostMapping("/boardModify")
+	public String updateBoard(@ModelAttribute @Valid BoardDTO dto,
+							BindingResult bindingResult,
+							Model model) {
+		log.info("boardModify - post dto: " + dto.toString());
+		System.out.println("boardTitle: " + dto.getBoardTitle());
+		System.out.println("boardContent: " + dto.getBoardContent());
+		
+		// 검증시 오류 있으면
+				if (bindingResult.hasErrors()) {
+				// Log field errors
+				List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+				for (FieldError error : fieldErrors) {
+					System.out.println("####" + error.getDefaultMessage() + ": " + error.getField());
+					log.error(error.getField() + " " + error.getDefaultMessage());
+				}
+				BoardDTO boardDTO = boardService.readBoard(dto.getBoardNo());
+				
+				model.addAttribute("board", dto);
+				
+				List<BoardCategoryDTO> boardCategoryList = boardCategoryService.getBoardCategoryList();
+				model.addAttribute("boardCategoryList", boardCategoryList);
+				
+				List<GroupDTO> groupList = groupService.getGroupList();
+				model.addAttribute("groupList", groupList);
+				
+				List<UserDTO> userList = userService.getUserList();
+				model.addAttribute("userList", userList);
+				return "board/boardModify";
+		}
+			boardService.updateBoard(dto);
+			return "redirect:/board/boardRead?boardNo=" + dto.getBoardNo();
 	}
 	
 	// 게시물 삭제
 	@GetMapping("/delete/{boardNo}")
 	public String deleteBoard(@PathVariable Integer boardNo) {
 		boolean deleted = boardService.deleteBoard(boardNo);
-		return "redirect:/board/list";
+		return "redirect:/board/boardList";
 	}
 	
 	
