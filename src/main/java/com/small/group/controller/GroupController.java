@@ -349,9 +349,13 @@ public class GroupController {
     	chat.setChatContent(replaceStr);
     	return chat;
     }
-    @GetMapping("/testBoardList")
-    public String testBoardList() {
-    	return "/groupMain/boardList";
+    /*
+     *	모임 소개글로 이동하는 함수
+     */
+    @GetMapping("/groupIntroduce")
+    public String groupIntroduce(Model model, @RequestParam("groupNo") Integer groupNo) {
+    	model.addAttribute("groupNo", groupNo);
+    	return "/groupMain/groupIntroduce";
     }
     
     /*
