@@ -2,10 +2,10 @@
 		<div class="header-container">
 	        <h1 class="header-title">자바와 함께하는 자바월드</h1>
 			<div class="category-buttons">
-				<button class="category-button" onclick="location.href='/group/test1'">홈</button>
-				<button class="category-button" onclick="location.href='/group/test2'">게시판</button>
-				<button class="category-button" onclick="location.href='/group/test3'">사진첩</button>
-				<button class="category-button" onclick="location.href='/group/chatList'">채팅</button>
+				<button class="category-button" onclick="">홈</button>
+				<button class="category-button" onclick="">게시판</button>
+				<button class="category-button" onclick="">사진첩</button>
+				<button class="category-button" onclick="">채팅</button>
 			</div>
 		</div>
 		<!-- DOM이 모두 로드 되었을 때 -->
@@ -22,10 +22,10 @@
 	    			<script> 태그의 속성으로 th:inline="javascript" 속성을 입력하면
 	    			위의 형태로 MODEL 객체에 addAttribute 로 추가한 데이터를 읽어들일 수 있다.
 	    		*/
-	    		
-	    		for(var i=0; i<buttons.length; i++) {
-	    			buttons[i].setAttribute("onclick", "location.href='/group/chatList?groupNo=" + groupNo + "'");
-	    		}
+	    		buttons[0].setAttribute("onclick", "location.href='/group/chatList?groupNo=" + groupNo + "'"); // 홈
+	    		buttons[1].setAttribute("onclick", "location.href='/board/boardList'"); // 게시판
+	    		buttons[2].setAttribute("onclick", "location.href='/group/chatList?groupNo=" + groupNo + "'"); // 사진첩
+	    		buttons[3].setAttribute("onclick", "location.href='/group/chatList?groupNo=" + groupNo + "'"); // 채팅
 			});
 		</script>
 </header>

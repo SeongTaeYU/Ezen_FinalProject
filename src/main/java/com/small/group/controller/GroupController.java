@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.small.group.dto.BoardDTO;
 import com.small.group.dto.ChatDTO;
+import com.small.group.entity.Board;
 import com.small.group.entity.Chat;
 import com.small.group.dto.GroupCategoryDTO;
 import com.small.group.dto.GroupDTO;
@@ -347,21 +349,14 @@ public class GroupController {
     	chat.setChatContent(replaceStr);
     	return chat;
     }
-    
-    
-    /*
-     * GroupMain 페이지 관련 컨트롤러 테스트
-     */
-    @GetMapping("/test1") // 홈
-    public String test1() {
-    	return "/groupMain/groupMain";
-    }
-    
-    @GetMapping("/test2") // 게시판
-    public String test2() {
+    @GetMapping("/testBoardList")
+    public String testBoardList() {
     	return "/groupMain/boardList";
     }
     
+    /*
+     * GroupMain 페이지 관련 컨트롤러 테스트
+     */ 
     @GetMapping("/test3") // 사진첩
     public String test3() {
     	return "/groupMain/pictures";

@@ -1,10 +1,12 @@
 package com.small.group.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,16 +46,22 @@ public class BoardController {
 	// 게시글 조회
 	@GetMapping("/boardList")
 	public void getBoardList(PageRequestDTO pageRequestDTO,
-							Model model) {
+							Model model,
+							@RequestParam("groupNo") Integer groupNo) {
 		PageResultDTO<BoardDTO, Board> result = boardService.getBoardList(pageRequestDTO);
+		List<BoardDTO> groupBoardList = result.getDtoList().stream().filter(dto -> (dto.getGroupNo() == groupNo)).collect(Collectors.toList());
+		result.setDtoList(groupBoardList);
 		model.addAttribute("result", result);
 	}
+
+
 	
 	// 게시글 한개 조회
 	@GetMapping("/boardRead")
 	public void readBoard(@RequestParam Integer boardNo, Model model) {
 		log.info("readBoard - Get");
 		BoardDTO dto = boardService.readBoard(boardNo);
+		boardService.updateBoardHit(boardNo);
 		model.addAttribute("board", dto);
 	}
 	
@@ -181,6 +189,5 @@ public class BoardController {
 		boolean deleted = boardService.deleteBoard(boardNo);
 		return "redirect:/board/boardList";
 	}
-	
 	
 }

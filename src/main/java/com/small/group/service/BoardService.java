@@ -21,4 +21,5 @@ public interface BoardService {
     
     // 게시판 페이지
     public PageResultDTO<BoardDTO, Board> getBoardList(PageRequestDTO requestDTO);
+    void updateBoardHit(Integer boardNo);
 }

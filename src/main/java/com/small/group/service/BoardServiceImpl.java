@@ -169,7 +169,20 @@ public class BoardServiceImpl implements BoardService {
 				.collect(Collectors.toList());
 		
 		return boardDTOList;
-		
 	}
+	
+	/*
+	 * 게시물 조회수 - 유성태
+	 */
+	@Override
+    public void updateBoardHit(Integer boardNo) {
+        Board board = boardRepository.findById(boardNo)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid board ID: " + boardNo));
+
+        // 조회수 증가 로직 추가
+        board.setBoardHit(board.getBoardHit() + 1);
+
+        boardRepository.save(board);
+    }
 	
 }

@@ -13,10 +13,147 @@
 		body {
 			font-family: 'Noto Sans KR', sans-serif;
 		}
+		.category-label {
+			display: inline-block;
+			padding: 5px;
+			border-radius: 50%;
+			background-color: red;
+			color: white;
+			font-weight: bold;
+		}
+		
+		.category-notice {
+			background-color: red;
+			color: black;
+			border-radius: 50%/70%;
+			height: 30px;
+			align-items: center;
+			justify-content: center;
+		}
 </style>
 </head>
 <body>
 	<div th:replace="~{etc/groupMainHeader::header}"></div>
-	<h1 style="text-align: center;"> 게시판 보기 입니다. </h1>
+	
+	<script>
+		function performSearch() {
+			var searchKeyword = document.getElementById("searchInput").value;
+			if (searchKeyword.trim() !== "") {
+				window.location.href = "/group/groupList?groupName="
+						+ encodeURIComponent(searchKeyword);
+				searchInput.value = "";
+			}
+		}
+	
+		function filterTableByCategory() {
+			var selectedCategory = document.getElementById("categoryDropdown").value;
+			var tableRows = document.querySelectorAll("tbody tr");
+	
+			tableRows.forEach(function(row) {
+				var categoryCell = row.querySelector("td:nth-child(2)");
+	
+				if (selectedCategory === ""
+						|| categoryCell.textContent === selectedCategory) {
+					row.style.display = "";
+				} else {
+					row.style.display = "none";
+				}
+			});
+		}
+	</script>
+	<h1 class="">
+		게시판 페이지 <span> <a th:href="@{/board/boardRegister}">
+				<button type="button" class="btn btn-outline-primary">게시글 생성</button>
+		</a>
+		</span>
+	</h1>
+	
+	<form action="/board/boardList" method="get" id="searchForm">
+		<div class="input-group">
+			<input type="hidden" name="page" value="1">
+	
+			<div class="search-container">
+				<input type="text" id="searchInput" placeholder="키워드를 입력하세요"
+					onkeydown="if (event.keyCode === 13) performSearch()">
+				<button id="searchButton" type="button" onClick="performSearch()">검색</button>
+			</div>
+		</div>
+	</form>
+	
+	<div class="table-container">
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">No</th>
+				<th scope="col">카테고리 <select id="categoryDropdown"
+					onchange="filterTableByCategory()">
+						<option value="">전체</option>
+						<option value="공지사항">공지사항</option>
+						<option value="가입인사">가입인사</option>
+						<option value="자유글">자유글</option>
+						<!-- Add more options as needed -->
+				</select>
+				</th>
+				<th scope="col">제목</th>
+				<th scope="col">작성자</th>
+				<th scope="col">조회수</th>
+				<th scope="col">작성일</th>
+			</tr>
+		</thead>
+	
+		<tbody>
+			<tr th:each="board : ${result.dtoList}">
+				<td th:text="${board.boardNo}"></td>
+				<td><span
+					th:classappend="${board.boardCategoryName == '공지사항'} ? 'category-notice' : ''"
+					th:text="${board.boardCategoryName}"></span></td>
+				<th scope="row"><a
+					th:href="@{/board/boardRead(
+	            boardNo = ${board.boardNo},
+	            page = ${result.page},
+	            type = ${pageRequestDTO.type},
+	            keyword = ${pageRequestDTO.keyword}
+	          )}">
+						[[${board.boardTitle}]] </a></th>
+				<td th:text="${board.userName}"></td>
+				<td th:text="${board.boardHit}"></td>
+				<td th:text="${#temporals.format(board.regDate, 'yyyy/MM/dd')}"></td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	<!-- end content -->
+	
+	<div>
+		<!-- 페이징처리 시작 -->
+		<ul class="pagination h-100 justify-content-center align-items-center">
+			<li class="page-item" th:if="${result.prev}"><a class="page-link"
+				th:href="@{/board/boardList(
+	        page = ${result.start - 1},
+	        type = ${pageRequestDTO.type},
+	        keyword = ${pageRequestDTO.keyword}
+	      )}"
+				tabindex="-1">Previous</a></li>
+	
+			<li th:class=" 'page-item ' + ${result.page == page?'active':''} "
+				th:each="page: ${result.pageList}"><a class="page-link"
+				th:href="@{/board/boardList(
+	        page = ${page},
+	        type = ${pageRequestDTO.type},
+	        keyword = ${pageRequestDTO.keyword}
+	      )}">
+					[[${page}]] </a></li>
+	
+			<li class="page-item" th:if="${result.next}"><a class="page-link"
+				th:href="@{/board/boardList(
+	        page = ${result.end + 1},
+	        type = ${pageRequestDTO.type},
+	        keyword = ${pageRequestDTO.keyword}
+	      )}">Next</a>
+			</li>
+		</ul>
+		<!-- 페이징처리 끝 -->
+	</div>
+	
 </body>
 </html>
