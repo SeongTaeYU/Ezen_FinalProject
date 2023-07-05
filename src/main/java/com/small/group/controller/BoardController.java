@@ -53,8 +53,6 @@ public class BoardController {
 		result.setDtoList(groupBoardList);
 		model.addAttribute("result", result);
 	}
-
-
 	
 	// 게시글 한개 조회
 	@GetMapping("/boardRead")
