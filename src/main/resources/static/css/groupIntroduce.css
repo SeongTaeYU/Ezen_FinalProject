@@ -4,10 +4,11 @@
 	flex-direction: column;
 	justify-content: center;
 	margin: 0 auto;
+	margin-top: 100px;
 }
 .group-main-img {
 	width: 100%;
-	height: 450px;
+	height: 300px;
 }
 
 .group-title {
@@ -59,4 +60,18 @@
 	width: 100%;
 	margin-left: 20px;
 	margin-right: 20px;
+}
+.group-main-img-button {
+    cursor: pointer;
+    width: 100%;
+    height: 300px;
+    border-radius: 0.35rem;
+    background-color: skyblue;
+    color: white;
+    text-align: center;
+    line-height: 250px;
+    font-size: 1.2em;
+}
+.hidden-input {
+	display: none;
 }

@@ -19,8 +19,11 @@
     <div th:replace="~{etc/groupMainHeader::header}"></div>
 
     <div class="group-main-container">
-        <img class="group-main-img" src="meeting_photo.jpg" alt="Meeting Photo" />
-
+        <img class="group-main-img" id="previewImage" src=""/>
+		<div class="group-main-img-button" id="imageRegisterButton">
+          <h3>배경 이미지를 등록하세요</h3>
+        </div>
+        <input type="file" id="imageInput" class="hidden-input">
         <div class="description-container">
             <h3 class="group-title">자바와 함께하는 이젠 아카데미</h3>
             <div class="description">
@@ -41,5 +44,52 @@
           <div class="group-member">그룹의 멤버들이 표시될 자리입니다.</div>
         </div>
     </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    	$(document).ready(function() {
+    		imageDirectoryCheck();
+    		
+    	});
+    	
+      
+
+	  // 디렉터리에 이미지가 존재하는지 체크하는 함수
+	  function imageDirectoryCheck() {
+		  const imagePath = 'src/main/resources/static/image/groupMain/' + 'new_image.jpg'; 
+		  const imageDiv = document.getElementById('previewImage');
+  		  const imageRegisterButton = document.getElementById('imageRegisterButton'); // "배경 이미지를 등록하세요"
+  		  const imageInput = document.getElementById('imageInput');
+  		  
+  		imageRegisterButton.addEventListener('click', () => imageInput.click());
+		  /*
+			배경 이미지가 폴더에 존재하는 경우에는 바로 등록. 
+			존재하지 않는 경우에는 버튼이 보여지게 됨.
+		  */
+	      $.ajax({
+	    	  url: '/image/fileExists',
+	    	  type: 'POST',
+	    	  data: imagePath,
+	    	  contentType: 'application/json',
+	    	  success: function(response) {
+	    		  if(response) {
+	    			  console.log('파일이 존재합니다.');
+	    			  imageDiv.style.display = "block";
+	    			  imageDiv.src = '../image/groupMain/' + 'new_image.jpg';
+	    			  imageRegisterButton.style.display = "none";
+	    		  } else {
+	    			  console.log('파일이 존재하지 않습니다.');
+	    			  imageDiv.style.display = "none";
+	    			  imageDiv.src = "";
+	    			  imageRegisterButton.style.display = "block";
+	    		  }
+	    	  },
+	    	  error: function(xhr, status, error) {
+	    		  console.error('ajax 요청 실패: ', error);
+	    	  }
+	      });
+	  }
+     
+    </script>
 </body>
 </html>
