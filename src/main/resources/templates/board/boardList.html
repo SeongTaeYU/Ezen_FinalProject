@@ -1,98 +1,122 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout2}">
-    <div layout:fragment="content" class="container my-3">
-	<h1 class="mt-4">Board List Page
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>게시판</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/groupMainHeader.css">
+<style>
+body {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.category-notice {
+	background-color: rgba(255, 0, 0, 0.800000011920929);
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 100px;
+    color: white;
+    padding: 0 20px;
+}
+
+.table {
+    width: 60%;
+    border-top: 2px solid #444444;
+    border-bottom: 2px solid #444444;
+    border-collapse: collapse;
+    border-color: gray;
+    text-align: center;
+    font-family: Halant;
+  }
+
+.table-thead {
+border-bottom: 2px solid #444444;
+}
+
+th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+}
+
+.title-container {
+color: blue; 
+font-size: 20px; 
+font-weight: bold;
+margin-top: 20px;
+margin-left: 370px;
+margin-bottom: 10px;
+white-space: nowrap;
+}
+
+</style>
+<script>
+	function filterTableByCategory() {
+		var selectedCategory = document.getElementById("categoryDropdown").value;
+		var tableRows = document.querySelectorAll("tbody tr");
+
+		tableRows.forEach(function(row) {
+			var categoryCell = row.querySelector("td:nth-child(2)");
+			if (selectedCategory === "" || categoryCell.textContent === selectedCategory) {
+				row.style.display = "";
+			} else {
+				row.style.display = "none";
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<div th:replace="~{etc/groupMainHeader::header}"></div>
+	<div class="title-container">
+		[[${group.groupName}]] > 
+		<span style="color: black; font-size: 18px;">게시판</span>
 		<span>
-		        <a th:href="@{/board/boardRegister}">
-		            <button type="button" class="btn btn-outline-primary">게시물생성
-		            </button>
-		        </a>
+			<a th:href="@{/board/boardRegister(groupNo = ${group.groupNo})}">
+				<button type="button" class="btnWrite">게시글 생성</button>
+			</a>
 		</span>
-	</h1>
-
-        <form action="/board/boardList" method="get" id="searchForm">
-            <div class="input-group">
-                <input type="hidden" name="page" value = "1">
-                <div class="input-group-prepend">
-                    <select class="custom-select" name="type">
-                        <option th:selected="${pageRequestDTO.type == null}">-------</option>
-                        <option value="t" th:selected="${pageRequestDTO.type =='t'}" >제목</option>
-                        <option value="t" th:selected="${pageRequestDTO.type =='c'}"  >내용</option>
-                        <option value="t"  th:selected="${pageRequestDTO.type =='w'}" >작성자</option>
-                        <option value="tc"  th:selected="${pageRequestDTO.type =='tc'}" >제목 + 내용</option>
-                        <option value="tcw"  th:selected="${pageRequestDTO.type =='tcw'}" >제목 + 내용 + 작성자</option>
+	</div>	
+<div class="table-container" align="center">
+    <table class="table">
+	    
+        <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">카테고리
+                    <select id="categoryDropdown" onchange="filterTableByCategory()">
+                        <option value="">전체</option>
+                        <option value="공지사항">공지사항</option>
+                        <option value="가입인사">가입인사</option>
+                        <option value="자유글">자유글</option>
                     </select>
-                </div>
-                <input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}">
-                <div class="input-group-append" id="button-addon4">
-                    <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
-                    <button class="btn btn-outline-secondary btn-clear" type="button">Clear</button>
-                </div>
-            </div>
-        </form>
-        
-	<div>        
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Board No</th>
-                    <th scope="col">Board Title</th>
-                    <th scope="col">Board Content</th>
-                    <th scope="col">Board Hit</th>
-                    <th scope="col">Board CategoryNo</th>
-                    <th scope="col">Board CategoryName</th>
-                    <th scope="col">Board RegDate</th>
-                </tr>
-            </thead>
-			<tbody>
-			    <tr th:each="board : ${result.dtoList}">
-			        <td th:text="${board.boardNo}"></td>
-					<th scope="row">
-	                    <a th:href="@{/board/boardRead(boardNo = ${board.boardNo},
-	                    page= ${result.page},
-	                    type=${pageRequestDTO.type} ,
-	                    keyword = ${pageRequestDTO.keyword})}">
-	                        [[${board.boardTitle}]]
-	                    </a>
-                	</th>
-			        <td th:text="${board.boardContent}"></td>
-			        <td th:text="${board.boardHit}"></td>
-			        <td th:text="${board.boardCategoryNo}"></td>
-			        <td th:text="${board.boardCategoryName}"></td>
-			        <td th:text="${#temporals.format(board.regDate, 'yyyy/MM/dd')}"></td>
-			    </tr>
-			</tbody>            
-            
-        </table>
-    </div>
-    <!-- end content -->
-	<div>
-		<!-- 페이징처리 시작 -->
-	    <ul class="pagination h-100 justify-content-center align-items-center">
-	
-            <li class="page-item " th:if="${result.prev}">
-                <a class="page-link" th:href="@{/board/boardList(page= ${result.start -1},
-                    type=${pageRequestDTO.type} ,
-                    keyword = ${pageRequestDTO.keyword} ) }" tabindex="-1">Previous</a>
-            </li>
-
-            <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
-                <a class="page-link" th:href="@{/board/boardList(page = ${page} ,
-                   type=${pageRequestDTO.type} ,
-                   keyword = ${pageRequestDTO.keyword}  )}">
-                    [[${page}]]
-                </a>
-            </li>
-
-            <li class="page-item" th:if="${result.next}">
-                <a class="page-link" th:href="@{/board/boardList(page= ${result.end + 1} ,
-                    type=${pageRequestDTO.type} ,
-                    keyword = ${pageRequestDTO.keyword} )}">Next</a>
-            </li>
-
-        </ul>
-  		<!-- 페이징처리 끝 -->
-  	</div>	    
+                </th>
+                <th scope="col">제목</th>
+                <th scope="col">작성자</th>
+                <th scope="col">조회수</th>
+                <th scope="col">작성일</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="board : ${boardList}">
+                <td th:text="${board.boardNo}"></td>
+                <td><span
+                        th:classappend="${board.boardCategoryName == '공지사항'} ? 'category-notice' : ''"
+                        th:text="${board.boardCategoryName}"></span></td>
+                <th scope="row"><a th:href="@{/board/boardRead(boardNo = ${board.boardNo})}">
+                        [[${board.boardTitle}]]
+                    </a></th>
+                <td th:text="${board.userName}"></td>
+                <td th:text="${board.boardHit}"></td>
+                <td th:text="${#temporals.format(board.regDate, 'yyyy/MM/dd')}"></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
-    
+
+	<!-- end content -->
+
+</body>
 </html>

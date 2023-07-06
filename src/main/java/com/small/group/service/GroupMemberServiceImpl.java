@@ -141,4 +141,11 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 		return groupMemberDTOList;
 	}
 	
+	@Override
+	public Integer isMemberOfGroup(Integer userNo, Integer groupNo) {
+	    
+	    Integer result = groupMemberRepository.isMemberOfGroup(userNo, groupNo);
+	    return result;
+	}
+	
 }

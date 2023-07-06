@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout2}">
+<html layout:decorate="~{layout/layout2}">
     <div layout:fragment="content" class="container my-3">
         <div>
             <form id="groupForm" name="groupForm" action="/group/groupInsert" th:action="@{/group/groupInsert}" method="post">
@@ -9,7 +9,7 @@
                 </div>
                 <div class="form-group">
                     <label for="groupDescription">모임 설명</label>
-                    <input type="text" class="form-control" id="groupDescription" name="groupDescription" th:value="${group.groupDescription}">
+                    <input type="text" class="form-control" id="groupDescription" name="groupDescription" th:value="${group.groupDescription}" required>
                     <small class="text-danger" th:errors="${groupDTO.groupDescription}"></small>
                 </div>
                 <div class="form-group">
@@ -29,12 +29,9 @@
                     <small class="text-danger" th:errors="${groupDTO.regionNo}"></small>
                 </div>
                 <div class="form-group">
-                    <label for="userId">모임장</label>
-                    <select class="form-control" id="userNo" name="userNo">
-                        <option value=" ">-- 모임장 선택 --</option>
-                        <option th:each="user : ${userList}" th:value="${user.userNo}" th:text="${user.name}"></option>
-                    </select>
-                    <small class="text-danger" th:errors="${groupDTO.regionNo}"></small>             
+                    <label for="userNo">모임장</label>
+                    <input type="text" id="userNo" name="userNo" th:value="${session.user.userNo}" readonly="readonly">
+                    <small class="text-danger" th:errors="${groupDTO.userNo}"></small>             
                 </div>
                 
                 <button type="submit" id="btnSubmit" class="btn btn-primary">저장</button>
@@ -49,15 +46,20 @@
 <script>
 $(document).ready(function() {
     $('#btnSubmit').click(function(event) {
-       event.preventDefault();
+        event.preventDefault();
         var groupName = $('#groupName').val();
+        var groupDescription = $('#groupDescription').val();
         var groupCategoryNo = $('#groupCategoryNo').val();
         var regionNo = $('#regionNo').val();
-        var userNo = $('#userNo').val();
         
         if (groupName.trim() === '') {
-            alert('그룹명을 입력하세요.');
+            alert('모임명을 입력하세요.');
             return;
+        }
+        
+        if (groupDescription.trim() === '') {
+        	alert('모임 소개를 입력하세요.');
+        	return;
         }
         
         if (groupCategoryNo.trim() === '') {
@@ -69,14 +71,7 @@ $(document).ready(function() {
             alert('지역을 선택하세요.');
             return;
         }
-        
-        if (userNo.trim() === '') {
-            alert('사용자를 선택하세요.');
-            return;
-        }
-        
-        // submit
-        //this.submit();
+
         $('#groupForm').submit();
     });
 });

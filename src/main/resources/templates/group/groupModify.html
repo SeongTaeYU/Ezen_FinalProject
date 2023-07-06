@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout2}">
     <div layout:fragment="content" class="container my-3">
         <div>
-            <form id="groupModForm" name="groupModForm" th:action="@{/group/groupModify}" method="post">
+            <form id="groupModForm" name="groupModForm" action="/group/groupModify" th:action="@{/group/groupModify}" method="post">
                 <input type="hidden" id="groupNo" name="groupNo" th:value="${group.groupNo}">
                 <div class="form-group">
                     <label for="groupName">모임명</label>

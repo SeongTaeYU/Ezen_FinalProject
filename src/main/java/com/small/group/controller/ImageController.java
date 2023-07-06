@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,15 +43,26 @@ public class ImageController {
 	
 	// 파일의 존재여부에 따른 결과 값을 반환하는 함수
 	@PostMapping("/fileExists")
-	public boolean fileExists(@RequestBody String filePath) {
-		File file = new File(filePath);
-		
-		if(file.exists()) {
+	public String fileExists(@RequestBody String filePath) {
+		String[] allowedExtension = {"jpg", "jpeg", "png", "gif"};
+		/*
+		 *  해당 확장자들을 전부 순회하며 경로에 파일명으로 된 이미지가 있는지
+		 *  검색한 후 일치하는 파일명을 결과 값으로 반환함.
+		 */
+		for(String extension : allowedExtension) {
+			File file = new File(filePath + extension);
 			if(file.isFile()) {
-				return true;
+				// 파일명 부분만 가져오기
+				int indexOf = filePath.lastIndexOf("/") + 1;
+				String fileName = filePath.substring(indexOf, filePath.length());
+				return fileName + extension;
 			}
 		}
-		return false;
+		
+		// 일치하지 않으면 notFound 반환
+		return "notFound";
+		
+		
 	}
 }
 

@@ -15,6 +15,7 @@ public interface GroupMemberService {
     Boolean deleteGroupMember(Integer groupMemberNo);
     List<GroupMemberDTO> getGroupMemberList();
     List<GroupMemberDTO> getGroupMemberListByUser(User user);
+    Integer isMemberOfGroup(Integer userNo, Integer groupNo);
     
     GroupMember dtoToEntity(GroupMemberDTO dto);
     GroupMemberDTO entityToDto(GroupMember entity);

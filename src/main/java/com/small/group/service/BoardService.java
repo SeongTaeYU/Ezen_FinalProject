@@ -15,6 +15,7 @@ public interface BoardService {
 	Board updateBoard(BoardDTO boardData);
     Boolean deleteBoard(Integer boardNo);
     List<BoardDTO> getBoardList();
+    List<BoardDTO> getBoardListByGroupNo(Integer groupNo);
     
     Board dtoToEntity(BoardDTO dto);
     BoardDTO entityToDto(Board entity);

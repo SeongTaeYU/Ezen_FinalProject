@@ -9,3 +9,4 @@ drop table tbl_group_member ;
 drop table tbl_region;
 drop table tbl_user;
 set foreign_key_checks = 1;
+

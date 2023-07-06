@@ -11,6 +11,7 @@ public interface UserService {
 
 	PageResultDTO<UserDTO, User> getList(PageRequestDTO requestDTO);
 	List<UserDTO> getUserList();
+	List<UserDTO> getUserByNo(Integer userNo);
 	User insertUser(UserDTO userData);
 	UserDTO readUser(Integer userNo);
 	User updateUser(UserDTO userData);

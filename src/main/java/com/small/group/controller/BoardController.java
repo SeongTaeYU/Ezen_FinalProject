@@ -3,6 +3,7 @@ package com.small.group.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -45,22 +46,35 @@ public class BoardController {
 	
 	// 게시글 조회
 	@GetMapping("/boardList")
-	public void getBoardList(PageRequestDTO pageRequestDTO,
-							Model model,
-							@RequestParam("groupNo") Integer groupNo) {
-		PageResultDTO<BoardDTO, Board> result = boardService.getBoardList(pageRequestDTO);
-		List<BoardDTO> groupBoardList = result.getDtoList().stream().filter(dto -> (dto.getGroupNo() == groupNo)).collect(Collectors.toList());
-		result.setDtoList(groupBoardList);
-		model.addAttribute("result", result);
+	public void getBoardList(Model model,
+							@ModelAttribute  
+							@RequestParam("groupNo") Integer groupNo,
+							HttpSession session) {
+//		User user = (User) session.getAttribute("user");
+//		if (user == null) {
+//			return "redirect:/user/login";
+//		}
+		
+		List<BoardDTO> boardList = boardService.getBoardListByGroupNo(groupNo);
+		GroupDTO groupDto = groupService.readGroup(groupNo);
+
+		model.addAttribute("group", groupDto);
+		model.addAttribute("boardList", boardList);
 	}
 	
 	// 게시글 한개 조회
 	@GetMapping("/boardRead")
-	public void readBoard(@RequestParam Integer boardNo, Model model) {
+	public String readBoard(@RequestParam Integer boardNo, Model model, HttpSession session) {
 		log.info("readBoard - Get");
+		
+//		User user = (User) session.getAttribute("user");
+//		if (user == null) {
+//			return "redirect:/user/login";
+//		}
 		BoardDTO dto = boardService.readBoard(boardNo);
-		boardService.updateBoardHit(boardNo);
 		model.addAttribute("board", dto);
+		
+		return "/board/boardRead";
 	}
 	
 	// 게시글 등록폼으로 이동
@@ -145,6 +159,7 @@ public class BoardController {
 		model.addAttribute("userList", userList);
 		
 	}
+	
 	
 	// 게시글 수정
 	@PostMapping("/boardModify")

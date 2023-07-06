@@ -185,4 +185,14 @@ public class BoardServiceImpl implements BoardService {
         boardRepository.save(board);
     }
 	
+	@Override
+	public List<BoardDTO> getBoardListByGroupNo(Integer groupNo) {
+		Group group = Group.builder().groupNo(groupNo).build();
+		List<Board> boardList = boardRepository.findByGroup(group);
+		List<BoardDTO> boardDTOList = boardList.stream()
+				.map(entity -> entityToDto(entity))
+				.collect(Collectors.toList());
+		return boardDTOList;
+	}
+	
 }

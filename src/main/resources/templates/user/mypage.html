@@ -1,34 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" >
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="/css/mypage.css">  
     <title>마이페이지</title>
 </head>
 <body>
-        <h1>MyPage</h1>
-        
-        <h2>가입한 그룹 목록</h2>
-
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col">그룹번호</th> 
-                        <th scope="col">그룹명</th> 
-                        <th scope="col">가입일</th> 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="groupMember : ${groupMemberList}">
-                        <td th:text="${groupMember.groupNo}"></td>
-                        <td> 
-                        	<a th:href="@{/group/groupRead(groupNo = ${groupMember.groupNo})}">
-                        	[[${groupMember.groupName}]]
-                        	</a>
-                        </td>
-                        <td th:text="${#temporals.format(groupMember.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+	<div align="center" class=header>
+		<a th:href="@{/}" class="title">RE! crew</a>
+		<div class="spacer">
+		    <h1>MyPage</h1>
+		    <h4>기본정보</h4>
+		    <div>
+		    	<table>
+		    		<thead>
+		    			<tr>
+		    				<th scope="col">ID</th>
+		    				<th scope="col">이름</th>
+		    				<th scope="col">핸드폰번호</th>
+		    			</tr>
+		    		</thead>
+		    		<tbody>
+		    			<tr th:each="user : ${getUser}">
+		    				<td th:text="${user.userId}"></td>
+		    				<td th:text="${user.name}"></td>
+		    				<td th:text="${user.phone}"></td>
+		    			</tr>
+		    		</tbody>
+		    	</table>
+		    </div>
+		    <h2>가입한 그룹 목록</h2>
+		
+		    <div>
+		        <table>
+		            <thead>
+		                <tr>
+		                    <th scope="col">그룹번호</th>
+		                    <th scope="col">그룹카테고리이름</th>
+		                    <th scope="col">그룹명</th> 
+		                    <th scope="col">가입일</th> 	
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <tr th:each="groupMember : ${groupList}">
+		                    <td th:text="${groupMember.groupNo}"></td>
+		                    <td th:text="${groupMember.groupCategoryName}"></td>
+		                    <td> 
+		                    	<a th:href="@{/group/groupRead(groupNo = ${groupMember.groupNo})}">
+		                    	[[${groupMember.groupName}]]
+		                    	</a>
+		                    </td>
+		                    <td th:text="${#temporals.format(groupMember.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+		                </tr>
+		            </tbody>
+		        </table>
+		    </div>
+	   	</div>
+	  </div>
 </body>
 </html>

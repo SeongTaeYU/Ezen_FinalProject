@@ -1,56 +1,80 @@
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout2}">
-<div layout:fragment="content" class="container my-3">
-    <h1 class="mt-4">Group List Page
-        <span>
-            <a th:href="@{/group/groupInsert}">
-                <button type="button" class="btn btn-outline-primary">그룹생성</button>
-            </a>
-        </span>
-    </h1>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insert title here</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 
-    <form action="/board/list" method="get" id="searchForm">
-        <div class="input-group">
-            <input type="hidden" name="page" value="1">
-            <div class="input-group-prepend">
-                <select class="custom-select" name="type">
-                    <option th:selected="${pageRequestDTO.type == null}">-------</option>
-                    <option value="t" th:selected="${pageRequestDTO.type =='t'}">제목</option>
-                    <option value="t" th:selected="${pageRequestDTO.type =='c'}">내용</option>
-                    <option value="t" th:selected="${pageRequestDTO.type =='w'}">작성자</option>
-                    <option value="tc" th:selected="${pageRequestDTO.type =='tc'}">제목 + 내용</option>
-                    <option value="tcw" th:selected="${pageRequestDTO.type =='tcw'}">제목 + 내용 + 작성자</option>
-                </select>
-            </div>
-            <input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}">
-            <div class="input-group-append" id="button-addon4">
-                <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
-                <button class="btn btn-outline-secondary btn-clear" type="button">Clear</button>
-            </div>
-        </div>
-    </form>
+<style type="text/css">
+.table {
+    width: 80%;
+    border-top: 2px solid #444444;
+    border-bottom: 2px solid #444444;
+    border-collapse: collapse;
+    border-color: gray;
+    text-align: center;
+    font-family: Halant;
+  }
 
+.table-thead {
+border-bottom: 2px solid #444444;
+}
+
+th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+}
+
+
+</style>
+</head>
+<body>
+    <div th:if="${groupcategory != null}">
+	    <h1>[[${groupCategory.groupCategoryName}]]
+	        <span>
+	            <a th:href="@{/}">
+	                <button type="button" class="btn-goHome">홈화면으로</button>
+	            </a>
+	            <a th:href="@{/group/groupInsert}">
+	                <button type="button" class="btn-groupInsert">그룹생성</button>
+	            </a>
+	        </span>
+	    </h1>
+	</div>
+	<div th:unless="${groupcategory != null}">
+	    전체 그룹 리스트
+	    <span>
+		    <a th:href="@{/}">
+		    	<button type="button" class="btn-goHome">홈화면으로</button>
+		    </a>
+		    <a th:href="@{/group/groupInsert}">
+		    	<button type="button" class="btn-groupInsert">그룹생성</button>
+		    </a>
+	    </span>
+	</div>
+<div>
     <div>
         <table class="table">
-            <thead>
+            <thead class="table-thead">
                 <tr>
-                    <th scope="col">Group No</th>
-                    <th scope="col">Group Name</th>
-                    <th scope="col">Group Description</th>
-                    <th scope="col">Group Category No</th>
-                    <th scope="col">Region No</th>
-                    <th scope="col">User No</th>
-                    <th scope="col">Group No</th>
-                    <th scope="col">Registration Date</th>
-                    <th scope="col">Modify Date</th>
+                    <th scope="col">No</th>
+                    <th scope="col">카테고리</th>
+                    <th scope="col">모임명</th>
+                    <th scope="col">지역</th>
+                    <th scope="col">모임장</th>
+                    <th scope="col">개설일</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="group : ${filteredGroups}">
                     <td th:text="${group.groupNo}"></td>
                     <td>
-                        <a th:href="@{/group/groupRead(groupNo=${group.groupNo},
+<!--                         <a th:href="@{/group/groupRead(groupNo=${group.groupNo}, (수정)--> 
+                        <a th:href="@{/group/groupIntroduce(groupNo=${group.groupNo},
                         page=${result.page},
                         type=${pageRequestDTO.type},
                         keyword=${pageRequestDTO.keyword},
@@ -58,13 +82,11 @@
                             [[${group.groupName}]]
                         </a>
                     </td>
-                    <td th:text="${group.groupDescription}"></td>
                     <td th:text="${group.groupCategoryNo}"></td>
                     <td th:text="${group.regionNo}"></td>
                     <td th:text="${group.userNo}"></td>
                     <td th:text="${group.groupNo}"></td>
                     <td th:text="${#temporals.format(group.regDate, 'yyyy/MM/dd')}"></td>
-                    <td th:text="${#temporals.format(group.modDate, 'yyyy/MM/dd')}"></td>
                 </tr>
             </tbody>
         </table>
@@ -97,4 +119,5 @@
     </ul>
     <!-- 페이징처리 끝 -->
 </div>
+</body>
 </html>

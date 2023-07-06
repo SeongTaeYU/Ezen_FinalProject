@@ -21,7 +21,7 @@
     <div class="group-main-container">
         <img class="group-main-img" id="previewImage" src=""/>
 		<div class="group-main-img-button" id="imageRegisterButton">
-          <h3>배경 이미지를 등록하세요</h3>
+          <h3>클릭해서 배경 이미지를 등록하세요</h3>
         </div>
         <input type="file" id="imageInput" class="hidden-input">
         <div class="description-container">
@@ -47,19 +47,20 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    	const imagePath = 'src/main/resources/static/image/groupMain/' + 'new_image.jpg'; 
 	 	const imageDiv = document.getElementById('previewImage');
 	  	const imageRegisterButton = document.getElementById('imageRegisterButton'); // "배경 이미지를 등록하세요"
 	  	const imageInput = document.getElementById('imageInput');
-    	
+	  	var groupNo = [[${groupNo}]];
+	  	let imagePath = 'src/main/resources/static/image/groupMain/' + 'main_image_group_' + groupNo + '.'; 
+	  	
 	  	imageRegisterButton.addEventListener('click', () => imageInput.click());
 // 	 	imageDiv.addEventListener('click', () => imageInput.click()); 
 // 		사진이 입력된 상태에서도 새로 입력이 가능
 	  	imageInput.addEventListener('change', () => handleFileSelection(event));
 	  	
-	  	
 	  	$(document).ready(function() {
     		imageDirectoryCheck();
+    		
     		
     	});
     	
@@ -67,15 +68,15 @@
 	  	// 파일이 변경되면 이미지를 폴더에 저장하고 이미지를 변경해주는 함수
 	  	function handleFileSelection(event) {
 	  		const reader = new FileReader();
-	  		const file = event.target.files[0];
-	  		const filename = file.name;
+	  		let file = event.target.files[0];
+	  		let filename = file.name;
 	  		
-	  		var lastDot = filename.lastIndexOf('.') + 1;
-	  		const fileExtention = filename.substring(lastDot, filename.length);
+	  		let lastDot = filename.lastIndexOf('.') + 1;
+	  		let fileExtension = filename.substring(lastDot, filename.length);
 	  		
 	  		// 이미지 확장자 검증
-	  		let pictureExtentions = ['jpg', 'png', 'gif'];
-	  		if(pictureExtentions.includes(fileExtention)) {
+	  		let pictureExtensions = ['jpg', 'png', 'gif', 'jpeg'];
+	  		if(pictureExtensions.includes(fileExtension)) {
 	  			console.log('해당 확장자는 이미지 파일입니다.');
 	  			reader.readAsDataURL(file);
 	  		} else {
@@ -85,7 +86,7 @@
 	  		
 	  		reader.onload = function(event) {
 	  			const imageData = event.target.result;
-	  			const fileName = "new_image." + fileExtention;
+	  			const fileName = 'main_image_group_' + groupNo + '.' + fileExtension;
 	  			saveImageAjaxRequest(imageData, fileName);
 	  		};
 	  	}
@@ -125,16 +126,17 @@
 	    	  data: imagePath,
 	    	  contentType: 'application/json',
 	    	  success: function(response) {
-	    		  if(response) {
-	    			  console.log('파일이 존재합니다.');
-	    			  imageDiv.style.display = "block";
-	    			  imageDiv.src = '../image/groupMain/' + 'new_image.jpg';
-	    			  imageRegisterButton.style.display = "none";
-	    		  } else {
+	    		  let filename = response;
+	    		  if(filename === 'notFound') {
 	    			  console.log('파일이 존재하지 않습니다.');
 	    			  imageDiv.style.display = "none";
 	    			  imageDiv.src = "";
 	    			  imageRegisterButton.style.display = "block";
+	    		  } else {
+	    			  console.log('파일이 존재합니다.');
+	    			  imageDiv.style.display = "block";
+	    			  imageDiv.src = '../image/groupMain/' + filename;
+	    			  imageRegisterButton.style.display = "none";
 	    		  }
 	    	  },
 	    	  error: function(xhr, status, error) {

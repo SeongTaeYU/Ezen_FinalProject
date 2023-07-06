@@ -22,12 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.small.group.dto.GroupDTO;
 import com.small.group.dto.GroupMemberDTO;
 import com.small.group.dto.UserDTO;
 import com.small.group.entity.User;
 import com.small.group.service.GroupMemberService;
 import com.small.group.service.GroupService;
 import com.small.group.service.UserService;
+import java.util.ArrayList;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -139,9 +141,21 @@ public class UserController {
 						HttpSession session ) {
 		User user = (User) session.getAttribute("user");
 		Integer userNo = user.getUserNo();
-		List<GroupMemberDTO> groupMemberList = groupMemberService.getGroupMemberListByUser(user); 
+		List<GroupMemberDTO> groupMemberList = groupMemberService.getGroupMemberListByUser(user); // 그룹 번호만 저장된 리스트
+		List<UserDTO> getUser = userService.getUserByNo(userNo);
+
+		List<GroupDTO> groupList = new ArrayList<>(); // userNo 회원이 가입한 그룹을 담기 위한 리스트 선언
+		
+		for(GroupMemberDTO groupMember : groupMemberList) {
+			GroupDTO group = groupService.readGroup(groupMember.getGroupNo());
+			groupList.add(group);
+		}
+		
+		System.out.println("@@@@groupList : " + groupList);
 		
 		model.addAttribute("user", user);
-		model.addAttribute("groupMemberList", groupMemberList);
+		model.addAttribute("groupList", groupList);
+		model.addAttribute("getUser", getUser);
+		
 	}
 }

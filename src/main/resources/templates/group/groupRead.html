@@ -1,73 +1,56 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout2}">
-    <div layout:fragment="content" class="container my-3">
-        <h1 class="mt-4">Group Details</h1>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/groupIntroduce.css">
+    <link rel="stylesheet" href="/css/groupMainHeader.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <style>
+		body {
+			font-family: 'Noto Sans KR', sans-serif;
+		}
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div th:replace="~{etc/groupMainHeader::header}"></div>
+	<br/><br/>
         
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>그룹 NO:</th>
-                    <td th:text="${group.groupNo}"></td>
-                </tr>
-                <tr>
-                    <th>그룹명:</th>
-                    <td th:text="${group.groupName}"></td>
-                </tr>
-                <tr>
-                    <th>그룹설명:</th>
-                    <td th:text="${group.groupDescription}"></td>
-                </tr>
-                <tr>
-                    <th>그룹카테고리:</th>
-                    <td th:text="${group.groupCategoryName}"></td>
-                </tr>
-                <tr>
-                    <th>지역:</th>
-                    <td th:text="${group.regionName}"></td>
-                </tr>
-                <tr>
-                    <th>유저번호:</th>
-                    <td th:text="${group.userNo}"></td>
-                </tr>
-                <tr>
-                    <th>유저아이디:</th>
-                    <td th:text="${group.userId}"></td>
-                </tr>
-                <tr>
-                    <th>모임장:</th>
-                    <td th:text="${group.userName}"></td>
-                </tr>
-                <tr>
-                    <th>그룹 생성일:</th>
-                    <td th:text="${#temporals.format(group.regDate, 'yyyy/MM/dd')}"></td>
-                </tr>
-            </tbody>
-        </table>
-        <div>
-        <a th:href="@{/group/groupList}">
-            <button type="button" class="btn btn-outline-primary">전체리스트 </button>
-        </a>
-        <br>
-            <a th:href="@{/group/groupList(groupCategoryNo=${group.groupCategoryNo})}">
-                <button type="button" class="btn btn-outline-primary" th:text="${group.groupCategoryName + ' 리스트로 돌아가기'}"></button>
-            </a>
-        <br>
-        
-        <a th:href="@{/group/groupModify(groupNo = ${group.groupNo})}">
-            <button type="submit" class="btn btn-outline-success">Modify</button>
-        </a>
-        <br>
-		<a th:href="@{/group/groupDelete/{groupNo}(groupNo=${group.groupNo})}">
-            <button type="submit" class="btn btn-outline-warning">Delete</button>
-        </a>
-        <!-- 채팅방으로 가는 버튼 생성, 2023.07.03 -->
-        <br/><br/>
-        <a th:href="@{/group/groupIntroduce(groupNo = ${group.groupNo})}">
-        	<button class="btn btn-outline-primary">채팅방으로 이동하기</button>
-        </a>
-        
-        
+		 <a th:if="${userNo > 0}" th:href="@{/group/join(groupNo=${group.groupNo}, userNo=${userNo})}">
+		    <button class="btn btn-outline-primary">가입하기</button>
+		</a>
+		
+		 <a th:if="${deleteJoin}" th:href="@{/group/deleteJoin(groupNo=${group.groupNo})}"
+        		onclick="return confirm('모임장일 경우 모임이 삭제됩니다. 그래도 모임을 정말 탈퇴하시겠습니까?');">
+        	<button type="button" class="btn btn-outline-danger">탈퇴하기</button>
+    	</a>
+    <div class="group-main-container">
+        <img class="group-main-img" src="meeting_photo.jpg" alt="Meeting Photo" />
+
+        <div class="description-container">
+            <h3 class="group-title">자바와 함께하는 이젠 아카데미</h3>
+            <div class="description">
+                안녕하세요 저희 모임은 이젠 아카데미 입니다.<br/>
+                여기는 모임 소개글을 데이터로 받아서<br/>
+                표시해 주는 공간입니다.<br/>
+                innerHTML을 활용하여 작성할겁니다.♥<br/>
+            </div>
+        </div>
+
+        <div class="schedule-container">
+          <h3 class="schedule-title">Schedule</h3>
+          <div class="schedule">여기는 일정을 담을 공간입니다.</div>
+        </div>
+
+        <div class="group-member-container">
+          <h3 class="group-member-title">Group Member</h3>
+          <div class="group-member">그룹의 멤버들이 표시될 자리입니다.</div>
+        </div>
     </div>
-        
-    </div>
+    
+    
+</body>
 </html>

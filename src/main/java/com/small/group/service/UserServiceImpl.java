@@ -198,6 +198,14 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 	
+	@Override
+	public List<UserDTO> getUserByNo(Integer userNo) {
+		List<User> userByNo = userRepository.getUserByNo(userNo);
+		List<UserDTO> userDTOList = userByNo
+				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
+		return userDTOList;
+	}
+	
 	
 	
 }
