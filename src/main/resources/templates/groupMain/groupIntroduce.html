@@ -87,6 +87,7 @@
 	  		reader.onload = function(event) {
 	  			const imageData = event.target.result;
 	  			const fileName = 'main_image_group_' + groupNo + '.' + fileExtension;
+	  			imageDiv.src = event.target.result;
 	  			saveImageAjaxRequest(imageData, fileName);
 	  		};
 	  	}
@@ -105,7 +106,6 @@
 	  			contentType: 'application/json',
 	  			success: function(response) {
 	  				const message = response;
-	  				console.log(message);
 	  			},
 	  			error: function(xhr, status, error) {
 	  				console.err('ajax 요청 실패', error);
