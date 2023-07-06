@@ -47,21 +47,74 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    	$(document).ready(function() {
+    	const imagePath = 'src/main/resources/static/image/groupMain/' + 'new_image.jpg'; 
+	 	const imageDiv = document.getElementById('previewImage');
+	  	const imageRegisterButton = document.getElementById('imageRegisterButton'); // "배경 이미지를 등록하세요"
+	  	const imageInput = document.getElementById('imageInput');
+    	
+	  	imageRegisterButton.addEventListener('click', () => imageInput.click());
+// 	 	imageDiv.addEventListener('click', () => imageInput.click()); 
+// 		사진이 입력된 상태에서도 새로 입력이 가능
+	  	imageInput.addEventListener('change', () => handleFileSelection(event));
+	  	
+	  	
+	  	$(document).ready(function() {
     		imageDirectoryCheck();
     		
     	});
     	
+	  	
+	  	// 파일이 변경되면 이미지를 폴더에 저장하고 이미지를 변경해주는 함수
+	  	function handleFileSelection(event) {
+	  		const reader = new FileReader();
+	  		const file = event.target.files[0];
+	  		const filename = file.name;
+	  		
+	  		var lastDot = filename.lastIndexOf('.') + 1;
+	  		const fileExtention = filename.substring(lastDot, filename.length);
+	  		
+	  		// 이미지 확장자 검증
+	  		let pictureExtentions = ['jpg', 'png', 'gif'];
+	  		if(pictureExtentions.includes(fileExtention)) {
+	  			console.log('해당 확장자는 이미지 파일입니다.');
+	  			reader.readAsDataURL(file);
+	  		} else {
+	  			console.log('해당 파일은 이미지가 아닙니다.');
+	  			return;
+	  		}
+	  		
+	  		reader.onload = function(event) {
+	  			const imageData = event.target.result;
+	  			const fileName = "new_image." + fileExtention;
+	  			saveImageAjaxRequest(imageData, fileName);
+	  		};
+	  	}
+	  	
+	  	// 사진 base64String 문자열을 전달해서 새로운 이름으로 이미지를 저장하는 함수
+	  	function saveImageAjaxRequest(imageData, fileName) {
+	  		const formData = {
+	  				imageData: imageData,
+	  				fileName: fileName,
+	  		};
+	  		
+	  		$.ajax({
+	  			url: '/image/saveImage',
+	  			type: 'POST',
+	  			data: JSON.stringify(formData),
+	  			contentType: 'application/json',
+	  			success: function(response) {
+	  				const message = response;
+	  				console.log(message);
+	  			},
+	  			error: function(xhr, status, error) {
+	  				console.err('ajax 요청 실패', error);
+	  			}
+	  		});
+	  	}
       
 
-	  // 디렉터리에 이미지가 존재하는지 체크하는 함수
-	  function imageDirectoryCheck() {
-		  const imagePath = 'src/main/resources/static/image/groupMain/' + 'new_image.jpg'; 
-		  const imageDiv = document.getElementById('previewImage');
-  		  const imageRegisterButton = document.getElementById('imageRegisterButton'); // "배경 이미지를 등록하세요"
-  		  const imageInput = document.getElementById('imageInput');
-  		  
-  		imageRegisterButton.addEventListener('click', () => imageInput.click());
+	 	// 디렉터리에 이미지가 존재하는지 체크하고 등록해주는 함수
+	  	function imageDirectoryCheck() {
 		  /*
 			배경 이미지가 폴더에 존재하는 경우에는 바로 등록. 
 			존재하지 않는 경우에는 버튼이 보여지게 됨.
