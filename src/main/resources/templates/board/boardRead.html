@@ -52,8 +52,8 @@
             </tbody>
         </table>
         <div>
-        <a th:href="@{/board/boardList}">
-            <button type="button" class="btn btn-outline-primary">전체리스트</button>
+        <a th:href="@{/board/boardList(groupNo = ${board.groupNo})}">
+            <button type="button" class="btn btn-outline-primary">게시판</button>
         </a>
         <a th:href="@{/board/boardModify(boardNo = ${board.boardNo})}">
             <button type="button" class="btn btn-outline-success">수정</button>

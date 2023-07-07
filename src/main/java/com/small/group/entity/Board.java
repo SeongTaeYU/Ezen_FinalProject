@@ -1,5 +1,6 @@
 package com.small.group.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -62,4 +63,5 @@ public class Board extends BaseEntityWithTimeStamps {
 	
 	@OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Comment> commentList;
+	
 }

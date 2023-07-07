@@ -1,5 +1,6 @@
 package com.small.group.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.small.group.dto.BoardDTO;
 import com.small.group.dto.PageRequestDTO;
@@ -115,21 +117,16 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Board updateBoard(BoardDTO boardData) {
 		Optional<Board> data = boardRepository.findById(boardData.getBoardNo());
+		System.out.println("보드 업데이트 진입 완료");
 		if(data.isPresent()) {
 			Board targetEntity = data.get();
 			targetEntity.setBoardTitle(boardData.getBoardTitle());
 			targetEntity.setBoardContent(boardData.getBoardContent());
 			
-			BoardCategory boardCategory = boardCategoryRepository.findById(boardData.getBoardCategoryNo())
-					.orElseThrow(() -> new RuntimeException("카테고리 정보가 존재하지 않습니다."));
-			
-			Group group = groupRepository.findById(boardData.getGroupNo())
-					.orElseThrow(() -> new RuntimeException("그룹 정보가 존재하지 않습니다."));
-			
-			User user = userRepository.findById(boardData.getUserNo())
-					.orElseThrow(() -> new RuntimeException("회원 정보가 존재하지 않습니다."));
-			
-			targetEntity.setBoardCategory(boardCategory);
+			Optional<BoardCategory> optBoardCategory = boardCategoryRepository.findById(boardData.getBoardCategoryNo());
+			if(optBoardCategory.isPresent()) {
+				targetEntity.setBoardCategory(optBoardCategory.get());
+			}
 			
 			return boardRepository.save(targetEntity);
 		}
@@ -175,14 +172,9 @@ public class BoardServiceImpl implements BoardService {
 	 * 게시물 조회수 - 유성태
 	 */
 	@Override
-    public void updateBoardHit(Integer boardNo) {
-        Board board = boardRepository.findById(boardNo)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid board ID: " + boardNo));
-
-        // 조회수 증가 로직 추가
-        board.setBoardHit(board.getBoardHit() + 1);
-
-        boardRepository.save(board);
+    @Transactional
+    public void updateBoardHit(Integer boardNo, LocalDateTime recentModDate) {
+       boardRepository.countHit(boardNo, recentModDate);
     }
 	
 	@Override

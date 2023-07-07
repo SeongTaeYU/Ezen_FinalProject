@@ -1,5 +1,6 @@
 package com.small.group.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.small.group.dto.BoardDTO;
@@ -22,5 +23,5 @@ public interface BoardService {
     
     // 게시판 페이지
     public PageResultDTO<BoardDTO, Board> getBoardList(PageRequestDTO requestDTO);
-    void updateBoardHit(Integer boardNo);
+    void updateBoardHit(Integer boardNo, LocalDateTime recentModDate);
 }

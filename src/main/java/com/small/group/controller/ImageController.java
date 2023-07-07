@@ -32,11 +32,10 @@ public class ImageController {
 			FileOutputStream outputStream = new FileOutputStream(imagePath);
 			outputStream.write(imageBytes);
 			outputStream.close();
-			
-			return "이미지 저장에 대한 처리 실행 완료.";
+			return base64Data; 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "파일 입출력에 대한 에러가 발생하였습니다.";
+			return "fail";
 		} 
 	}
 	

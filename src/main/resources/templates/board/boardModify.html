@@ -4,42 +4,26 @@
             <form id="boardForm" name="boardForm" th:action="@{/board/boardModify}" method="post">
                 <input type="hidden" id="boardNo" name="boardNo" th:value="${board.boardNo}">
                 <div class="form-group">
-                    <label for="boardTitle">게시글 제목</label>
-                    <input type="text" class="form-control" id="boardTitle" name="boardTitle" th:value="${board.boardTitle}">
+                    <label for="boardTitle">제목</label>
+                    <input type="text" class="form-control" id="boardTitle" name="boardTitle" th:value="${board.boardTitle}" required>
                     <small class="text-danger" th:errors="${boardDTO.boardTitle}"></small>
                 </div>
                 <div class="form-group">
-                    <label for="boardContent">게시판 내용</label>
-                    <input type="text" class="form-control" id="boardContent" name="boardContent" th:value="${board.boardContent}">
+                    <label for="boardContent">내용</label>
+                    <input type="text" class="form-control" id="boardContent" name="boardContent" th:value="${board.boardContent}" required>
                     <small class="text-danger" th:errors="${boardDTO.boardContent}"></small>
                 </div>
                 <div class="form-group">
                     <label for="boardCategoryNo">게시판 카테고리</label>
-                    <select class="form-control" id="boardCategoryNo" name="boardCategoryNo" >
-                        <option value=" ">-- 그룹 카테고리 선택 --</option>
-                        <option th:each="boardCategory : ${boardCategoryList}" th:value="${boardCategory.boardCategoryNo}" th:text="${boardCategory.boardCategoryName}"></option>
+                    <select class="form-control" id="boardCategoryNo" name="boardCategoryNo">
+                        <option th:each="boardCategory : ${boardCategoryList}" th:value="${boardCategory.boardCategoryNo}" 
+                        		th:text="${boardCategory.boardCategoryName}"></option>
                     </select>
                     <small class="text-danger" th:errors="${boardDTO.boardCategoryNo}"></small>
                 </div>
-                <div class="form-group">
-                    <label for="groupNo">그룹 카테고리</label>
-                    <select class="form-control" id="groupNo" name="groupNo">
-                        <option value=" ">-- 그룹 선택 --</option>
-                        <option th:each="group : ${groupList}" th:value="${group.groupNo}" th:text="${group.groupName}"></option>
-                    </select>
-                    <small class="text-danger" th:errors="${boardDTO.groupNo}"></small>
-                </div>
-                <div class="form-group">
-                    <label for="userNo">모임장</label>
-                    <select class="form-control" id="userNo" name="userNo">
-                        <option value=" ">-- 모임장 선택 --</option>
-                        <option th:each="user : ${userList}" th:value="${user.userNo}" th:text="${user.name}"></option>
-                    </select>
-                    <small class="text-danger" th:errors="${boardDTO.userNo}"></small>             
-                </div>
                 
                 <button type="submit" id="btnSubmit" class="btn btn-primary">저장</button>
-                <a class="btn btn-danger" href="/board/boardList">취소</a>
+                <a class="btn btn-danger" th:href="@{/board/boardRead(boardNo = ${board.boardNo})}">취소</a>
             </form>
         </div>
     </div>
@@ -50,12 +34,24 @@
 <script>
 $(document).ready(function() {
 	
+	// 현제 게시판 카테고리를 드롭박스의 기본 값으로 지정해줌
+	var category = "[[${board.boardCategoryName}]]";
+	console.log(category);
+	let options = document.querySelectorAll('option');
+	for(var i=0; i<options.length; i++) {
+		if(options[i].innerText === category) {
+			options[i].setAttribute('selected', 'selected');
+		}
+	}
+	
     $('#btnSubmit').click(function(event) {
-       /* event.preventDefault();
+        event.preventDefault();
         var boardTitle = $('#boardTitle').val();
         var boardContent = $('#boardContent').val();
-        var boardCategory = $('#boardCategory').val();
-        var groupNo = $('#groupNo').val();
+//         var categorySelector = document.getElementById('categorySelector');
+//         var categoryOptions = document.querySelectorAll('#categoryOption');
+//         console.log(categoryOptions[categorySelector.selectedIndex].value);
+//         return;
         
         if (boardTitle.trim() === '') {
             alert('제목을 입력하세요.');
@@ -65,23 +61,7 @@ $(document).ready(function() {
         if (boardContent.trim() === '') {
             alert('내용을 입력하세요.');
             return;
-        }
-        
-        if (boardCategory.trim() === '') {
-            alert('게시판 카테고리를 선택하세요.');
-            return;
-        }
-        
-        if (groupNo.trim() === '') {
-            alert('그룹 카테고리를 선택하세요.');
-            return;
-        }
-        
-			if (userNo.trim() === '') {
-            alert('사용자를 선택하세요.');
-            return;
-        }  */
-        
+        }        
         $('#boardForm').submit();
     });
 });

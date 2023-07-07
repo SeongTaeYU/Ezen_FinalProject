@@ -1,13 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>게시판</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/groupMainHeader.css">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <style>
 .search-container {
 	display: flex;
@@ -243,6 +236,8 @@ border: 1px;
 }
 </style>
 
+<title>게시판</title>
+
 <script>
 	function performSearch() {
 		var searchKeyword = document.getElementById("searchInput").value;
@@ -270,53 +265,74 @@ border: 1px;
 	}
 </script>
 
-</head>
-<body>
-	<div th:replace="~{etc/groupMainHeader::header}"></div>
-	
+<h1 class="boardtitle">
+	<a th:href="@{/}" class="title">RE! crew</a> <span> 
 	<a th:href="@{/board/boardRegister}">
 			<button type="button" class="btn-outline-primary">글쓰기</button>
 	</a>
+	
+	</span>
+</h1>
 
-	<div class="table-container">
-		<div class="table-wrapper">
-			<table class="table">
-				<thead>
-					<tr>
-						<th scope="col">No</th>
-						<th scope="col">카테고리 <select id="categoryDropdown"
-							onchange="filterTableByCategory()">
-								<option value="">전체</option>
-								<option value="공지사항">공지사항</option>
-								<option value="가입인사">가입인사</option>
-								<option value="자유글">자유글</option>
-								<!-- Add more options as needed -->
-						</select>
-						</th>
-						<th scope="col">제목</th>
-						<th scope="col">작성자</th>
-						<th scope="col">조회수</th>
-						<th scope="col">작성일</th>
-						
-					</tr>
-				</thead>
-				<tbody>
-					<!-- Table rows -->
-					<tr th:each="board : ${boardList}">
-						<td th:text="${board.boardNo}"></td>
-						<td><span
-							th:classappend="${board.boardCategoryName == '공지사항'} ? 'category-notice' : ''"
-							th:text="${board.boardCategoryName}"></span></td>
-						<th scope="row"><a
-							th:href="@{/board/boardRead(boardNo = ${board.boardNo})}">[[${board.boardTitle}]]</a></th>
-						<td th:text="${board.userName}"></td>
-						<td th:text="${board.boardHit}"></td>
-						<td th:text="${#temporals.format(board.regDate, 'yyyy/MM/dd')}"></td>
-					</tr>
-				</tbody>
-			</table>
+<form action="/board/boardList" method="get" id="searchForm">
+	<div class="input-group">
+		<input type="hidden" name="page" value="1">
+
+		<div class="search-container">
+			<input type="text" id="searchInput" placeholder="키워드를 입력하세요"
+				onkeydown="if (event.keyCode === 13) performSearch()">
+			<button id="searchButton" type="button" onClick="performSearch()">검색</button>
 		</div>
 	</div>
+</form>
 
-</body>
+<div id="loginStatus">
+	<span th:if="${session.user != null}" id="logoutLink"> <label
+		class="loginUser">[[${session.user.name}]] 님</label> <a
+		th:href="@{/user/logout}" class="login">로그아웃</a>
+	</span> <span th:unless="${session.user != null}" id="loginLink"> <a
+		th:href="@{/user/login}" class="login">로그인</a>
+	</span>
+</div>
+<a th:href="@{/user/mypage}" class="mypage">마이페이지</a>
+
+<div class="table-container">
+	<div class="table-wrapper">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">No</th>
+					<th scope="col">카테고리 <select id="categoryDropdown"
+						onchange="filterTableByCategory()">
+							<option value="">전체</option>
+							<option value="공지사항">공지사항</option>
+							<option value="가입인사">가입인사</option>
+							<option value="자유글">자유글</option>
+							<!-- Add more options as needed -->
+					</select>
+					</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+					<th scope="col">조회수</th>
+					<th scope="col">작성일</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Table rows -->
+				<tr th:each="board : ${boardList}">
+					<td th:text="${board.boardNo}"></td>
+					<td><span
+						th:classappend="${board.boardCategoryName == '공지사항'} ? 'category-notice' : ''"
+						th:text="${board.boardCategoryName}"></span></td>
+					<th scope="row"><a
+						th:href="@{/board/boardRead(boardNo = ${board.boardNo})}">[[${board.boardTitle}]]</a></th>
+					<td th:text="${board.userName}"></td>
+					<td th:text="${board.boardHit}"></td>
+					<td th:text="${#temporals.format(board.regDate, 'yyyy/MM/dd')}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
 </html>

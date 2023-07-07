@@ -33,6 +33,7 @@ public class BoardCategoryServiceImpl implements BoardCategoryService {
 	public BoardCategoryDTO entityToDto(BoardCategory entity) {
 		BoardCategoryDTO dto = BoardCategoryDTO.builder()
 				.boardCategoryName(entity.getBoardCategoryName())
+				.boardCategoryNo(entity.getBoardCategoryNo())
 				.build();
 		return dto;
 	}

@@ -2,40 +2,27 @@
     <div layout:fragment="content" class="container my-3">
         <div>
             <form id="boardForm" name="boardForm" action="/board/boardRegister" th:action="@{/board/boardRegister}" method="post">
-                <div class="form-group">
-                    <label for="boardTitle">게시글 제목</label>
-                    <input type="text" class="form-control" id="boardTitle" name="boardTitle" th:value="${board.boardTitle}" required>
-                    <small class="text-danger" th:errors="${boardDTO.boardTitle}"></small>
-                </div>
-                <div class="form-group">
-                    <label for="boardContent">게시판 내용</label>
-                    <input type="text" class="form-control" id="boardContent" name="boardContent" th:value="${board.boardContent}">
-                    <small class="text-danger" th:errors="${boardDTO.boardContent}"></small>
-                </div>
-                <div class="form-group">
-                    <label for="boardCategoryNo">게시판 카테고리</label>
+                <input type="text" id="groupNo" name="groupNo" th:value="${group.groupNo}" readonly="readonly">
+                <input type="text" id="userNo" name="userNo" th:value="${session.user.userNo}" readonly="readonly">
+               <div class="form-group">
+                    <label for="boardCategoryNo">카테고리</label>
                     <select class="form-control" id="boardCategoryNo" name="boardCategoryNo" >
-                        <option value=" ">-- 게시판 카테고리 선택 --</option>
+                        <option value=" ">-- 카테고리 선택 --</option>
                         <option th:each="boardCategory : ${boardCategoryList}" th:value="${boardCategory.boardCategoryNo}" th:text="${boardCategory.boardCategoryName}"></option>
                     </select>
                     <small class="text-danger" th:errors="${boardDTO.boardCategoryNo}"></small>
                 </div>
                 <div class="form-group">
-                    <label for="groupNo">그룹</label>
-                    <select class="form-control" id="groupNo" name="groupNo" >
-                        <option value=" ">-- 게시판 구릅 선택 --</option>
-                        <option th:each="group : ${groupList}" th:value="${group.groupNo}" th:text="${group.groupName}"></option>
-                    </select>
-                    <small class="text-danger" th:errors="${boardDTO.groupNo}"></small>
+                    <label for="boardTitle">제목</label>
+                    <input type="text" class="form-control" id="boardTitle" name="boardTitle" th:value="${board.boardTitle}" required>
+                    <small class="text-danger" th:errors="${boardDTO.boardTitle}"></small>
                 </div>
                 <div class="form-group">
-                    <label for="userId">모임장</label>
-                    <select class="form-control" id="userNo" name="userNo">
-                        <option value=" ">-- 모임장 선택 --</option>
-                        <option th:each="user : ${userList}" th:value="${user.userNo}" th:text="${user.name}"></option>
-                    </select>
-                    <small class="text-danger" th:errors="${boardDTO.userNo}"></small>             
+                    <label for="boardContent">내용</label>
+                    <input type="text" class="form-control" id="boardContent" name="boardContent" th:value="${board.boardContent}">
+                    <small class="text-danger" th:errors="${boardDTO.boardContent}"></small>
                 </div>
+                
                 
                 <button type="submit" id="btnSubmit" class="btn btn-primary">저장</button>
                 <a class="btn btn-danger" href="/board/list">취소</a>

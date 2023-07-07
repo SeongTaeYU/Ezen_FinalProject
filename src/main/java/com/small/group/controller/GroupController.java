@@ -3,6 +3,7 @@ package com.small.group.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -126,6 +127,8 @@ public class GroupController {
     	List<UserDTO> userList = userService.getUserList();
     	model.addAttribute("userList", userList);
     	
+    	
+    	
     	return "group/groupInsert";
     }
 
@@ -147,6 +150,7 @@ public class GroupController {
 	@PostMapping("/groupInsert")
     public String insertGroup(@ModelAttribute("groupDTO") @Valid GroupDTO group, 
 							BindingResult bindingResult, 
+							HttpServletRequest request,
 							Model model) {
     	
     	System.out.println("test : " + group.toString());
@@ -173,7 +177,17 @@ public class GroupController {
         }
         
         // 검증 오류 없음
-        groupService.insertGroup(group);
+        HttpSession session = request.getSession();
+        User userEntity = (User)session.getAttribute("user");
+        Group groupEntity = groupService.insertGroup(group);        
+        
+        GroupMember groupMemberEntity = GroupMember.builder()
+                       .group(groupEntity)
+                       .user(userEntity)
+                       .build();
+        
+        GroupMemberDTO groupMemberDTO = groupMemberService.entityToDto(groupMemberEntity);
+        groupMemberService.insertGroupMember(groupMemberDTO); 
         
         return "redirect:/group/groupList";
     }
