@@ -147,76 +147,75 @@
 </style>
 </head>
 <body>
-<div th:replace="~{etc/mainContainer::header}"></div>
+	<div th:replace="~{etc/mainContainer::header}"></div>
 	
 
-		<div class="search-container">
-			
-			<form th:action="@{/group/groupList}" method="get">
-			    <input type="text" id="searchInput" name="searchKeyword" placeholder="키워드를 입력하세요">
-			    <button id="searchButton" type="submit">검색</button>
-			</form>
-		</div>
+	<div class="search-container">
+		
+		<form th:action="@{/group/groupList}" method="get">
+		    <input type="text" id="searchInput" name="searchKeyword" placeholder="키워드를 입력하세요">
+		    <button id="searchButton" type="submit">검색</button>
+		</form>
+	</div>
 
 	
-<div class="content-container">
-
-    <div class="headerTab">
-        <div class="headerTab-text">
-            <p style="white-space: nowrap; font-weight: bold; color: black; font-size: 2em;">
-			    <span th:text="${groupCategory.groupCategoryName}"></span>
-			</p>
-        </div>
-        <div class="headerTab-button">
-            <a th:href="@{/group/groupInsert}" class="createGroupButton">모임생성</a>
-        </div>
-         <div class="headerTab-button">
-            <a th:href="@{/}" class="createGroupButton">홈화면으로</a>
-        </div>
-    </div>
-    
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col" style="width: 1%; font-weight: bold;">No</th>
-                <th scope="col" style="width: 3%; font-weight: bold;">카테고리</th>
-                <th scope="col" style="width: 10%; font-weight: bold;">모임명</th>
-                <th scope="col" style="width: 10%; font-weight: bold;">모임소개</th>
-                <th scope="col" style="width: 1.5%; font-weight: bold;">지역명</th>
-                <th scope="col" style="width: 1.5%; font-weight: bold;">모임장</th>
-                <th scope="col" style="width: 1.5%; font-weight: bold;">모임원(?)</th>
-                <th scope="col" style="width: 1.5%; font-weight: bold;">개설일</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="group : ${filteredGroups}">
-                <td th:text="${group.groupNo}"></td>
-                <td style="text-align: center;">
-                    <div class="categoryreg"
-                        th:style="'background-color: ' + (${group.groupCategoryNo} == 1 ? 'rgb(225,132,132)' :
-                        (${group.groupCategoryNo} == 2 ? 'rgb(225,177,132)' :
-                        (${group.groupCategoryNo} == 3 ? 'rgb(225,221,132)' :
-                        (${group.groupCategoryNo} == 4 ? 'rgb(132,225,132)' :
-                        (${group.groupCategoryNo} == 5 ? 'rgb(132,197,225)' :
-                        (${group.groupCategoryNo} == 6 ? 'rgb(132,175,225)' :
-                        (${group.groupCategoryNo} == 7 ? 'rgb(173,132,225)' :
-                        'rgb(120,120,120)')))))) + ';')">
-                        <div class="카테고리1" th:text="${group.groupCategoryName}"></div>
-                    </div>
-                </td>
-                <td><a
-                    th:href="@{/group/groupIntroduce(groupNo=${group.groupNo})}">
-                        [[${group.groupName}]] </a></td>
-                <td th:text="${group.groupDescription}"></td>
-                <td th:text="${group.regionName}"></td>
-                <td th:text="${group.userName}"></td>
-                <td th:text="${group.groupNo}"></td>
-                <td th:text="${#temporals.format(group.modDate, 'yyyy/MM/dd')}"
-                    style="text-align: center;"></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+	<div class="content-container">
+	    <div class="headerTab">
+	        <div class="headerTab-text">
+	            <p style="white-space: nowrap; font-weight: bold; color: black; font-size: 2em;">
+				    <span th:text="${groupCategory.groupCategoryName}"></span>
+				</p>
+	        </div>
+	        <div class="headerTab-button">
+	            <a th:href="@{/group/groupInsert}" class="createGroupButton">모임생성</a>
+	        </div>
+	         <div class="headerTab-button">
+	            <a th:href="@{/}" class="createGroupButton">홈화면으로</a>
+	        </div>
+	    </div>
+	    
+	    <table class="table">
+	        <thead>
+	            <tr>
+	                <th scope="col" style="width: 1%; font-weight: bold;">No</th>
+	                <th scope="col" style="width: 3%; font-weight: bold;">카테고리</th>
+	                <th scope="col" style="width: 10%; font-weight: bold;">모임명</th>
+	                <th scope="col" style="width: 10%; font-weight: bold;">모임소개</th>
+	                <th scope="col" style="width: 1.5%; font-weight: bold;">지역명</th>
+	                <th scope="col" style="width: 1.5%; font-weight: bold;">모임장</th>
+	                <th scope="col" style="width: 1.5%; font-weight: bold;">모임원(?)</th>
+	                <th scope="col" style="width: 1.5%; font-weight: bold;">개설일</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr th:each="group : ${filteredGroups}">
+	                <td th:text="${group.groupNo}"></td>
+	                <td style="text-align: center;">
+	                    <div class="categoryreg"
+	                        th:style="'background-color: ' + (${group.groupCategoryNo} == 1 ? 'rgb(225,132,132)' :
+	                        (${group.groupCategoryNo} == 2 ? 'rgb(225,177,132)' :
+	                        (${group.groupCategoryNo} == 3 ? 'rgb(225,221,132)' :
+	                        (${group.groupCategoryNo} == 4 ? 'rgb(132,225,132)' :
+	                        (${group.groupCategoryNo} == 5 ? 'rgb(132,197,225)' :
+	                        (${group.groupCategoryNo} == 6 ? 'rgb(132,175,225)' :
+	                        (${group.groupCategoryNo} == 7 ? 'rgb(173,132,225)' :
+	                        'rgb(120,120,120)')))))) + ';')">
+	                        <div class="카테고리1" th:text="${group.groupCategoryName}"></div>
+	                    </div>
+	                </td>
+	                <td><a
+	                    th:href="@{/group/groupIntroduce(groupNo=${group.groupNo})}">
+	                        [[${group.groupName}]] </a></td>
+	                <td th:text="${group.groupDescription}"></td>
+	                <td th:text="${group.regionName}"></td>
+	                <td th:text="${group.userName}"></td>
+	                <td th:text="${group.groupNo}"></td>
+	                <td th:text="${#temporals.format(group.modDate, 'yyyy/MM/dd')}"
+	                    style="text-align: center;"></td>
+	            </tr>
+	        </tbody>
+	    </table>
+	</div>
 
 </body>
 </html>

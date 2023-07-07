@@ -162,11 +162,11 @@
 <div class="content-container">
 
     <div class="headerTab">
-        <div class="headerTab-text">
-            <p style="white-space: nowrap; font-weight: bold; color: black; font-size: 2em;">
-			    <span th:text="${groupCategory.groupCategoryName}"></span>
-			</p>
-        </div>
+        <div class="headerTab-text" th:if="${groupCategory != null}">
+		    <p style="white-space: nowrap; font-weight: bold; color: black; font-size: 2em;">
+		        <span th:text="${groupCategory.groupCategoryName}"></span>
+		    </p>
+		</div>
         <div class="headerTab-button">
             <a th:href="@{/group/groupInsert}" class="createGroupButton">모임생성</a>
         </div>
