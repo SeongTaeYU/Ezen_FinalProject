@@ -307,8 +307,9 @@ border: 1px;
 						<td><span
 							th:classappend="${board.boardCategoryName == '공지사항'} ? 'category-notice' : ''"
 							th:text="${board.boardCategoryName}"></span></td>
-						<th scope="row"><a
-							th:href="@{/board/boardRead(boardNo = ${board.boardNo})}">[[${board.boardTitle}]]</a></th>
+						<th scope="row">
+							<a th:href="@{/board/boardRead(boardNo = ${board.boardNo})}">[[${board.boardTitle}]]</a>
+						</th>
 						<td th:text="${board.userName}"></td>
 						<td th:text="${board.boardHit}"></td>
 						<td th:text="${#temporals.format(board.regDate, 'yyyy/MM/dd')}"></td>

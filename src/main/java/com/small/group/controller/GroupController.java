@@ -46,7 +46,6 @@ public class GroupController {
 	private final BoardCategoryService boardCategoryService;
 	
 	
-	
 	@GetMapping("/groupList")
 	public String getGroupList(PageRequestDTO pageRequestDTO,
 	                           @RequestParam(required = false) Integer groupCategoryNo,
@@ -64,6 +63,7 @@ public class GroupController {
 	    	List<GroupDTO> groupList = groupService.getGroupList(searchKeyword);
 	    	
 	    	model.addAttribute("groupList", groupList);
+	    	model.addAttribute("searchKeyword",searchKeyword);
 	    	
 	    	return "group/groupSearch";
 	    }
@@ -89,46 +89,37 @@ public class GroupController {
 		} else {
 			filteredGroups = result.getDtoList();
 		}
-
+		
+		log.info("groupCategory dto.toString() : " + groupCategoryDTO);
+		
 	    model.addAttribute("result", result);
 	    model.addAttribute("filteredGroups", filteredGroups);
 	    model.addAttribute("groupCategoryNo", groupCategoryNo);
 	    model.addAttribute("groupName", searchKeyword);
 	    model.addAttribute("groupCategory", groupCategoryDTO);
 	    
+	    
 	    return "group/groupList";
 	}
 	
 
-    // 그룹 등록폼(Get요청)
+    // 모임 등록창으로 이동
 	@GetMapping("/groupInsert")
     public String insertGroup(Model model, 
     		@ModelAttribute("groupDTO") GroupDTO groupDTO,
-    		@ModelAttribute("groupCategoryDTO") GroupCategoryDTO groupCategoryDTO,
-    		@ModelAttribute("regionDTO") RegionDTO regionDTO,
-    		@ModelAttribute("userDTO") UserDTO userDTO,
-    		BindingResult bindingResult,
-            PageRequestDTO pageRequestDTO,
-            HttpSession session
-            ) throws Exception {
+    		BindingResult bindingResult, HttpSession session) {
     	log.info("groupInsertForm");
     	
+    	// 회원이 세션에 존재하지 않을 경우 '로그인 화면'으로 이동함
     	User user = (User) session.getAttribute("user");
 	    if (user == null) {
 	    	return "redirect:/user/login";
 	    }
-    	//model.addAttribute(model);
-    	model.addAttribute("group", new Group());
     	
     	List<GroupCategoryDTO> groupCategoryList = groupCategoryService.getGroupCategoryList();
     	model.addAttribute("groupCategoryList", groupCategoryList);
     	List<RegionDTO> regionList = regionService.getRegionList();
     	model.addAttribute("regionList", regionList);
-    	List<UserDTO> userList = userService.getUserList();
-    	model.addAttribute("userList", userList);
-    	
-    	
-    	
     	return "group/groupInsert";
     }
 
@@ -148,17 +139,15 @@ public class GroupController {
 	 *  - 오류값 객체 전송  
      */
 	@PostMapping("/groupInsert")
-    public String insertGroup(@ModelAttribute("groupDTO") @Valid GroupDTO group, 
+    public String insertGroup(@ModelAttribute("groupDTO") GroupDTO groupDTO, 
 							BindingResult bindingResult, 
 							HttpServletRequest request,
 							Model model) {
     	
-    	System.out.println("test : " + group.toString());
-    	log.info("register process group.toString : "+ group.toString());
+    	log.info("register process group.toString : "+ groupDTO.toString());
 
         // 검증시 오류 있으면
         if (bindingResult.hasErrors()) {
-        	
             // Log field errors
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
             for (FieldError error : fieldErrors) {
@@ -170,25 +159,25 @@ public class GroupController {
         	model.addAttribute("regionList", regionList);
         	List<UserDTO> userList = userService.getUserList();
         	model.addAttribute("userList", userList);
-            model.addAttribute("group", group);
+            model.addAttribute("group", groupDTO);
             log.info("groupInsert");
             
             return "group/groupInsert";
         }
-        
         // 검증 오류 없음
         HttpSession session = request.getSession();
         User userEntity = (User)session.getAttribute("user");
-        Group groupEntity = groupService.insertGroup(group);        
-        
+        System.out.println("userNoOO: " + groupDTO.getUserNo());
+        Group groupEntity = groupService.insertGroup(groupDTO); 
         GroupMember groupMemberEntity = GroupMember.builder()
                        .group(groupEntity)
                        .user(userEntity)
                        .build();
         
         GroupMemberDTO groupMemberDTO = groupMemberService.entityToDto(groupMemberEntity);
-        groupMemberService.insertGroupMember(groupMemberDTO); 
+        groupMemberService.insertGroupMember(groupMemberDTO);
         
+        // 20230707 23:55 현재 테스트중 
         return "redirect:/group/groupList";
     }
 
@@ -267,20 +256,19 @@ public class GroupController {
 			return  "/group/groupRead";
         }
 
-	//그룹에 신규 가입하기
+	// 회원 그룹 가입하기
     @GetMapping("/join")
     public String joinGroup(@RequestParam("groupNo") Integer groupNo,
-            @RequestParam("userNo") Integer userNo,
+            @RequestParam("userNo") Integer userNo, Model model,
             HttpSession session) {
     	
 
 		GroupMemberDTO groupMemberData = new GroupMemberDTO();
 		groupMemberData.setGroupNo(groupNo);
 		groupMemberData.setUserNo(userNo);
-		
 		groupMemberService.insertGroupMember(groupMemberData);
-		
-		return "redirect:/group/groupRead?groupNo=" + groupNo;
+    	
+		return "redirect:/group/groupIntroduce?groupNo=" + groupNo;
 	}
     
     
@@ -310,7 +298,7 @@ public class GroupController {
         
         groupMemberService.deleteGroupMember(groupMemberNo);
         
-        return "redirect:/group/groupRead?groupNo=" + groupNo;
+        return "redirect:/group/groupIntroduce?groupNo=" + groupNo;
     }
 	
     /*
@@ -474,8 +462,17 @@ public class GroupController {
      *	모임 소개글로 이동하는 함수
      */
     @GetMapping("/groupIntroduce")
-    public String groupIntroduce(Model model, @RequestParam("groupNo") Integer groupNo) {
+    public String groupIntroduce(Model model, @RequestParam("groupNo") Integer groupNo,
+    							 HttpSession session) {
+    	User user = (User)session.getAttribute("user");
+    	boolean isUserBelongsToGroup = false;
+    	if(user != null) {
+    		Integer result = groupMemberService.isMemberOfGroup(user.getUserNo(), groupNo); // 회원이 그룹에 속해있는지 여부
+    		if(result > 0) { isUserBelongsToGroup = true; } // 그룹에 속해 있음을 true로 변경
+    	}
+    	
     	model.addAttribute("groupNo", groupNo);
+    	model.addAttribute("userExists", isUserBelongsToGroup);
     	return "/groupMain/groupIntroduce";
     }
     

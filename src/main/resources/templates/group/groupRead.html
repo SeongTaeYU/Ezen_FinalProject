@@ -21,12 +21,12 @@
         
 		 <a th:if="${userNo > 0}" th:href="@{/group/join(groupNo=${group.groupNo}, userNo=${userNo})}">
 		    <button class="btn btn-outline-primary">가입하기</button>
-		</a>
+		 </a>
 		
 		 <a th:if="${deleteJoin}" th:href="@{/group/deleteJoin(groupNo=${group.groupNo})}"
         		onclick="return confirm('모임장일 경우 모임이 삭제됩니다. 그래도 모임을 정말 탈퇴하시겠습니까?');">
         	<button type="button" class="btn btn-outline-danger">탈퇴하기</button>
-    	</a>
+    	 </a>
     <div class="group-main-container">
         <img class="group-main-img" src="meeting_photo.jpg" alt="Meeting Photo" />
 

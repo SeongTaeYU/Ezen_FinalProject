@@ -1,5 +1,5 @@
 .group-main-container {
-	width: 55%;
+	width: 45%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -76,3 +76,34 @@
 .hidden-input {
 	display: none;
 }
+.joinButton {
+	width: 100%;
+	height: 100px;
+	margin-top: 10px;
+	font-size: 24px;
+	font-weight: bold;
+	background-color: #b6eff3;
+	color: #3c3c3c;
+	letter-spacing: 3px;
+	border: none;
+	border-radius: 0.35rem;
+	box-shadow: 2px 2px 4px rgb(0, 0, 0, 0.4);
+}
+
+.leaveButton {
+	width: 100%;
+	height: 100px;
+	margin-top: 10px;
+	font-size: 24px;
+	font-weight: bold;
+	background-color: #c8f4bb;
+	color: #3c3c3c;
+	letter-spacing: 3px;
+	border: none;
+	border-radius: 0.35rem;
+	box-shadow: 2px 2px 4px rgb(0, 0, 0, 0.4);
+}
+.joinButton:hover, .leaveButton:hover {
+	cursor: pointer;
+}	
+		

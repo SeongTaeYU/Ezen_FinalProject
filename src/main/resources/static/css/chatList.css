@@ -13,7 +13,7 @@ body {
  width: 55%;
  border: 1px solid #ccc;
  overflow: auto;
- height: 500px;
+ height: 60vh;
 }
 
 .chat-messages {
@@ -68,8 +68,7 @@ textarea {
  white-space: nowrap;
 }
 .chat-messages {
-    height: 100%; 
-    max-height: 500px; /* 대화창의 최대 높이 */
+	height: 55vh;
     overflow-y: scroll; /* 세로 스크롤을 표시하도록 설정 */
 }
 .chat-messages::-webkit-scrollbar {

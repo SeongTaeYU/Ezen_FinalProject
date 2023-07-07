@@ -45,7 +45,6 @@ public class BoardController {
 	private final BoardCategoryService boardCategoryService;
 	private final GroupService groupService;
 	private final UserService userService;
-	private final CommentService commentService;
 	private final GroupMemberService groupMemberService;
 	
 	// 게시글 조회
@@ -60,7 +59,7 @@ public class BoardController {
 		GroupDTO groupDto = groupService.readGroup(groupNo);
 		
 		
-		// 로그인 된 회원 정보가 모임의 회원 정보가 같을 경우에 '그룹 생성' 버튼의 유무를 전달함.
+		// 로그인 된 회원 정보가 모임의 회원 정보가 같을 경우에 '게시글 생성' 버튼의 유무를 전달함.
 		Integer isMemberIncludedGroup = groupMemberService.isMemberOfGroup(user.getUserNo(), groupNo);
 		if(isMemberIncludedGroup > 0) {
 			model.addAttribute("boardCreateButton", true);
@@ -72,103 +71,113 @@ public class BoardController {
 		model.addAttribute("boardList", boardList);
 	}
 	
-   // 게시판 한개 조회
-   @GetMapping("/boardRead")
-   public void readBoard(@RequestParam Integer boardNo, Model model, HttpSession session) {
-         
-       BoardDTO dto = boardService.readBoard(boardNo);
-       LocalDateTime recentModDate = dto.getModDate();
-         
-       // 게시물 조회수 증가
-       boardService.updateBoardHit(boardNo, recentModDate);
-       dto = boardService.readBoard(boardNo);
-       log.info("dto2.toString() : " + dto.toString());
-       model.addAttribute("board", dto);
-   }
-	
-	// 게시글 등록 폼
-	@GetMapping("/boardRegister")
-	public void registerBoard(@ModelAttribute("boardDTO") BoardDTO boardDTO,
-						@ModelAttribute("boardCategoryDTO") BoardCategoryDTO boardCategoryDTO,
-						@ModelAttribute("groupDTO") GroupDTO groupDTO,
-						@ModelAttribute("userDTO") UserDTO userDTO,
-						BindingResult bindingResult,
-						Model model) {
-		log.info("@@@@@@@@@@@boardRegister Form");
-		model.addAttribute("board", new Board());
-		
-		List<BoardCategoryDTO> boardCategoryList = boardCategoryService.getBoardCategoryList();
-		model.addAttribute("boardCategoryList", boardCategoryList);
-		
-		List<GroupDTO> groupList = groupService.getGroupList();
-		model.addAttribute("groupList", groupList);
-		
-		List<UserDTO> userList = userService.getUserList();
-		model.addAttribute("userList", userList);
+	// 게시판 한개 조회
+	@GetMapping("/boardRead")
+	public String readBoard(@RequestParam Integer boardNo, Model model, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+	    if (user == null) {
+	    	return "redirect:/user/login";
+	    }  
+	    BoardDTO dto = boardService.readBoard(boardNo);
+	    LocalDateTime recentModDate = dto.getModDate();
+	    // 게시물 조회수 증가
+	    boardService.updateBoardHit(boardNo, recentModDate);
+	    dto = boardService.readBoard(boardNo);
+	    log.info("dto2.toString() : " + dto.toString());
+	    model.addAttribute("board", dto);
+	    return "board/boardRead";
 	}
 	
-	
-	// 게시글 등록
-	@PostMapping("/boardRegister")
-	public String registerBoard(@ModelAttribute("boardDTO") @Valid BoardDTO boardDTO,
+	// 게시물 등록 폼
+		@GetMapping("/boardRegister")
+		public String registerBoard(@ModelAttribute("boardDTO") BoardDTO boardDTO,
+							@ModelAttribute("boardCategoryDTO") BoardCategoryDTO boardCategoryDTO,
+							@ModelAttribute("groupDTO") GroupDTO groupDTO,
+							@ModelAttribute("userDTO") UserDTO userDTO,
 							BindingResult bindingResult,
+							HttpSession session,
 							Model model) {
-		System.out.println("test: " + boardDTO.toString());
-		log.info("register process group.toString: " + boardDTO.toString());
-		
-		// 검증시 오류 있으면
-		if(bindingResult.hasErrors()) {
-
-			// Log field errors
-			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-			
-			for (FieldError error : fieldErrors) {
-				log.error(error.getField() + " " + error.getDefaultMessage());
+			log.info("@@@@@@@@@@@boardRegister Form");
+			User user = (User) session.getAttribute("user");
+			if (user == null) {
+				return "redirect:/user/login";
 			}
+			model.addAttribute("board", new Board());
+			List<BoardCategoryDTO> boardCategoryList = boardCategoryService.getBoardCategoryList();
+			model.addAttribute("boardCategoryList", boardCategoryList);
+			model.addAttribute("group", groupDTO);
+			
+			return "board/boardRegister";
+		}
+	
+	
+		// 게시판 등록
+		@PostMapping("/boardRegister")
+		public String registerBoard(@ModelAttribute("boardDTO") @Valid BoardDTO boardDTO,
+								BindingResult bindingResult,
+								Model model,
+								HttpSession session) {
+			System.out.println("test: " + boardDTO.toString());
+			log.info("register process group.toString: " + boardDTO.toString());
+			
+			User user = (User) session.getAttribute("user");
+			if (user == null) {
+				return "redirect:/user/login";
+			}
+			
+			// 검증시 오류 있으면
+			if(bindingResult.hasErrors()) {
+
+				// Log field errors
+				List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+				
+				for (FieldError error : fieldErrors) {
+					log.error(error.getField() + " " + error.getDefaultMessage());
+				}
+				
+				List<BoardCategoryDTO> boardCategoryList = boardCategoryService.getBoardCategoryList();
+				model.addAttribute("boardCategoryList", boardCategoryList);
+				
+				List<GroupDTO> groupList = groupService.getGroupList();
+				model.addAttribute("groupList", groupList);
+				
+				List<UserDTO> userList = userService.getUserList();
+				model.addAttribute("userList", userList);
+				
+				model.addAttribute("board", boardDTO);
+				log.info("boardRegister");
+				
+				return "board/boardRegister";
+			}
+			Integer groupNo = boardDTO.getGroupNo();
+			
+			// 검증 오류 없으면
+			boardService.insertBoard(boardDTO);
+			return "redirect:/board/boardList?groupNo=" + groupNo;
+		}
+	
+		// 게시판 수정 폼
+		@GetMapping("/boardModify")
+		public String updateBoardForm(@RequestParam Integer boardNo,
+									@ModelAttribute("boardDTO") BoardDTO boardDTO,
+									BindingResult bindingResult,
+									Model model,
+									HttpSession session) {
+			log.info("boardModify Form");
+			User user = (User) session.getAttribute("user");
+			if (user == null) {
+				return "redirect:/user/login";
+			}
+			
+			BoardDTO dto = boardService.readBoard(boardNo);
+			System.out.println("dto.toString: " + dto.toString());
+			model.addAttribute("board", dto);
 			
 			List<BoardCategoryDTO> boardCategoryList = boardCategoryService.getBoardCategoryList();
 			model.addAttribute("boardCategoryList", boardCategoryList);
 			
-			List<GroupDTO> groupList = groupService.getGroupList();
-			model.addAttribute("groupList", groupList);
-			
-			List<UserDTO> userList = userService.getUserList();
-			model.addAttribute("userList", userList);
-			
-			model.addAttribute("board", boardDTO);
-			log.info("boardRegister");
-			
-			return "board/boardRegister";
+			return "board/boardModify";
 		}
-		Integer groupNo = boardDTO.getGroupNo();
-		
-		// 검증 오류 없으면
-		boardService.insertBoard(boardDTO);
-		return "redirect:/board/boardList?groupNo=" + groupNo;
-	}
-	
-	// 게시글 수정 폼
-	@GetMapping("/boardModify")
-	public void updateBoardForm(@RequestParam Integer boardNo,
-								@ModelAttribute("boardDTO") BoardDTO boardDTO,
-								BindingResult bindingResult,
-								Model model) {
-		log.info("boardModify Form");
-		
-		BoardDTO dto = boardService.readBoard(boardNo);
-		System.out.println("dto.toString: " + dto.toString());
-		model.addAttribute("board", dto);
-		
-		List<BoardCategoryDTO> boardCategoryList = boardCategoryService.getBoardCategoryList();
-		model.addAttribute("boardCategoryList", boardCategoryList);
-		
-		List<GroupDTO> groupList = groupService.getGroupList();
-		model.addAttribute("groupList", groupList);
-		
-		List<UserDTO> userList = userService.getUserList();
-		model.addAttribute("userList", userList);
-		
-	}
 	
 	
 	// 게시글 수정
@@ -207,7 +216,12 @@ public class BoardController {
 	// 게시물 삭제 수정
 	@PostMapping("/boardDelete/{boardNo}")
 	public String deleteBoard(@PathVariable("boardNo") Integer boardNo,
-							Model model) {
+							Model model,
+							HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
 		BoardDTO boardDTO = boardService.readBoard(boardNo);
 		Integer groupNo = boardDTO.getGroupNo();
 		boolean deleted = boardService.deleteBoard(boardNo);

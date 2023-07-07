@@ -117,16 +117,15 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Board updateBoard(BoardDTO boardData) {
 		Optional<Board> data = boardRepository.findById(boardData.getBoardNo());
-		System.out.println("보드 업데이트 진입 완료");
 		if(data.isPresent()) {
 			Board targetEntity = data.get();
 			targetEntity.setBoardTitle(boardData.getBoardTitle());
 			targetEntity.setBoardContent(boardData.getBoardContent());
 			
-			Optional<BoardCategory> optBoardCategory = boardCategoryRepository.findById(boardData.getBoardCategoryNo());
-			if(optBoardCategory.isPresent()) {
-				targetEntity.setBoardCategory(optBoardCategory.get());
-			}
+			BoardCategory boardCategory = boardCategoryRepository.findById(boardData.getBoardCategoryNo())
+					.orElseThrow(() -> new RuntimeException("카테고리 정보가 존재하지 않습니다."));
+			
+			targetEntity.setBoardCategory(boardCategory);
 			
 			return boardRepository.save(targetEntity);
 		}

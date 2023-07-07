@@ -229,16 +229,17 @@ $(document).ready(function() {
     	$('#idResult').addClass('errorMsg').text('아이디 중복체크 후 다음으로 진행됩니다.');
     }
     
+
     
     $("#idExist").on('click', function(e) {
         var userId = $("input[name='userId']").val();
         idCheck = 0;
         
-        /* if (userId.trim() === '' || userId.trim() === null){
+        if (userId.trim() === '' || userId.trim() === null ){
         	alert("아이디는 공백이 올 수 없습니다.")
         	return;
-        } */
-        userId.replace(/\s/gi, "");
+        }
+        
         $.ajax({
             url: '/user/idcheck',
             type: 'post',
@@ -300,6 +301,40 @@ $(document).ready(function() {
     function disableSubmitButton() {
         $(".btnSubmit").prop("disabled", true);
     }
+    
+    function noSpaceForm(obj) {
+        var trimmedValue = obj.value.replace(/\s/g, ''); // 모든 공백을 제거하는 정규식을 사용하여 공백 제거
+        obj.value = trimmedValue; // 공백 제거한 값으로 다시 설정
+    }
+
+    $("input[name='userId']").on('keyup', function(e) {
+        var trimmedId = $(this).val().trim(); // 입력된 아이디에서 공백을 제거한 값
+        $(this).val(trimmedId); // 입력 필드에 공백 제거한 값으로 다시 설정
+    });
+
+    $("#regForm").on('submit', function(e) {
+        var trimmedId = $("input[name='userId']").val().trim(); // 아이디에서 공백 제거한 값
+        $("input[name='userId']").val(trimmedId); // 아이디 필드에 공백 제거한 값으로 다시 설정
+        
+        // 정규식을 사용하여 아이디 형식 검증
+        var userId = $("input[name='userId']").val();
+        var idRegex = /^[a-zA-Z0-9]{4,12}$/;
+        if (!idRegex.test(userId)) {
+            e.preventDefault(); // 회원가입 폼 제출 막기
+            alert("아이디는 영문 대소문자와 숫자로 이루어진 4~12자리여야 합니다.");
+            return;
+        }
+        
+        // 정규식을 사용하여 비밀번호 형식 검증
+        var password = $("input[name='password']").val();
+        var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        if (!passwordRegex.test(password)) {
+            e.preventDefault(); // 회원가입 폼 제출 막기
+            alert("비밀번호는 영문자와 숫자를 포함한 8자리 이상이어야 합니다.");
+            return;
+        }
+    });
+    
 });
 </script>
 
@@ -311,7 +346,7 @@ $(document).ready(function() {
 	</div>
 	<form name='regForm' id='regForm' th:action="@{/user/register}" method="post">
 		<label class="id1">ID</label>
-		<input class="idtext" type="text" name="userId" placeholder="아이디">
+		<input class="idtext" type="text" name="userId" placeholder="아이디" onkeyup="noSpaceForm(this)">
 		<button class="checkBtn" type="button" id="idExist">중복확인</button>
 		<p id="idResult"></p>
 

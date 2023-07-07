@@ -5,12 +5,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.aspectj.weaver.patterns.HasMemberTypePatternForPerThisMatching;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.small.group.dto.GroupCategoryDTO;
@@ -67,4 +69,5 @@ public class HomeController {
 	    model.addAttribute("result", result);
 		return "home";
 	}
+	
 }

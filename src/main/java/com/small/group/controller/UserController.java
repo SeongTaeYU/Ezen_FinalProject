@@ -119,7 +119,7 @@ public class UserController {
 			return "user/registerForm";
 		}
 		userService.insertUser(userDTO);
-		return "redirect:/";
+		return "redirect:/user/login";
 	}
 	
 	@PostMapping("/idcheck")

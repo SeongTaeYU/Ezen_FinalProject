@@ -33,14 +33,12 @@ public class ServiceTest {
 	@Autowired
 	private GroupService groupService;
 	
+	@Autowired
+	private GroupMemberService groupMemberService;
+	
 	@Test
 	public void test() {
-		String keyword = "오리";
-		List<GroupDTO> groupList = groupService.getGroupList(keyword);
-		
-		for(GroupDTO dto : groupList) {
-			System.out.println("Group Name: " + dto.getGroupCategoryName());
-			System.out.println("Group Description: " + dto.getGroupDescription());
-		}
+		Integer isMember = groupMemberService.isMemberOfGroup(2, 10);
+		System.out.println("TEST: " + isMember);
 	}
 }
