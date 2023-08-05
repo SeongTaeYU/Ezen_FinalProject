@@ -1,0 +1,244 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.title-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.title {
+    color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929, 1);
+    font-family: Fugaz One;
+    text-align: center;
+	font-size: 96px;
+	text-decoration: none;
+}
+
+.loginInfo {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 30px;
+    margin-right: 30px;
+}
+.loginUser {
+    color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+    font-family: Halant;
+	text-decoration: none;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	font-size: 40px;
+}
+.login {
+	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 227px;
+	height: 37px;
+    font-family: Halant;
+	text-decoration: none;
+	text-align: center;
+	font-size: 32px;
+}
+.logout {
+    color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 227px;
+	height: 37px;
+    font-family: Halant;
+	text-decoration: none;
+	text-align: center;
+	font-size: 32px;
+}
+.mypage {
+    color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 227px;
+	height: 37px;
+    font-family: Halant;
+	text-align: center;
+	text-decoration: none;
+	font-size: 32px;
+	margin-left: 10px;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+    margin-bottom: 100px;
+}
+.search-container input[type="text"] {
+    padding: 12px;
+    font-size: 18px;
+    border: 2px solid skyblue;
+    border-radius: 5px;
+    width: 850px;
+    height: 50px;
+    margin-right: 15px;
+    outline: none;
+}
+.search-container button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: skyblue;
+    color: #fff;
+}
+/* 가로 줄에 4개씩 */
+.category-container-col-4 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 30px;
+    white-space: nowrap;
+}
+/* groupCategoryItem(Container) */
+.categoryButtonContainer { 
+    width: 150px;
+	height: 200px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 60px;
+}
+/* groupCategoryIcon */
+.categoryIcon {
+	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929,
+		0.15000000596046448);
+    border-radius: 20px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+   
+}
+.categoryIcon:hover {
+	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.45);
+	left: -3px;
+	top: -3px;
+}
+/* groupCategoryIconImage */
+.categoryIcon img {
+    width: 80%;
+	height: 80%;
+	object-fit: contain;
+	margin-bottom: 20%;
+}
+/* groupCategoryName */
+.categoryName {
+    color: rgba(153.00000607967377, 137.06250607967377, 137.06250607967377, 1);
+    font-family: Encode Sans Expanded;
+	text-align: center;
+	font-size: 26px;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 15px;
+}
+
+@media(max-width: 1280px) {
+	.title { 
+		font-size: 54px;
+		margin-top: 10px;
+	}
+	.loginUser {
+		font-size: 28px;
+	}
+	.login {
+		font-size: 22px;
+	}
+	.logout {
+		font-size: 22px;
+	}
+	.mypage {
+		font-size: 22px;
+	}
+	.search-container input[type="text"] {
+	    padding: 12px;
+	    font-size: 14px;
+	    width: 550px;
+	    height: 40px;
+	    margin-right: 15px;
+	}
+}
+
+@media(max-width: 768px) {
+	.title { 
+		font-size: 40px;
+		margin-top: 10px;
+	}
+	.loginUser {
+		font-size: 18px;
+	}
+	.logout {
+		font-size: 16px;
+	}
+	.mypage {
+		font-size: 16px;
+	}
+	.search-container {
+		margin-bottom: 10px;
+	}
+	.search-container input[type="text"] {
+	    padding: 12px;
+	    font-size: 12px;
+	    width: 400px;
+	    height: 30px;
+	    margin-right: 15px;
+	}
+	.categoryButtonContainer { 
+	    width: 120px;
+		height: 150px;
+	    margin-right: 20px;
+	}
+}
+
+@media(max-width: 550px) {
+	.title { 
+		font-size: 36px;
+		margin-top: 10px;
+	}
+	.loginInfo {
+		margin-right: 5px;
+		margin-top: 10px;
+	}
+	.loginUser {
+		font-size: 14px;
+	}
+	.login {
+		font-size: 12px;
+		margin-right: 10px;
+	}
+	.logout {
+		font-size: 12px;
+	}
+	.mypage {
+		font-size: 12px;
+	}
+	.search-container {
+		margin-bottom: 10px;
+	}
+	.search-container input[type="text"] {
+	    padding: 12px;
+	    font-size: 12px;
+	    width: 250px;
+	    height: 20px;
+	    margin-right: 15px;
+	}
+	.categoryButtonContainer { 
+	    width: 75px;
+		height: 100px;
+	    margin-right: 20px;
+	}
+	.categoryName {
+		font-size: 15px;
+	}
+}

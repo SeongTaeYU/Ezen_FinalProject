@@ -1,253 +1,180 @@
-.header {
-	overflow: hidden;
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300&display=swap');
+
+header, body {
+  font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
-.header{
-	background-color: rgba(255, 255, 255, 1);
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	
+.mypage-container {
+	width: 70%;
+	margin: 0 auto;
 }
-
+.title-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
 .title {
-	color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929, 1);
+    color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929, 1);
+    font-family: Fugaz One;
+    text-align: center;
+	font-size: 96px;
+	text-decoration: none;
+	font-family: 'Caprasimo', cursive;
+}
+
+.loginInfo {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 30px;
+    margin-right: 30px;
+}
+
+.loginUser {
+    color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+    font-family: Halant;
+	text-decoration: none;
+	text-align: center;
 	width: 100%;
 	height: 100%;
-	left: 50%;
-	top: 30px;
-	font-family: Fugaz One;
-	text-align: center;
-	font-size: 96px;
-	letter-spacing: 0;
+	font-size: 40px;
+}
+
+.logout {
+    color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 227px;
+	height: 37px;
+    font-family: Halant;
 	text-decoration: none;
+	text-align: center;
+	font-size: 32px;
 }
 
-.mypage
-{
-color:#000000;
-text-align:left;
-vertical-align:text-middle;
-font-size:20px;
-font-family:Halant;
-left:480px;
-top:150px;
-width:1000px;
-height:37px;
-position:absolute;
-line-height:auto;
-border-style:hidden;
-outline:none;
+.mypage {
+    color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
+	width: 227px;
+	height: 37px;
+    font-family: Halant;
+	text-align: center;
+	text-decoration: none;
+	font-size: 32px;
+	margin-left: 10px;
 }
 
-.line1
-{
-width:1000px;
-transform:rotate(0);
-border:1px solid #c0c0c0;
-top:250px;
-left:470px;
-position:absolute;
+.line {
+	border: 1px solid #c0c0c0;
+	border-radius: 0;
+	width: 100%;
+	height: 0px;
 }
 
-.basicInfo
-{
-color:#666666;
-text-align:left;
-vertical-align:text-middle;
-font-size:20px;
-font-family:Halant;
-left:600px;
-top:250px;
-width:156px;
-height:37px;
-position:absolute;
-line-height:auto;
-border-style:hidden;
-outline:none;
+.box {
+	border: 2px solid #87ceeb;
+	border-radius: 15px;
+	width: 700px;
+	height: 200px;
+	margin-left: 150px;
+	font-family: var(--font-family);
+	font-weight: 400;
+	font-size: 32px;
+	text-align: center;
+	color: #000;
 }
 
-.userBox1
-{
-background-color:rgba(217, 217, 217, 0);
-height:300px;
-width:700px;
-border-radius:15px;
-border:2px solid #87ceeb;
-top:330px;
-left:600px;
-position:absolute;
+.mypage-container table {
+	width: 100%;
+	table-layout: fixed;
+	margin-top: 20px;
+	border-collapse: collapse;
 }
 
-.userId
-{
-color:#000000;
-text-align:left;
-vertical-align:text-middle;
-font-size:25px;
-font-family:Halant;
-left:150px;
-top:40px;
-width:100px;
-height:47px;
-position:absolute;
-line-height:auto;
-border-style:hidden;
-outline:none;
+.categoryreg {
+	background-color: rgba(205, 50, 50, 0.6000000238418579);
+	height: 30px;
+	width: 110px;
+	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+	border-radius: 30px;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
 }
 
-.userName
-{
-color:#000000;
-text-align:left;
-vertical-align:text-middle;
-font-size:25px;
-font-family:Halant;
-left:150px;
-top:130px;
-width:100px;
-height:47px;
-position:absolute;
-line-height:auto;
-border-style:hidden;
-outline:none;
+.카테고리1 {
+	color: #ffffff;
+	text-align: center;
+	font-size: 20px;
+	font-family: Halant;
+	line-height: normal;
+	border-style: hidden;
+	outline: none;
 }
 
-.userPhone
-{
-color:#000000;
-text-align:left;
-vertical-align:text-middle;
-font-size:25px;
-font-family:Halant;
-left:150px;
-top:220px;
-width:170px;
-height:47px;
-position:absolute;
-line-height:auto;
-border-style:hidden;
-outline:none;
+.mypage-container td {
+	text-align: center;
+	padding: 25px;
+	border-top: 2px solid #C0C0C0;
+	border-bottom: 2px solid #C0C0C0;
+	vertical-align: middle;
 }
 
-.userIdValue
-{
-color:#000000;
-text-align:right;
-vertical-align:text-middle;
-font-size:25px;
-font-family:Halant;
-left:400px;
-top:40px;
-width:166px;
-height:47px;
-position:absolute;
-line-height:auto;
-border-style:hidden;
-outline:none;
+.mypage-container thead th {
+	border-bottom: 2px solid #C0C0C0;
+	font-weight: bold;
 }
 
-.userNameValue
-{
-color:#000000;
-text-align:right;
-vertical-align:text-middle;
-font-size:25px;
-font-family:Halant;
-left:400px;
-top:130px;
-width:166px;
-height:47px;
-position:absolute;
-line-height:auto;
-border-style:hidden;
-outline:none;
+.mypage-container th {
+	font-size: 1.2em;
+	text-align: center;
+	padding: 20px;
+	border-top: 2px solid #C0C0C0;
+	border-bottom: 2px solid #C0C0C0;
+	vertical-align: middle;
+}
+.userModifyButton {
+   padding: 10px 15px;
+   border: none;
+   border-radius: 0.35rem;
+   background-color: #87ceeb;
+   color: #fff;
+   font-weight: bold;
+   cursor: pointer;
 }
 
-.userPhoneValue
-{
-color:#000000;
-text-align:right;
-vertical-align:text-middle;
-font-size:25px;
-font-family:Halant;
-left:400px;
-top:220px;
-width:250px;
-height:47px;
-position:absolute;
-line-height:auto;
-border-style:hidden;
-outline:none;
+.userModifyButton:hover {
+   background-color: #00FF00;
 }
 
-.myGroup
-{
-color:#666666;
-text-align:left;
-vertical-align:text-middle;
-font-size:13px;
-font-family:Halant;
-left:600px;
-top:650px;
-width:400px;
-height:37px;
-position:absolute;
-line-height:auto;
-border-style:hidden;
-outline:none;
+/* 열 비율 수정 */
+.mypage-container td:nth-child(1), .content-container th:nth-child(1) {
+	width: 1%;
 }
 
-.line2
-{
-width:1600px;
-transform:rotate(0);
-border:1px solid #c0c0c0;
-top:900px;
-left:170px;
-position:absolute;
+.mypage-container td:nth-child(2), .content-container th:nth-child(2) {
+	width: 3%;
 }
 
-.groupName1
-{
-color:#007bff;
-text-align:center;
-vertical-align:text-middle;
-font-size:28px;
-font-family:Halant;
-left:610px;
-top:720px;
-width:454px;
-height:37px;
-position:absolute;
-line-height:auto;
-border-style:hidden;
-outline:none;
+.mypage-container td:nth-child(3), .content-container th:nth-child(3) {
+	width: 10%;
 }
 
-.line2
-{
-width:700px;
-transform:rotate(0);
-border:1px solid #c0c0c0;
-top:700px;
-left:600px;
-position:absolute;
+.mypage-container td:nth-child(4), .content-container th:nth-child(4) {
+	width: 10%;
 }
 
-.groupregDate1
-{
-color:#000000;
-text-align:center;
-vertical-align:text-middle;
-font-size:28px;
-font-family:Halant;
-left:1050px;
-top:720px;
-width:270px;
-height:47px;
-position:absolute;
-line-height:auto;
-border-style:hidden;
-outline:none;
+.mypage-container td:nth-child(5), .content-container th:nth-child(5) {
+	width: 1.5%;
 }
+
+.mypage-container td:nth-child(6), .content-container th:nth-child(6) {
+	width: 1.5%;
+}
+
+.mypage-container td:nth-child(7), .content-container th:nth-child(7) {
+	width: 1.5%;
+}
+

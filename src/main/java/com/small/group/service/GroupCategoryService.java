@@ -12,7 +12,4 @@ public interface GroupCategoryService {
 	GroupCategory updateGroupCategory(GroupCategoryDTO groupCategoryData);
     Boolean deleteGroupCategory(Integer groupCategoryNo);
     List<GroupCategoryDTO> getGroupCategoryList();
-    
-    GroupCategory dtoToEntity(GroupCategoryDTO dto);
-    GroupCategoryDTO entityToDto(GroupCategory entity);
 }

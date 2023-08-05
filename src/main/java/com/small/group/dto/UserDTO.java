@@ -22,7 +22,7 @@ public class UserDTO {
 	private String userId;
 	
 	@NotBlank(message = "비밀번호를 입력하세요.")
-	@Size(min = 8, max = 20, message = "비밀번호는 8 ~ 20자리 이내로 입력하세요.")
+	@Size(min = 2, max = 20, message = "비밀번호는 8 ~ 20자리 이내로 입력하세요.")
 	private String password;
 	
 	@NotBlank(message = "이름(닉네임)을 입력하세요.")

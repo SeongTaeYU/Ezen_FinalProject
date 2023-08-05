@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.small.group.dto.RegionDTO;
 import com.small.group.entity.Region;
-import com.small.group.repository.*;
+import com.small.group.repository.RegionRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +21,7 @@ public class RegionServiceImpl implements RegionService {
 	/**
 	 *  DTO TO ENTITY
 	 */
-	public Region dtoToEntity(RegionDTO dto) {
+	private Region dtoToEntity(RegionDTO dto) {
 		Region entity = Region.builder()
 				.regionName(dto.getRegionName())
 				.build();
@@ -31,7 +31,7 @@ public class RegionServiceImpl implements RegionService {
 	/**
 	 *  ENTITY TO DTO
 	 */
-	public RegionDTO entityToDto(Region entity) {
+	private RegionDTO entityToDto(Region entity) {
 		RegionDTO dto = RegionDTO.builder()
 				.regionNo(entity.getRegionNo())
 				.regionName(entity.getRegionName())
@@ -106,6 +106,4 @@ public class RegionServiceImpl implements RegionService {
 				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
 		return regionDTOList;
 	}
-	
-	
 }

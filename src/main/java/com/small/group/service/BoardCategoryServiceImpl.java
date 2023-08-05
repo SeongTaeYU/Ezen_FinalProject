@@ -15,29 +15,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class BoardCategoryServiceImpl implements BoardCategoryService {
-
 	private final BoardCategoryRepository boardCategoryRepository;
 
-	/**
-	 *  DTO TO ENTITY
-	 */
-	public BoardCategory dtoToEntity(BoardCategoryDTO dto) {
-		BoardCategory entity = BoardCategory.builder()
-				.boardCategoryName(dto.getBoardCategoryName())
-				.build();
-		return entity;
-	}
-	/**
-	 *  ENTITY TO DTO
-	 */
-	public BoardCategoryDTO entityToDto(BoardCategory entity) {
-		BoardCategoryDTO dto = BoardCategoryDTO.builder()
-				.boardCategoryName(entity.getBoardCategoryName())
-				.boardCategoryNo(entity.getBoardCategoryNo())
-				.build();
-		return dto;
-	}
-	
 	/**
 	 * ----------------------------------
 	 * 			C / R / U / D
@@ -105,7 +84,6 @@ public class BoardCategoryServiceImpl implements BoardCategoryService {
 		return boardCategoryDTOList;
 	}
 
-	
 	
 	
 }

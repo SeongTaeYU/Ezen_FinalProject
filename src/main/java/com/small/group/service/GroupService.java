@@ -10,23 +10,18 @@ import com.small.group.entity.GroupCategory;
 import com.small.group.entity.Region;
 import com.small.group.entity.User;
 
-
 public interface GroupService {
+	
+	// 그룹(모임) 페이지
+	PageResultDTO<GroupDTO, Group> getgroupList(PageRequestDTO requestDTO);
 
-	Group insertGroup(GroupDTO groupData);
-	GroupDTO readGroup(Integer groupNo);
-	Group updateGroup(GroupDTO groupData);
+	// 그룹(모임)폼에 그룹(모임) 목록을 드롭다운 리스트 형태로 보여주기 위한 조회
+	List<GroupDTO> getgroupList(GroupDTO groupData);
+    GroupDTO readGroup(Integer groupNo);
+    Group insertGroup(GroupDTO groupDTO);
+    Group updateGroup(GroupDTO groupDTo);
     Boolean deleteGroup(Integer groupNo);
     List<GroupDTO> getGroupList();
-    
-    Group dtoToEntity(GroupDTO dto);
-    GroupDTO entityToDto(Group entity);
-    
- 	PageResultDTO<GroupDTO, Group> getGroupList(PageRequestDTO requestDTO); // 그룹(모임) 페이지
- 	List<GroupDTO> getGroupList(String keyword); // 키워드로 그룹 검색
- 	
- 	
- 	
- 	
-    
+    List<GroupDTO> getGroupList(String keyword); // 키워드로 그룹 검색
+
 }

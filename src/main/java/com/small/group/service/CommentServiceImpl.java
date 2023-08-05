@@ -25,7 +25,7 @@ public class CommentServiceImpl implements CommentService {
 	/**
 	 *  DTO TO ENTITY
 	 */
-	public Comment dtoToEntity(CommentDTO dto) {
+	private Comment dtoToEntity(CommentDTO dto) {
 		Optional<Board> optBoard = boardRepository.findById(dto.getBoardNo());
 		Optional<User> optUser = userRepository.findById(dto.getUserNo());
 		
@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
 	/**
 	 *  ENTITY TO DTO
 	 */
-	public CommentDTO entityToDto(Comment entity) {
+	private CommentDTO entityToDto(Comment entity) {
 		
 		Integer boardNo = entity.getBoard().getBoardNo();
 		Integer userNo = entity.getUser().getUserNo();
@@ -124,6 +124,18 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public List<CommentDTO> getCommentList() {
 		List<Comment> commentList = commentRepository.findAll();
+		List<CommentDTO> commentDTOList = commentList
+				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
+		return commentDTOList;
+	}
+	
+	/**
+	 * 한 게시글의 댓글 리스트를 가져오는 메소드
+	 */
+	@Override
+	public List<CommentDTO> getCommentList(Integer boardNo) {
+		Board board = Board.builder().boardNo(boardNo).build();
+		List<Comment> commentList = commentRepository.findByBoard(board);
 		List<CommentDTO> commentDTOList = commentList
 				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
 		return commentDTOList;

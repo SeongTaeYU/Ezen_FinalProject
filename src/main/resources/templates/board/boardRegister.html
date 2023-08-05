@@ -1,68 +1,63 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout2}">
-    <div layout:fragment="content" class="container my-3">
-        <div>
-            <form id="boardForm" name="boardForm" action="/board/boardRegister" th:action="@{/board/boardRegister}" method="post">
-                <input type="text" id="groupNo" name="groupNo" th:value="${group.groupNo}" readonly="readonly">
-                <input type="text" id="userNo" name="userNo" th:value="${session.user.userNo}" readonly="readonly">
-               <div class="form-group">
-                    <label for="boardCategoryNo">카테고리</label>
-                    <select class="form-control" id="boardCategoryNo" name="boardCategoryNo" >
-                        <option value=" ">-- 카테고리 선택 --</option>
-                        <option th:each="boardCategory : ${boardCategoryList}" th:value="${boardCategory.boardCategoryNo}" th:text="${boardCategory.boardCategoryName}"></option>
-                    </select>
-                    <small class="text-danger" th:errors="${boardDTO.boardCategoryNo}"></small>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="/css/home.css">
+
+
+<link rel="stylesheet" href="/css/board/boardRegister.css">
+<!-- 새로 추가된 CSS 파일 -->
+<link rel="stylesheet" href="/css/main/mainHeader.css">
+<link rel="stylesheet" href="/css/main/groupMainHeader.css">
+
+
+</head>
+<body>
+	<div th:replace="~{etc/mainContainer::header}"></div>
+	<div th:replace="~{etc/groupMainHeader::header}"></div>
+
+	<div class="board-container">
+		<div>
+			<form id="boardForm" name="boardForm" action="/board/boardRegister"
+				th:action="@{/board/boardRegister}" method="post">
+				<input type="text" id="groupNo" name="groupNo" th:value="${group.groupNo}" readonly="readonly">
+					 <input type="text" id="userNo" name="userNo" th:value="${session.user.userNo}" readonly="readonly">
+				<br><br>
+				<div class="form-group">
+					<label for="boardCategoryNo" class="formLabelText">카테고리</label><br>
+					<!-- 텍스트 가운데 정렬 -->
+					<select class="form-control" id="boardCategoryNo"
+						name="boardCategoryNo">
+						<option value="">-- 카테고리 선택 --</option>
+						<option th:each="boardCategory : ${boardCategoryList}"
+								th:value="${boardCategory.boardCategoryNo}"
+								th:text="${boardCategory.boardCategoryName}"></option>
+					</select> <small class="text-danger" th:errors="${boardDTO.boardCategoryNo}"></small>
+				</div>
+
+				<div class="form-group">
+					<label for="boardTitle" class="formLabelText">제목</label><br>
+					 <input type="text" class="form-control" id="boardTitle" name="boardTitle" th:value="${board.boardTitle}" required>
+						 <small class="text-danger" th:errors="${boardDTO.boardTitle}"></small>
+				</div>
+
+				<div class="form-group">
+					<label for="boardContent" class="formLabelText">내용</label><br>
+					
+					<textarea class="form-control" id="boardContent" name="boardContent" th:value="${board.boardContent}"></textarea>
+					<small class="text-danger" th:errors="${boardDTO.boardContent}"></small>
+				</div>
+
+
+               
+				<div class="bodyTab-button" onclick="document.getElementById('boardForm').submit();">
+				    <button type="submit" id="btnSubmit" style="border: none; background-color: transparent; color: white;">저장</button>
+				</div>
+               <br>
+			</form>
+			<div style="text-align: center; margin-top: 10px;">
+                    <a class="cancelBtn"
+						th:href="@{/board/boardList(groupNo = ${group.groupNo})}">뒤로가기</a>
                 </div>
-                <div class="form-group">
-                    <label for="boardTitle">제목</label>
-                    <input type="text" class="form-control" id="boardTitle" name="boardTitle" th:value="${board.boardTitle}" required>
-                    <small class="text-danger" th:errors="${boardDTO.boardTitle}"></small>
-                </div>
-                <div class="form-group">
-                    <label for="boardContent">내용</label>
-                    <input type="text" class="form-control" id="boardContent" name="boardContent" th:value="${board.boardContent}">
-                    <small class="text-danger" th:errors="${boardDTO.boardContent}"></small>
-                </div>
-                
-                
-                <button type="submit" id="btnSubmit" class="btn btn-primary">저장</button>
-                <a class="btn btn-danger" href="/board/list">취소</a>
-            </form>
-        </div>
-    </div>
+		</div>
+	</div>
+</body>
 </html>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-$(document).ready(function() {
-    $('#btnSubmit').click(function(event) {
-       /* event.preventDefault();
-        var groupName = $('#groupName').val();
-        var groupCategoryNo = $('#groupCategory').val();
-        var regionNo = $('#region').val();
-        var userNo = $('#user').val();
-        
-        if (groupName.trim() === '') {
-            alert('그룹명을 입력하세요.');
-            return;
-        }
-        
-        if (groupCategoryNo.trim() === '') {
-            alert('그룹 카테고리를 선택하세요.');
-            return;
-        }
-        
-        if (regionNo.trim() === '') {
-            alert('지역을 선택하세요.');
-            return;
-        }
-        
-        if (userNo.trim() === '') {
-            alert('사용자를 선택하세요.');
-            return;
-        } */
-        
-        $('#boardForm').submit();
-    });
-});
-</script>

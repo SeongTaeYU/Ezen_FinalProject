@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/main/searchHeader.css">
 <title>그룹리스트</title>
 <head>
 <style>
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body * {
+	font-family: Cafe24Ssurround;
+	font-size: 1.05em;
+}
 .content-container {
 	width: 70%;
 	margin: 0 auto;
@@ -181,10 +191,9 @@
                 <th scope="col" style="width: 1%; font-weight: bold;">No</th>
                 <th scope="col" style="width: 3%; font-weight: bold;">카테고리</th>
                 <th scope="col" style="width: 10%; font-weight: bold;">모임명</th>
-                <th scope="col" style="width: 10%; font-weight: bold;">모임소개</th>
                 <th scope="col" style="width: 1.5%; font-weight: bold;">지역명</th>
                 <th scope="col" style="width: 1.5%; font-weight: bold;">모임장</th>
-                <th scope="col" style="width: 1.5%; font-weight: bold;">모임원(?)</th>
+                <th scope="col" style="width: 1.5%; font-weight: bold;">총원</th>
                 <th scope="col" style="width: 1.5%; font-weight: bold;">개설일</th>
             </tr>
         </thead>
@@ -205,12 +214,11 @@
                     </div>
                 </td>
                 <td><a
-                    th:href="@{/group/groupIntroduce(groupNo=${group.groupNo})}">
+                    th:href="@{/group/groupMain(groupNo=${group.groupNo})}">
                         [[${group.groupName}]] </a></td>
-                <td th:text="${group.groupDescription}"></td>
                 <td th:text="${group.regionName}"></td>
                 <td th:text="${group.userName}"></td>
-                <td th:text="${group.groupNo}"></td>
+                <td th:text="${memberCountMap.get(group.groupNo)}"></td>
                 <td th:text="${#temporals.format(group.modDate, 'yyyy/MM/dd')}"
                     style="text-align: center;"></td>
             </tr>

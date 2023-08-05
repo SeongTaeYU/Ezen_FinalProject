@@ -3,6 +3,7 @@ package com.small.group.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -10,11 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.small.group.dto.BoardDTO;
 import com.small.group.dto.GroupDTO;
 import com.small.group.dto.PageRequestDTO;
 import com.small.group.dto.PageResultDTO;
-import com.small.group.entity.Board;
 import com.small.group.entity.Group;
 import com.small.group.entity.GroupCategory;
 import com.small.group.entity.Region;
@@ -23,73 +22,112 @@ import com.small.group.repository.*;
 
 import lombok.RequiredArgsConstructor;
 
+
 @Service
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService {
-
+	
+	// 의존성주입 : @RequiredArgsConstructor
 	private final GroupRepository groupRepository;
 	private final GroupCategoryRepository groupCategoryRepository;
-	private final RegionRepository regionRepository;
 	private final UserRepository userRepository;
-	
-	/**
+	private final RegionRepository regionRepository;
+
+
+    /**
 	 *  DTO TO ENTITY
 	 */
-	public Group dtoToEntity(GroupDTO dto) {
-		Optional<GroupCategory> optGroupCategory = groupCategoryRepository.findById(dto.getGroupCategoryNo());
-		Optional<Region> optRegion = regionRepository.findById(dto.getRegionNo());
-		Optional<User> optUser = userRepository.findById(dto.getUserNo());
-		
+    private Group dtoToEntity(GroupDTO dto) {
+    	Optional<GroupCategory> optGroupCategory = groupCategoryRepository.findById(dto.getGroupCategoryNo());
 		GroupCategory groupCategory = (optGroupCategory.isPresent()) ? optGroupCategory.get() : null;
-		Region region = (optRegion.isPresent()) ? optRegion.get() : null;
+		
+		Optional<User> optUser = userRepository.findById(dto.getUserNo());
 		User user = (optUser.isPresent()) ? optUser.get() : null;
 		
-		Group entity = Group.builder()
-				.groupName(dto.getGroupName())
-				.groupDescription(dto.getGroupDescription())
-				.groupCategory(groupCategory)
-				.region(region)
-				.user(user)
-				.build();
+		Optional<Region> optRegion  = regionRepository.findById(dto.getRegionNo());
+		Region region = (optRegion.isPresent()) ? optRegion.get() : null;
 		
+		
+    	Group entity = Group.builder()
+							.groupNo(dto.getGroupNo())
+							.groupName(dto.getGroupName())
+							.groupDescription(dto.getGroupDescription())
+							.groupCategory(groupCategory)
+							.region(region)
+							.user(user)
+							.build();
 		return entity;
 	}
+
 	/**
 	 *  ENTITY TO DTO
 	 */
-	public GroupDTO entityToDto(Group entity) {
-		Integer groupCategoryNo = entity.getGroupCategory().getGroupCategoryNo();
-		String groupCategoryName = entity.getGroupCategory().getGroupCategoryName();
-		Integer regionNo = entity.getRegion().getRegionNo();
-		String regionName = entity.getRegion().getRegionName();
-		Integer userNo = entity.getUser().getUserNo();
-		String userId = entity.getUser().getUserId();
-		String userName = entity.getUser().getName();
-		
+    private GroupDTO entityToDto(Group entity) {
+
 		GroupDTO dto = GroupDTO.builder()
-				.groupNo(entity.getGroupNo())
-				.groupName(entity.getGroupName())
-				.groupDescription(entity.getGroupDescription())
-				.groupCategoryNo(groupCategoryNo)
-				.groupCategoryName(groupCategoryName)
-				.regionNo(regionNo)
-				.regionName(regionName)
-				.userNo(userNo)
-				.userId(userId)
-				.userName(userName)
-				.regDate(entity.getRegDate())
-				.modDate(entity.getModDate())
-				.build();
-		
+							.groupNo(entity.getGroupNo())
+							.groupName(entity.getGroupName())
+							.groupDescription(entity.getGroupDescription())
+							.groupCategoryNo(entity.getGroupCategory().getGroupCategoryNo())
+							.groupCategoryName(entity.getGroupCategory().getGroupCategoryName())
+							.regionNo(entity.getRegion().getRegionNo())
+							.regionName(entity.getRegion().getRegionName())
+							.userNo(entity.getUser().getUserNo())
+							.userId(entity.getUser().getUserId())
+							.userName(entity.getUser().getName())
+							.regDate(entity.getRegDate())
+							.modDate(entity.getModDate())
+							.build();
 		return dto;
 	}
-	
+    
+    
 	/**
 	 * ----------------------------------
 	 * 			C / R / U / D
 	 * ----------------------------------
 	 */
-	
+    
+    /**
+	 *	그룹(모임) 목록 조회[페이징]
+	 */
+    @Override
+    public PageResultDTO<GroupDTO, Group> getgroupList(PageRequestDTO requestDTO) {
+
+        Pageable pageable = requestDTO.getPageable(Sort.by("groupNo").descending());
+        
+        Page<Group> result = groupRepository.findAll(pageable);
+        
+        Function<Group, GroupDTO> fn = (entity -> entityToDto(entity)); // java.util.Function
+        
+        return new PageResultDTO<>(result, fn );
+    }
+    
+	/**
+	 *	모임 리스트를 가져오는 함수 1
+	 */
+    @Override
+    public List<GroupDTO> getgroupList(GroupDTO groupData) {
+        List<Group> groupList  = groupRepository.findAll();
+
+        List<GroupDTO> groupDTOList  = groupList .stream()
+                .map(entity -> entityToDto(entity))
+                .collect(Collectors.toList());
+
+        return groupDTOList;
+    }
+    
+    /**
+	 *	모임 리스트를 가져오는 함수
+	 */
+	@Override
+	public List<GroupDTO> getGroupList() {
+		List<Group> groupList = groupRepository.findAll();
+		List<GroupDTO> groupDTOList = groupList
+				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
+		return groupDTOList;
+	}
+    
 	/**
 	 *	모임 저장하는 함수
 	 */
@@ -98,7 +136,7 @@ public class GroupServiceImpl implements GroupService {
 		Group group = dtoToEntity(groupData);
 		return groupRepository.save(group);
 	}
-
+    
 	/**
 	 *	모임 한 개 가져오는 함수
 	 */
@@ -109,10 +147,10 @@ public class GroupServiceImpl implements GroupService {
 		if(group.isPresent()) {
 			groupDTO = entityToDto(group.get());
 		}
-		return groupDTO;
+		return group.isPresent() ? entityToDto(group.get()): null;
 	}
-
-	/**
+    
+    /**
 	 *	모임 수정하는 함수
 	 */
 	@Override
@@ -139,10 +177,9 @@ public class GroupServiceImpl implements GroupService {
 		}
 		return null;
 	}
-	
-
+	  
 	/**
-	 *	모임 삭제하는 함수
+	 *	모임 멤버 삭제하는 함수
 	 */
 	@Override
 	public Boolean deleteGroup(Integer groupNo) {
@@ -155,54 +192,31 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	/**
-	 *	모임 리스트를 가져오는 함수
-	 */
-	@Override
-	public List<GroupDTO> getGroupList() {
-		List<Group> groupList = groupRepository.findAll();
-		List<GroupDTO> groupDTOList = groupList
-				.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
-		return groupDTOList;
-	}
-	
-	/**
-	 *	그룹(모임) 목록 조회[페이징]
-	 */
-    @Override
-    public PageResultDTO<GroupDTO, Group> getGroupList(PageRequestDTO requestDTO) {
-        Pageable pageable = requestDTO.getPageable(Sort.by("groupNo").descending());
-        Page<Group> result = groupRepository.findAll(pageable);
-        Function<Group, GroupDTO> fn = (entity -> entityToDto(entity)); // java.util.Function
-        return new PageResultDTO<>(result, fn);
-    }
-    
-    /**
      *	 검색어(keyword)를 사용하여 지역이름, 모임이름, 모임설명 검색
      */
 	@Override
 	public List<GroupDTO> getGroupList(String keyword) {
-		List<GroupDTO> groupList = getGroupList();		
+		List<GroupDTO> groupList = getGroupList();
 		List<GroupDTO> searchGroupList = groupList
-				.stream().filter(dto -> isGroupIncludedKeyword(dto, keyword)).collect(Collectors.toList());
+											.stream()
+											.filter(dto -> getSearchList(dto, keyword))
+											.collect(Collectors.toList());
+		
 		return searchGroupList;
-	}
-
-	
+		}
 	/**
 	 *	keyword 값으로 검색하여 지역이름, 모임이름, 모임설명에 포함이 되는지 확인한 후 
 	 *	GroupDTO 객체를 반환하는 함수
 	 */
-	private boolean isGroupIncludedKeyword(GroupDTO group, String keyword) {
-		boolean checkCategoryName = false;
-		boolean checkDescription = false;
-		boolean checkRegionName = false;
-		checkCategoryName = group.getGroupCategoryName().contains(keyword);
-		checkDescription = group.getGroupDescription().contains(keyword);
-		checkRegionName = group.getRegionName().contains(keyword);
+	private boolean getSearchList(GroupDTO dto, String keyword) {
+		boolean checkGroupName = dto.getGroupName().contains(keyword);
+		boolean checkGroupDescription = dto.getGroupDescription().contains(keyword);
+		boolean checkRegionName = dto.getRegionName().contains(keyword);
 		
-		if(checkCategoryName || checkDescription || checkRegionName) {
+		if (checkGroupName || checkGroupDescription || checkRegionName) {
 			return true;
 		}
+		
 		return false;
 	}
 	

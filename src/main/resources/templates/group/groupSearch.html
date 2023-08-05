@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/main/searchHeader.css">
 <title>검색페이지</title>
 <head>
 <style>
@@ -151,7 +151,6 @@
 	
 
 	<div class="search-container">
-		
 		<form th:action="@{/group/groupList}" method="get">
 		    <input type="text" id="searchInput" name="searchKeyword" placeholder="키워드를 입력하세요">
 		    <button id="searchButton" type="submit">검색</button>
@@ -162,9 +161,9 @@
 	<div class="content-container">
 	    <div class="headerTab">
 	        <div class="headerTab-text">
-	            <p style="white-space: nowrap; font-weight: bold; color: black; font-size: 2em;">
-				    <span th:text="${groupCategory.groupCategoryName}"></span>
-				</p>
+	        	<div class="searchResult">
+	        		<p>"<span th:text="${searchKeyword}"/></span>"으로 검색한 결과입니다.</p>
+	        	</div>
 	        </div>
 	        <div class="headerTab-button">
 	            <a th:href="@{/group/groupInsert}" class="createGroupButton">모임생성</a>
@@ -183,12 +182,12 @@
 	                <th scope="col" style="width: 10%; font-weight: bold;">모임소개</th>
 	                <th scope="col" style="width: 1.5%; font-weight: bold;">지역명</th>
 	                <th scope="col" style="width: 1.5%; font-weight: bold;">모임장</th>
-	                <th scope="col" style="width: 1.5%; font-weight: bold;">모임원(?)</th>
+	                <th scope="col" style="width: 1.5%; font-weight: bold;">총원</th>
 	                <th scope="col" style="width: 1.5%; font-weight: bold;">개설일</th>
 	            </tr>
 	        </thead>
 	        <tbody>
-	            <tr th:each="group : ${filteredGroups}">
+	            <tr th:each="group : ${groupList}">
 	                <td th:text="${group.groupNo}"></td>
 	                <td style="text-align: center;">
 	                    <div class="categoryreg"
@@ -204,12 +203,12 @@
 	                    </div>
 	                </td>
 	                <td><a
-	                    th:href="@{/group/groupIntroduce(groupNo=${group.groupNo})}">
+	                    th:href="@{/group/groupMain(groupNo=${group.groupNo})}">
 	                        [[${group.groupName}]] </a></td>
 	                <td th:text="${group.groupDescription}"></td>
 	                <td th:text="${group.regionName}"></td>
 	                <td th:text="${group.userName}"></td>
-	                <td th:text="${group.groupNo}"></td>
+	                <td th:text="${memberCountMap.get(group.groupNo)}"></td>
 	                <td th:text="${#temporals.format(group.modDate, 'yyyy/MM/dd')}"
 	                    style="text-align: center;"></td>
 	            </tr>

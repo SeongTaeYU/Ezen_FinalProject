@@ -5,14 +5,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.aspectj.weaver.patterns.HasMemberTypePatternForPerThisMatching;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.small.group.dto.GroupCategoryDTO;
@@ -48,13 +46,15 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String home(Model model,
-			@ModelAttribute("groupCategoryDTO") GroupCategoryDTO groupCategoryDTO,
-			@ModelAttribute("regionDTO") RegionDTO regionDTO,
-			PageRequestDTO pageRequestDTO,
-			HttpSession session) {
-		
+				@ModelAttribute("groupCategoryDTO") GroupCategoryDTO groupCategoryDTO,
+				@ModelAttribute("regionDTO") RegionDTO regionDTO,
+				PageRequestDTO pageRequestDTO,
+				HttpSession session) {
 		// 세션에서 사용자 정보 가져오기
 	    User user = (User) session.getAttribute("user");
+	    if (user == null) {
+	    	
+	    }
 	    
 		List<GroupCategoryDTO> groupCategoryList = groupCategoryService.getGroupCategoryList();
     	model.addAttribute("groupCategoryList", groupCategoryList);
@@ -63,11 +63,11 @@ public class HomeController {
     	
     	// 그룹 리스트 조회 기능 구현
 	    // groupService를 사용하여 그룹 리스트를 조회하고 model에 결과를 담아서 리턴
-	    PageResultDTO<GroupDTO, Group> result = groupService.getGroupList(pageRequestDTO);
+	    PageResultDTO<GroupDTO, Group> result = groupService.getgroupList(pageRequestDTO);
 
 	    // 모델에 데이터를 추가하여 View로 전달
 	    model.addAttribute("result", result);
-		return "home";
+		
+    	return "home";
 	}
-	
 }

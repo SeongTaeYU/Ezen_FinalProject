@@ -21,15 +21,16 @@ public class PageRequestDTO {
     private int size;
     private String type;
     private String keyword;
-    
-    
-    // 모임 카테고리, 지역 페이징을 위한 변수
     private Integer groupCategoryNo;
     private String groupName;
-    
-    private Integer regionNo;
-    private String regionName;
 
+    public void setGroupCategoryNo(Integer groupCategoryNo) {
+        this.groupCategoryNo = groupCategoryNo;
+    }
+    
+    public void setGroupName(String groupName) {
+    	this.groupName = groupName;
+    }
 
     public PageRequestDTO(){
         this.page = 1;

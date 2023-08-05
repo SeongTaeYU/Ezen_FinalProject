@@ -1,5 +1,6 @@
 package com.small.group.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -8,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.small.group.dto.GroupDTO;
 import com.small.group.dto.GroupMemberDTO;
@@ -29,15 +28,14 @@ import com.small.group.entity.User;
 import com.small.group.service.GroupMemberService;
 import com.small.group.service.GroupService;
 import com.small.group.service.UserService;
-import java.util.ArrayList;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RequestMapping("/user")
-@Slf4j
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
 	private final UserService userService;
@@ -46,7 +44,7 @@ public class UserController {
 	
 	@GetMapping("/login")
 	public String loginForm(Model model) {
-		return "/user/loginForm";
+		return "user/loginForm";
 	}
 	
 	@PostMapping("/login")
@@ -137,9 +135,13 @@ public class UserController {
 	}
 	
 	@GetMapping("/mypage")
-	public void myPage(Model model,
+	public String myPage(Model model,
 						HttpSession session ) {
 		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/user/login";
+		}
+		
 		Integer userNo = user.getUserNo();
 		List<GroupMemberDTO> groupMemberList = groupMemberService.getGroupMemberListByUser(user); // 그룹 번호만 저장된 리스트
 		List<UserDTO> getUser = userService.getUserByNo(userNo);
@@ -156,6 +158,41 @@ public class UserController {
 		model.addAttribute("user", user);
 		model.addAttribute("groupList", groupList);
 		model.addAttribute("getUser", getUser);
-		
+		return "user/mypage";
 	}
+	
+	// 회원 수정폼
+		@GetMapping("/userModify")
+		public void modify(@RequestParam("userNo") Integer userNo,
+							@ModelAttribute("userDTO") UserDTO userDTO,
+							BindingResult bindingResult,
+							Model model) {
+			UserDTO dto = userService.readUser(userNo);
+			model.addAttribute("user", dto);
+		}
+		
+		// 회원 수정 저장
+		@PostMapping("/userModify")
+		public String modify(@ModelAttribute @Valid UserDTO userDTO,
+							BindingResult bindingResult,
+							HttpSession session,
+							Model model) {
+			log.info("@@@@@@@회원 수정 post");
+			
+			if (bindingResult.hasErrors()) {
+				List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+				for (FieldError error : fieldErrors) {
+					log.error(error.getField() + " " + error.getDefaultMessage());
+				}
+				model.addAttribute("user", userDTO);
+				System.out.println("@@@@@@@회원 수정 post2" + userDTO);
+				return "user/userModify";
+			}
+			
+			userService.updateUser(userDTO);
+			
+			User user = (User) session.getAttribute("user");
+			user.setName(userDTO.getName());
+			return "redirect:/user/mypage";
+		}
 }

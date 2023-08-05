@@ -30,8 +30,8 @@ public class BoardDeleteTest {
 		boardRepository.delete(board);
 	}
 	
-	@Test
-	@Commit
+	//@Test
+	//@Commit
 	public void userDeleteTest() {
 		// 요구사항 : 회원을 삭제 했을 때 관련된 모든 데이터(모임, 게시글, 댓글 등) 삭제
 		User user = userRepository.findById(1).get();

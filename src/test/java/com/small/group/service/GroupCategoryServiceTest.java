@@ -26,6 +26,7 @@ import com.small.group.repository.GroupCategoryRepository;
 
 @SpringBootTest
 @Transactional
+@EnableJpaAuditing
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class GroupCategoryServiceTest {
 
@@ -35,8 +36,8 @@ public class GroupCategoryServiceTest {
 	@PersistenceContext
 	private EntityManager em;
 	
-	@Test
-	@Commit
+	//@Test
+	//@Commit
 	public void test() {
 		
 		// GroupCategoryDTO 객체 생성

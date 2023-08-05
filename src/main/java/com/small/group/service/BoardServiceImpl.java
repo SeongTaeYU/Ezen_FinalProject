@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.small.group.dto.BoardDTO;
 import com.small.group.dto.PageRequestDTO;
 import com.small.group.dto.PageResultDTO;
-import com.small.group.dto.RegionDTO;
 import com.small.group.entity.Board;
 import com.small.group.entity.BoardCategory;
 import com.small.group.entity.Group;
@@ -36,7 +35,7 @@ public class BoardServiceImpl implements BoardService {
 	/**
 	 *  DTO TO ENTITY
 	 */
-	public Board dtoToEntity(BoardDTO dto) {
+	private Board dtoToEntity(BoardDTO dto) {
 		Optional<BoardCategory> optBoardCategory = boardCategoryRepository.findById(dto.getBoardCategoryNo());
 		Optional<Group> optGroup = groupRepository.findById(dto.getGroupNo());
 		Optional<User> optUser = userRepository.findById(dto.getUserNo());
@@ -60,7 +59,7 @@ public class BoardServiceImpl implements BoardService {
 	/**
 	 *  ENTITY TO DTO
 	 */
-	public BoardDTO entityToDto(Board entity) {
+	private BoardDTO entityToDto(Board entity) {
 		Integer boardCategoryNo = entity.getBoardCategory().getBoardCategoryNo();
 		String boardCategoryName = entity.getBoardCategory().getBoardCategoryName();
 		Integer groupNo = entity.getGroup().getGroupNo();
@@ -72,11 +71,11 @@ public class BoardServiceImpl implements BoardService {
 				.boardTitle(entity.getBoardTitle())
 				.boardContent(entity.getBoardContent())
 				.boardHit(entity.getBoardHit())
-				.boardCategoryNo(boardCategoryNo)
-				.boardCategoryName(boardCategoryName)
-				.groupNo(groupNo)
-				.userNo(userNo)
-				.userName(userName)
+				.boardCategoryNo(entity.getBoardCategory().getBoardCategoryNo())
+				.boardCategoryName(entity.getBoardCategory().getBoardCategoryName())
+				.groupNo(entity.getGroup().getGroupNo())
+				.userNo(entity.getUser().getUserNo())
+				.userName(entity.getUser().getName())
 				.regDate(entity.getRegDate())
 				.modDate(entity.getModDate())
 				.build();
@@ -156,6 +155,10 @@ public class BoardServiceImpl implements BoardService {
 		return new PageResultDTO<>(result, fn);
 	}
 	
+	/**
+	 * 게시글 리스트 조회 함수
+	 */
+	
 	@Override
 	public List<BoardDTO> getBoardList(){
 		List<Board> boardList = boardRepository.findAll();
@@ -165,17 +168,9 @@ public class BoardServiceImpl implements BoardService {
 				.collect(Collectors.toList());
 		
 		return boardDTOList;
+		
 	}
-	
-	/*
-	 * 게시물 조회수 - 유성태
-	 */
-	@Override
-    @Transactional
-    public void updateBoardHit(Integer boardNo, LocalDateTime recentModDate) {
-       boardRepository.countHit(boardNo, recentModDate);
-    }
-	
+
 	@Override
 	public List<BoardDTO> getBoardListByGroupNo(Integer groupNo) {
 		Group group = Group.builder().groupNo(groupNo).build();
@@ -186,4 +181,19 @@ public class BoardServiceImpl implements BoardService {
 		return boardDTOList;
 	}
 	
+	/*
+	 * 게시물 조회수 - 유성태
+	 */
+	@Override
+	@Transactional
+	public void updateBoardHit(Integer boardNo, LocalDateTime recentModDate) {
+	    boardRepository.countHit(boardNo, recentModDate);
+	 }
+
+	@Override
+	public Integer isWriterOfBoard(Integer userNo, Integer boardNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+		
 }

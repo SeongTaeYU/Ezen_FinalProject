@@ -14,7 +14,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.annotation.Commit;
 
 import com.small.group.dto.ChatDTO;
-import com.small.group.dto.GroupDTO;
 import com.small.group.entity.Board;
 import com.small.group.entity.BoardCategory;
 import com.small.group.entity.Group;
@@ -31,14 +30,39 @@ import com.small.group.repository.UserRepository;
 public class ServiceTest {
 
 	@Autowired
-	private GroupService groupService;
+	private BoardCategoryService boardCategoryService; // 게시글 카테고리
+	@Autowired
+	private BoardCategoryRepository boardCategoryRepository; // 게시글 카테고리 DAO
+	@Autowired
+	
+	private GroupCategoryService groupCategoryService; // 모임 카테고리
 	
 	@Autowired
-	private GroupMemberService groupMemberService;
+	private BoardService boardService; // 게시글
+	@Autowired
+	private BoardRepository boardRepository; // 게시글 DAO
 	
-	@Test
+	@Autowired
+	private GroupService groupService; // 모임
+	@Autowired
+	private GroupRepository groupRepository; // 모임DAO
+	
+	@Autowired
+	private UserService userService; // 회원
+	@Autowired
+	private UserRepository userRepository; // 회원 DAO
+	
+	@Autowired
+	private RegionService regionService; // 지역
+	
+	@Autowired
+	private ChatService chatService;
+	
+	//@Test
 	public void test() {
-		Integer isMember = groupMemberService.isMemberOfGroup(2, 10);
-		System.out.println("TEST: " + isMember);
+		List<ChatDTO> chatList = chatService.getChatListByGroupNo(1);
+		for(ChatDTO dto : chatList) {
+			System.out.println("채팅내용: " + dto.getChatContent());
+		}
 	}
 }

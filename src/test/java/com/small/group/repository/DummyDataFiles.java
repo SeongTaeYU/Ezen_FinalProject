@@ -1,6 +1,5 @@
 package com.small.group.repository;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -23,7 +22,6 @@ import com.small.group.entity.Chat;
 import com.small.group.entity.Comment;
 import com.small.group.entity.Group;
 import com.small.group.entity.GroupCategory;
-import com.small.group.entity.GroupMember;
 import com.small.group.entity.Region;
 import com.small.group.entity.User;
 import com.small.group.repository.*;
@@ -58,8 +56,6 @@ public class DummyDataFiles {
 	@Autowired
 	private ChatRepository chatRepository;
 	
-	@Autowired
-	private GroupMemberRepository groupMemberRepository;
 	
 	/**
 	 *	회원 데이터 입력
@@ -234,25 +230,6 @@ public class DummyDataFiles {
 					.build();
 			
 			chatRepository.save(chat);
-		});
-	}
-	
-	@Test
-	@Commit
-	@Order(9)
-	public void groupMemberDataInsert() {
-		Optional<Group> optGroup = groupRepository.findById(1);
-		Optional<User> optUser = userRepository.findById(1);
-		Group group = (optGroup.isPresent()) ? optGroup.get() : null;
-		User user = (optUser.isPresent()) ? optUser.get() : null;
-		
-		IntStream.rangeClosed(1, 10).forEach(i -> {
-			GroupMember groupMember = GroupMember.builder()
-					.group(group)
-					.user(user)
-					.build();
-			
-			groupMemberRepository.save(groupMember);
 		});
 	}
 	

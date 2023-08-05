@@ -5,245 +5,69 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>게시판</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/groupMainHeader.css">
-<style>
-.search-container {
-	display: flex;
-	justify-content: center;
-	white-space: nowrap;
-	margin-bottom: 100px;
-}
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/board/boardList.css}">
+<link rel="stylesheet" href="/css/main/mainHeader.css"> 
+<link rel="stylesheet" href="/css/main/groupMainHeader.css">
 
-.search-container input[type="text"] {
-	padding: 12px;
-	font-size: 18px;
-	border: 2px solid skyblue;
-	border-radius: 5px;
-	width: 830px;
-	height: 50px;
-	margin-right: 15px;
-	outline: none;
-	margin-top: 150px;
-}
+</head>
+<body>
+	<div th:replace="~{etc/mainContainer::header}"></div>
+	<div th:replace="~{etc/groupMainHeader::header}"></div>
 
-.search-container button {
-	padding: 12px 20px;
-	font-size: 16px;
-	border: none;
-	border-radius: 5px;
-	background-color: skyblue;
-	color: #fff;
-	margin-top: 150px;
-}
+	<div class="table-container">
+	    <div class="table-head">
+			<a th:if="${boardCreateButton}" th:href="@{/board/boardRegister(groupNo=${group.groupNo})}">
+				<button type="button" class="btn-outline-primary">글쓰기</button>
+			</a>
+		</div>
+    <div class="table-wrapper">
+	    <table class="table">
+	        <thead>
+	            <tr>
+	                <th scope="col" style="width: 5%;">No</th>
+	                <th scope="col" style="width: 20%;">카테고리
+	                    <select id="categoryDropdown" onchange="filterTableByCategory()">
+	                        <option value="">전체</option>
+	                        <option value="공지사항">공지사항</option>
+	                        <option value="가입인사">가입인사</option>
+	                        <option value="자유글">자유글</option>
+	                        <option value="정모후기">정모후기</option>
+	                        <option value="관심사공유">관심사공유</option>
+	                        <!-- Add more options as needed -->
+	                    </select>
+	                </th>
+	                <th scope="col" style="width: 40%;">제목</th>
+	                <th scope="col" style="width: 15%;">작성자</th>
+	                <th scope="col" style="width: 10%;">조회수</th>
+	                <th scope="col" style="width: 15%;">작성일</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <!-- Table rows -->
+	            <tr th:each="board : ${boardList}">
+	                <td th:text="${board.boardNo}"></td>
+	                <td>
+		                <span  th:classappend="${board.boardCategoryName == '공지사항'} ? 'category-notice' : ''"
+		                        th:text="${board.boardCategoryName}">
+		                </span>
+		            </td>
+	                <th scope="row" class="title-column"><a th:href="@{/board/boardRead(boardNo = ${board.boardNo})}">[[${board.boardTitle}]]</a></th>
+	                <td th:text="${board.userName}"></td>
+	                <td th:text="${board.boardHit}"></td>
+	                <td th:text="${#temporals.format(board.regDate, 'yyyy/MM/dd')}"></td>
+	            </tr>
+	        </tbody>
+	    </table>
+    </div>
+</div>
 
-.category-notice {
-	background-color: rgba(255, 0, 0, 0.5);
-	color: black;
-	border-radius: 20%/50%;
-	height: 30px;
-	align-items: center;
-	justify-content: center;
-}
+	<script>
 
-.table-container {
-	max-height: 60vh; /* 원하는 높이로 설정 */
-	overflow: auto;
-	justify-content: center;
-	align-items: center;
-}
-
-.table-wrapper {
-	max-height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow: auto;
-	height: 530px;
-	min-height: 400px;
-
-}
-
-.table {
-	width: 60%;
-	border-collapse: collapse;
-	margin: auto;
-}
-
-.table thead {
-	position: sticky;
-	top: 20px;
-	background-color: #fff;
-	z-index: 1;
-}
-
-.table-container th{
-border: 1px;
-	border-top: 2px solid
-		rgba(135.00000715255737, 206.0000029206276, 235.0000011920929, 1);
-	padding: 15px;
-	overflow: auto;
-	text-align: center;
-}
- .table-container td {
-	border: 1px;
-	border-top: 2px solid
-		rgba(135.00000715255737, 206.0000029206276, 235.0000011920929, 1);
-	padding: 15px;
-	overflow: auto;
-	text-align: center;
-	
-	
-}
-
-.table-container th a {
-	text-decoration: none;
-}
-
-.table-container th:last-child, .table-container td:last-child {
-	border-right: none;
-	/* Remove vertical line for the last cell in each row */
-}
-
-.title {
-	color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929, 1);
-	width: 500px;
-	height: 138px;
-	position: absolute;
-	left: 50%;
-	top: 0%;
-	transform: translateX(-50%);
-	font-family: Fugaz One;
-	text-align: center;
-	font-size: 80px;
-	letter-spacing: 0;
-	text-decoration: none;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	/* 다른 CSS 속성을 추가로 조정할 수 있습니다 */
-}
-
-.login {
-	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
-	width: 227px;
-	height: 37px;
-	position: absolute;
-	left: 80%;
-	top: 10%;
-	font-family: Halant;
-	text-decoration: none;
-	text-align: center;
-	font-size: 28px;
-	letter-spacing: 0;
-}
-
-.loginUser {
-	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
-	width: 227px;
-	height: 37px;
-	position: absolute;
-	left: 80%;
-	top: 5%;
-	font-family: Halant;
-	text-decoration: none;
-	text-align: center;
-	font-size: 28px;
-	letter-spacing: 0;
-}
-
-.mypage {
-	color: rgba(102.00000151991844, 102.00000151991844, 102.00000151991844, 1);
-	width: 227px;
-	height: 10%;
-	position: absolute;
-	left: 70%;
-	top: 10%;
-	font-family: Halant;
-	text-align: center;
-	text-decoration: none;
-	font-size: 28px;
-	letter-spacing: 0;
-	/* 다른 CSS 속성을 추가로 조정할 수 있습니다 */
-}
-
-.btn-outline-primary {
-	background-color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929, 1);
-	height: 30px;
-	width: 100px;
-	border-radius: 20px;
-	position: absolute;
-	  top: 33%; /* 버튼의 상단 위치 */
-  right: 23%; /* 버튼의 오른쪽 위치 */
-	border: 2px solid white;
-	color: white;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	
-}
-
-@media ( max-width : 1280px) {
-	.btn-outline-primary {
-		width: 100px;
-	}
-	.table-container table {
-		width: 100%;
-	}
-	.loginUser {
-		font-size: 28px;
-	}
-	.login {
-		font-size: 22px;
-	}
-	.logout {
-		font-size: 22px;
-	}
-	.mypage {
-		font-size: 22px;
-	}
-}
-
-@media ( max-width : 768px) {
-	.btn-outline-primary {
-		width: 80px;
-	}
-	.table-container table {
-		width: 100%;
-	}
-	.loginUser {
-		font-size: 18px;
-	}
-	.logout {
-		font-size: 16px;
-	}
-	.mypage {
-		font-size: 16px;
-	}
-}
-
-@media ( max-width : 550px) {
-	.table-container table {
-		width: 60%;
-	}
-	.loginUser {
-		font-size: 14px;
-	}
-	.login {
-		font-size: 12px;
-		margin-right: 10px;
-	}
-	.logout {
-		font-size: 12px;
-	}
-	.mypage {
-		font-size: 12px;
-	}
-}
-</style>
-
-<script>
 	function performSearch() {
 		var searchKeyword = document.getElementById("searchInput").value;
 		if (searchKeyword.trim() !== "") {
@@ -256,68 +80,24 @@ border: 1px;
 	function filterTableByCategory() {
 		var selectedCategory = document.getElementById("categoryDropdown").value;
 		var tableRows = document.querySelectorAll("tbody tr");
-
-		tableRows.forEach(function(row) {
-			var categoryCell = row.querySelector("td:nth-child(2)");
-
-			if (selectedCategory === ""
-					|| categoryCell.textContent === selectedCategory) {
+		/* 전체 카테고리를 선택했을 때 */
+		if(selectedCategory === "") {
+			tableRows.forEach(row => {
 				row.style.display = "";
-			} else {
+			});
+			return;
+		}
+		/* 특정 카테고리를 선택했을 때 */
+		tableRows.forEach(row => {
+			var thisRowCategoryName = row.querySelector('td:nth-child(2)').querySelector('span').textContent;
+			if(thisRowCategoryName !== selectedCategory) {
 				row.style.display = "none";
+			} else {
+				row.style.display = "";
 			}
 		});
 	}
 </script>
-
-</head>
-<body>
-	<div th:replace="~{etc/groupMainHeader::header}"></div>
-	
-	<a th:href="@{/board/boardRegister}">
-			<button type="button" class="btn-outline-primary">글쓰기</button>
-	</a>
-
-	<div class="table-container">
-		<div class="table-wrapper">
-			<table class="table">
-				<thead>
-					<tr>
-						<th scope="col">No</th>
-						<th scope="col">카테고리 <select id="categoryDropdown"
-							onchange="filterTableByCategory()">
-								<option value="">전체</option>
-								<option value="공지사항">공지사항</option>
-								<option value="가입인사">가입인사</option>
-								<option value="자유글">자유글</option>
-								<!-- Add more options as needed -->
-						</select>
-						</th>
-						<th scope="col">제목</th>
-						<th scope="col">작성자</th>
-						<th scope="col">조회수</th>
-						<th scope="col">작성일</th>
-						
-					</tr>
-				</thead>
-				<tbody>
-					<!-- Table rows -->
-					<tr th:each="board : ${boardList}">
-						<td th:text="${board.boardNo}"></td>
-						<td><span
-							th:classappend="${board.boardCategoryName == '공지사항'} ? 'category-notice' : ''"
-							th:text="${board.boardCategoryName}"></span></td>
-						<th scope="row">
-							<a th:href="@{/board/boardRead(boardNo = ${board.boardNo})}">[[${board.boardTitle}]]</a>
-						</th>
-						<td th:text="${board.userName}"></td>
-						<td th:text="${board.boardHit}"></td>
-						<td th:text="${#temporals.format(board.regDate, 'yyyy/MM/dd')}"></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-
 </body>
 </html>
+	

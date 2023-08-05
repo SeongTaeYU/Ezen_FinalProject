@@ -3,40 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="/css/home.css"> 
+
+
+<link rel="stylesheet" href="/css/main/searchHeader.css"> 
 <title>메인 페이지</title>
 
 </head>
 <body>
-	<div class="main-container">
-		<div class="title-container">
-            <a th:href="@{/}" class="title">RE! crew</a>
-            <div class="loginInfo" id="loginStatus">
-                <div th:if="${session.user != null}" id="logoutLink">
-                    <div>
-                        <label class="loginUser" style="white-space: nowrap;">[[${session.user.name}]] 님</label>
-                    </div>
-                    <div>
-                        <a th:href="@{/user/logout}" class="logout">로그아웃</a>
-                        <a th:href="@{/user/mypage}" class="mypage" >마이페이지</a>
-                    </div>
-                </div>
-                <div th:if="${session.user == null}" id="logoutLink">
-                        <a th:href="@{/user/login}" class="login">로그인</a>
-                </div>
-            </div>
+
+	<!-- 검색창 포함 헤더 -->
+	<div th:replace="~{etc/searchHeader::header}"></div>
+
+   <div class="banner-container">
+        <div class="banner-slide">
+            <img src="/image/ad/ad1.png" alt="Ad 1" class="banner-image">
+            <img src="/image/ad/ad2.png" alt="Ad 2" class="banner-image">
         </div>
-        
-        <div class="search-container">
-            <form th:action="@{/group/groupList}" method="get">
-                <input type="text" id="searchInput" name="searchKeyword" placeholder="키워드를 입력하세요">
-                <button id="searchButton" type="submit">검색</button>
-            </form>
-            <!-- <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
-            <button id="searchButton" type="button" onClick="performSearch()">검색</button> -->
-        </div>
-		
-		<div class="category-container-col-4">
+
+    </div>
+
+	<div class="category-container-col-4">
             <div class="categoryButtonContainer">
                 <a class="categoryIcon" th:href="@{/group/groupList(groupCategoryNo=4)}" > 
                     <img src="/image/travelcategory.png" alt="Travel Category" />
@@ -94,52 +80,50 @@
                 <span class="categoryName">맛집</span>
             </div>
         </div>
-        
-        
-		<div class=maintitle>
-			<span class="maintitle1">곧 만나는 크루에요!</span> <span class="maintitle2">금주의
-				인기크루는?</span>
 
-			<div class=crew>
-				<div class="crewbackground"></div>
-				<a th:href="@{/group/groupRead(groupNo=2)}" class="crewname">유적지 탐방할 크루원 모집중</a><span class="crewcount">3</span><span
-					class="region">수원시</span>
-				<div class="Entercrew">
-					<div class="Entercrewbox"></div>
-					<span class="Entercrewbutton">참여</span>
-				</div>
-			</div>
-			<div class=crew1>
-				<div class="crewbackground1"></div>
-				<a th:href="@{/group/groupRead(groupNo=3)}" class="crewname1">여행을 떠나라 크루원 모집중</a><span
-					class="crewcount1">7</span><span class="region1">안양시</span>
-				<div class=Entercrew1>
-					<div class="Entercrewbox1"></div>
-					<span class="Entercrewbutton1">참여</span>
-				</div>
-			</div>
-		</div>
-		<span class="crew2">더 많은 크루를 확인해 보세요.</span>
-		<div class=crewbackground2>
-			<div class="crewbackgroundbox2"></div>
-			<a th:href="@{/group/groupRead(groupNo=1)}" class="crewname2">자바 스터티 크루원 모집중</a><span
-				class="crewcount2">9</span><span class="region2">안산시</span>
-			<div class=Entercrew2>
-				<div class="Entercrewbox2"></div>
-				<span class="Entercrewbutton2">참여</span>
-			</div>
-		</div>
-		<div class=crew3>
-			<div class="crewbackgroundbox3"></div>
-			<span class="crewname3">당산에서 러닝할 크루 모집중</span><span
-				class="crewcount3">1</span><span class="region3">서울시</span>
-			<div class=Entercrew3>
-				<div class="Entercrewbox3"></div>
-				<span class="Entercrewbutton3">참여</span>
-			</div>
-		</div>
-	</div> <!-- end class main-container -->
+	<br><br><br><br><br>
+	<div class="groupList-container">
+		<p class="groupInfo">새로 개설된 모임이에요!</p>
 
+		<br>
+		<!-- 각 그룹마다 반복하며 링크를 생성 -->
+		<div th:each="group : ${result.dtoList}" class="groupReg">
+			<div class="groupTitle">
+				<a th:href="@{/group/groupMain(groupNo=${group.groupNo})}"
+					style="font-size: min(2.6vw, 26px);" th:text="${group.groupName}"></a>
+			</div>
+
+			<div class="regionInfo">
+				<img src="/image/regionIcon.png" alt="regionIcon" class="regionIcon" />
+				<p class="groupRegion" th:text="${group.regionName}"></p>
+			</div>
+			<a class="join-shape"
+				th:href="@{/group/groupMain(groupNo=${group.groupNo})}">가입하기</a>
+		</div>
+	</div>
+
+	<script>
+        // 배너 이미지 슬라이드
+        const bannerImages = document.querySelectorAll('.banner-image');
+        let currentImageIndex = 0;
+
+        function showImage(index) {
+            bannerImages.forEach((image, i) => {
+                if (i === index) {
+                    image.style.opacity = '1';
+                } else {
+                    image.style.opacity = '0';
+                }
+            });
+        }
+
+        function showNextImage() {
+            currentImageIndex = (currentImageIndex + 1) % bannerImages.length;
+            showImage(currentImageIndex);
+        }
+
+        setInterval(showNextImage, 5000);
+    </script>
 
 </body>
 </html>

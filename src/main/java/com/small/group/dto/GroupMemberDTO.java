@@ -14,8 +14,12 @@ import lombok.NoArgsConstructor;
 public class GroupMemberDTO {
 
 	private Integer groupMemberNo;
+	
 	private Integer groupNo;
+	private String groupName;
+	
 	private Integer userNo;
+	private String userId;
 	
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;

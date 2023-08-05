@@ -21,7 +21,7 @@ public class GroupCategoryServiceImpl implements GroupCategoryService {
 	/**
 	 *  DTO TO ENTITY
 	 */
-	public GroupCategory dtoToEntity(GroupCategoryDTO dto) {
+	private GroupCategory dtoToEntity(GroupCategoryDTO dto) {
 		GroupCategory entity = GroupCategory.builder()
 				.groupCategoryName(dto.getGroupCategoryName())
 				.build();
@@ -31,7 +31,7 @@ public class GroupCategoryServiceImpl implements GroupCategoryService {
 	/**
 	 *  ENTITY TO DTO
 	 */
-	public GroupCategoryDTO entityToDto(GroupCategory entity) {
+	private GroupCategoryDTO entityToDto(GroupCategory entity) {
 		GroupCategoryDTO dto = GroupCategoryDTO.builder()
 				.groupCategoryNo(entity.getGroupCategoryNo())
 				.groupCategoryName(entity.getGroupCategoryName())
@@ -105,6 +105,5 @@ public class GroupCategoryServiceImpl implements GroupCategoryService {
         		.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
         return groupCategoryDTOList;
 	}
-	
-	
+
 }

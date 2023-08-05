@@ -11,17 +11,15 @@ import com.small.group.entity.Board;
 
 public interface BoardService {
 
+	List<BoardDTO> getBoardList();
 	Board insertBoard(BoardDTO boardData);
 	BoardDTO readBoard(Integer boardNo);
 	Board updateBoard(BoardDTO boardData);
     Boolean deleteBoard(Integer boardNo);
-    List<BoardDTO> getBoardList();
-    List<BoardDTO> getBoardListByGroupNo(Integer groupNo);
-    
-    Board dtoToEntity(BoardDTO dto);
-    BoardDTO entityToDto(Board entity);
     
     // 게시판 페이지
     public PageResultDTO<BoardDTO, Board> getBoardList(PageRequestDTO requestDTO);
-    void updateBoardHit(Integer boardNo, LocalDateTime recentModDate);
+	List<BoardDTO> getBoardListByGroupNo(Integer groupNo);
+	void updateBoardHit(Integer boardNo, LocalDateTime recentModDate);
+	Integer isWriterOfBoard(Integer userNo, Integer boardNo);
 }

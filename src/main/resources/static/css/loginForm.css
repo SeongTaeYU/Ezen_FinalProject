@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&display=swap');
+
+ @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300&display=swap');
+ 
+body, header {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
 body {
 	background-color: white;
 }
@@ -6,6 +14,10 @@ h4 {
 	color: #000000;
 }
 
+.title{
+	font-family: 'Caprasimo', cursive;
+	font-size: 80px;
+}
 .minitite {
 	color: rgba(135.00000715255737, 206.0000029206276, 235.0000011920929, 1);
 	text-align: left;
@@ -20,6 +32,7 @@ h4 {
 	line-height: auto;
 	border-style: hidden;
 	outline: none;
+	font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
 .labelId {
@@ -94,7 +107,8 @@ h4 {
 	background-color: rgba(135, 206, 235, 1);
 	border-width: 10px;
 	border-radius: 40px;
-	font-size: 20px
+	font-size: 20px;
+	font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
 .loginBtn:hover {
@@ -116,6 +130,8 @@ h4 {
 	text-decoration: underline;
 	border-style: hidden;
 	outline: none;
+	font-family: 'IBM Plex Sans KR', sans-serif;
+	font-weight: bold;
 }
 
 #password::placeholder {
